@@ -21,6 +21,11 @@ class Post:
         
         self._get_post_json()
         self._scrape_post_json()
+        self._get_hashtags()
+
+    def _get_hashtags(self):
+        hashtags_meta = self.soup.find_all('meta', {'property':'instapp:hashtags'})
+        self.hashtags = [tag['content'] for tag in hashtags_meta]
 
     def _get_post_json(self): 
         """Get the posts json data as a dictionary"""
