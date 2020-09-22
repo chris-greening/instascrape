@@ -8,7 +8,7 @@ class Post:
     def __init__(self, url):
         self.url = url
          
-    def load_page_source(self):
+    def load(self):
         """Load the static HTML into a BeautifulSoup object at the url"""
         self.page_source = requests.get(self.url).text
         self.soup = BeautifulSoup(self.page_source, features='lxml')
@@ -18,6 +18,7 @@ class Post:
     def _scrape_soup(self):
         """Scrape data from the soup"""
         self.title = self.soup.find("title").text
+        
         
         post_json = self._get_post_json()
         self._scrape_post_json(post_json)
