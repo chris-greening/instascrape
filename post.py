@@ -19,30 +19,30 @@ class Post:
         """Scrape data from the soup"""
         self.title = self.soup.find("title").text
         
-        self._get_post_json()
-        self._scrape_post_json()
+        post_json = self._get_post_json()
+        self._scrape_post_json(post_json)
         self._get_hashtags()
 
     def _get_hashtags(self):
         hashtags_meta = self.soup.find_all('meta', {'property':'instapp:hashtags'})
         self.hashtags = [tag['content'] for tag in hashtags_meta]
 
-    def _get_post_json(self): 
+    def _get_post_json(self) -> dict: 
         """Get the posts json data as a dictionary"""
         post_json_script = [str(script) for script in self.soup.find_all('script') if 'config' in str(script)][0]
         left_index = post_json_script.find('{')
         right_index = post_json_script.rfind('}') + 1
         json_str = post_json_script[left_index:right_index]
-        self.post_json = json.loads(json_str)
+        return json.loads(json_str)
 
-    def _scrape_post_json(self):
+    def _scrape_post_json(self, post_json):
         """Scrape data from the posts json"""
-        self.country_code = self.post_json['country_code']
-        self.language_code = self.post_json['language_code']
-        self.locale = self.post_json['locale']
+        self.country_code = post_json['country_code']
+        self.language_code = post_json['language_code']
+        self.locale = post_json['locale']
 
         #Convenience definition for post info 
-        post_info = self.post_json['entry_data']['PostPage'][0]['graphql']['shortcode_media']
+        post_info = post_json['entry_data']['PostPage'][0]['graphql']['shortcode_media']
         self.upload_date = datetime.datetime.fromtimestamp(post_info['taken_at_timestamp'])
         self.accessibility_caption = post_info['accessibility_caption']
         self.likes = post_info['edge_media_preview_like']['count']
