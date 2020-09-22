@@ -10,6 +10,12 @@ class Post:
         self.page_source = requests.get(self.url)
         self.soup = BeautifulSoup(self.page_source)
 
+        self._scrape_soup()
+
+    def _scrape_soup(self):
+        """Scrape data from the soup"""
+        self.title = self.soup.find("title").text
+
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
         """Return a Post given a shortcode"""
