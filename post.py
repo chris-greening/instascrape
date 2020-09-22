@@ -18,9 +18,9 @@ class Post:
         """Scrape data from the soup"""
         self.title = self.soup.find("title").text
         
-        self._scrape_post_json()
+        self._get_post_json()
 
-    def _scrape_post_json(self): 
+    def _get_post_json(self): 
         """Get the posts json data as a dictionary"""
         post_json_script = [str(script) for script in self.soup.find_all('script') if 'config' in str(script)][0]
         left_index = post_json_script.find('{')
