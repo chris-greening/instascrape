@@ -36,11 +36,31 @@ class Post:
         self.language_code = self.post_json['language_code']
         self.locale = self.post_json['locale']
 
-        #Convenience definition 
+        #Convenience definition for post info 
         post_info = self.post_json['entry_data']['PostPage'][0]['graphql']['shortcode_media']
         self.upload_date = datetime.datetime.fromtimestamp(post_info['taken_at_timestamp'])
         self.accessibility_caption = post_info['accessibility_caption']
         self.likes = post_info['edge_media_preview_like']['count']
+        self.amount_of_comments = post_info['edge_media_preview_comment']['count']
+        self.caption_is_edited = post_info['caption_is_edited']
+        self.has_ranked_comments = post_info['has_ranked_comments']
+        self.location = post_info['location']
+        self.is_ad = post_info['is_ad']
+        self.viewer_can_reshare = post_info['viewer_can_reshare']
+        self.shortcode = post_info['shortcode']
+        self.dimensions = post_info['dimensions']
+        self.is_video = post_info['is_video']
+
+        #Owner json data
+        owner = post_info['owner']
+        self.is_verified = owner['is_verified']
+        self.profile_pic_url = owner['profile_pic_url']
+        self.username = owner['username']
+        self.blocked_by_viewer = owner['blocked_by_viewer']
+        self.followed_by_viewer = owner['followed_by_viewer']
+        self.full_name = owner['full_name']
+        self.has_blocked_viewer = owner['has_blocked_viewer']
+        self.is_private = owner['is_private']
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> 'Post':
