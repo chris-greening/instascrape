@@ -3,7 +3,7 @@ class Profile:
         self.url = url
     
     @classmethod 
-    def from_username(self, username):
+    def from_username(cls, username):
         url = f'https://www.instagram.com/{username}/'
         return cls(url)
 
