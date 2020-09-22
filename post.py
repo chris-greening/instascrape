@@ -50,6 +50,11 @@ class Post:
         self.shortcode = post_info['shortcode']
         self.dimensions = post_info['dimensions']
         self.is_video = post_info['is_video']
+        self.fact_check_overall_rating = post_info['fact_check_overall_rating']
+        self.fact_check_information = post_info['fact_check_information']
+
+        self.caption = post_info['edge_media_to_caption']['edges'][0]['node']['text']
+        self._get_tagged_users(post_info)
 
         #Owner json data
         owner = post_info['owner']
@@ -61,6 +66,11 @@ class Post:
         self.full_name = owner['full_name']
         self.has_blocked_viewer = owner['has_blocked_viewer']
         self.is_private = owner['is_private']
+
+    def _get_tagged_users(self, post_info):
+        """Scrape the usernames of the tagged users""" 
+        tagged_users = post_info['edge_media_to_tagged_user']['edges']
+        self.tagged_users = [user['node']['user']['username'] for user in tagged_users]
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> 'Post':
