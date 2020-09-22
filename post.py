@@ -35,7 +35,7 @@ class Post:
         json_str = post_json_script[left_index:right_index]
         return json.loads(json_str)
 
-    def _scrape_post_json(self, post_json):
+    def _scrape_post_json(self, post_json: dict):
         """Scrape data from the posts json"""
         self.country_code = post_json['country_code']
         self.language_code = post_json['language_code']
@@ -58,6 +58,7 @@ class Post:
         self.fact_check_overall_rating = post_info['fact_check_overall_rating']
         self.fact_check_information = post_info['fact_check_information']
 
+        #Get caption and tagged users 
         self.caption = post_info['edge_media_to_caption']['edges'][0]['node']['text']
         self._get_tagged_users(post_info)
 
@@ -72,7 +73,7 @@ class Post:
         self.has_blocked_viewer = owner['has_blocked_viewer']
         self.is_private = owner['is_private']
 
-    def _get_tagged_users(self, post_info):
+    def _get_tagged_users(self, post_info: dict):
         """Scrape the usernames of the tagged users""" 
         tagged_users = post_info['edge_media_to_tagged_user']['edges']
         self.tagged_users = [user['node']['user']['username'] for user in tagged_users]
@@ -80,8 +81,8 @@ class Post:
     @classmethod
     def from_shortcode(cls, shortcode: str) -> 'Post':
         """Return a Post given a shortcode"""
-        url = f'https://www.instagram.com/{shortcode}/'
-        return Post(url)
+        url = f'https://www.instagram.com/p/{shortcode}/'
+        return cls(url)
     
 if __name__ == '__main__':
     url = r'https://www.instagram.com/p/CFQNno8hSDX/'
