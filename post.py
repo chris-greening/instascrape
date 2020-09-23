@@ -88,4 +88,4 @@ class Post:
 if __name__ == '__main__':
     url = r'https://www.instagram.com/p/CFQNno8hSDX/'
     post = Post(url)
-    post.load_page_source()
+    post.load()
