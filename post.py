@@ -18,7 +18,7 @@ class Post:
     def _scrape_soup(self):
         """Scrape data from the soup"""
         self.title = self.soup.find("title").text
-        
+
         
         post_json = self._get_post_json()
         self._scrape_post_json(post_json)
