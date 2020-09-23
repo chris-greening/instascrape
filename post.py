@@ -1,34 +1,37 @@
+from __future__ import annotations 
+
 import json
 import datetime
+from typing import List, Dict  
 
 import requests 
 from bs4 import BeautifulSoup 
 
 class Post: 
-    def __init__(self, url):
+    def __init__(self, url: str) -> None:
         self.url = url
          
-    def load(self):
+    def load(self) -> None:
         """Load the static HTML into a BeautifulSoup object at the url"""
         self.page_source = requests.get(self.url).text
         self.soup = BeautifulSoup(self.page_source, features='lxml')
 
         self._scrape_soup()
 
-    def _scrape_soup(self):
+    def _scrape_soup(self) -> None:
         """Scrape data from the soup"""
         self.title = self.soup.find("title").text
 
         
         post_json = self._get_post_json()
         self._scrape_post_json(post_json)
-        self._get_hashtags()
+        self.hashtags = self._get_hashtags()
 
-    def _get_hashtags(self):
+    def _get_hashtags(self) -> List[str]:
         hashtags_meta = self.soup.find_all('meta', {'property':'instapp:hashtags'})
-        self.hashtags = [tag['content'] for tag in hashtags_meta]
+        return [tag['content'] for tag in hashtags_meta]
 
-    def _get_post_json(self) -> dict: 
+    def _get_post_json(self) -> Dict[str, str]: 
         """Get the posts json data as a dictionary"""
         post_json_script = [str(script) for script in self.soup.find_all('script') if 'config' in str(script)][0]
         left_index = post_json_script.find('{')
@@ -36,8 +39,9 @@ class Post:
         json_str = post_json_script[left_index:right_index]
         return json.loads(json_str)
 
-    def _scrape_post_json(self, post_json: dict):
+    def _scrape_post_json(self, post_json: Dict[str, str]) -> None:
         """Scrape data from the posts json"""
+        #TODO: might be a good idea to store these vars in a dataclass
         self.country_code = post_json['country_code']
         self.language_code = post_json['language_code']
         self.locale = post_json['locale']
@@ -61,7 +65,7 @@ class Post:
 
         #Get caption and tagged users 
         self.caption = post_info['edge_media_to_caption']['edges'][0]['node']['text']
-        self._get_tagged_users(post_info)
+        self.tagged_users = self._get_tagged_users(post_info)
 
         #Owner json data
         owner = post_info['owner']
@@ -74,13 +78,13 @@ class Post:
         self.has_blocked_viewer = owner['has_blocked_viewer']
         self.is_private = owner['is_private']
 
-    def _get_tagged_users(self, post_info: dict):
+    def _get_tagged_users(self, post_info: dict) -> List[str]:
         """Scrape the usernames of the tagged users""" 
-        tagged_users = post_info['edge_media_to_tagged_user']['edges']
-        self.tagged_users = [user['node']['user']['username'] for user in tagged_users]
+        tagged_users_json = post_info['edge_media_to_tagged_user']['edges']
+        return [user['node']['user']['username'] for user in tagged_users_json]
 
     @classmethod
-    def from_shortcode(cls, shortcode: str) -> 'Post':
+    def from_shortcode(cls, shortcode: str) -> Post:
         """Return a Post given a shortcode"""
         url = f'https://www.instagram.com/p/{shortcode}/'
         return cls(url)
