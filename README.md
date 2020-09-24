@@ -1,6 +1,6 @@
 # instascrape
 
-> Lightweight Python 3 web scraper for data mining Instagram quickly and efficiently!
+> Lightweight Python 3 web scraper for data mining Instagram easily and efficiently!
 
 ## Installation
 
