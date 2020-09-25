@@ -21,6 +21,10 @@ class Hashtag(StaticInstaScraper):
         self.profile_pic_url = tag_data['profile_pic_url']
         self.posts = tag_data['edge_hashtag_to_media']['count']
 
+    @classmethod
+    def from_hashtag(cls, hashtag: str):
+        url = f'https://www.instagram.com/tags/{hashtag}/'
+        return cls(url)
 
 if __name__ == '__main__':
     url = 'https://www.instagram.com/explore/tags/worldviewmag/'
