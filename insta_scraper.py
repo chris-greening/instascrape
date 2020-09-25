@@ -20,6 +20,7 @@ class StaticInstaScraper(ABC):
         self._scrape_soup()
 
     def _scrape_soup(self) -> None:
+        """Scrape data from soup, intended to be extendible by subclasses"""
         self.title = self.soup.find('title').text
 
         json_data = self._get_json()
