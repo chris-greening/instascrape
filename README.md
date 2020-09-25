@@ -2,6 +2,14 @@
 
 > Lightweight Python 3 web scraper for data mining Instagram easily and efficiently!
 
+
+[![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
+[![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/) 
+[![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) 
+---
+
 ## Table of Contents 
 * [Installation](#installation)
 * [Features](#features)
