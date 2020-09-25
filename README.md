@@ -1,6 +1,6 @@
 # instascrape
 
-> Lightweight Python 3 web scraper for data mining Instagram easily and efficiently!
+> Super lightweight Python 3 web scraping tools for data mining Instagram
 
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
