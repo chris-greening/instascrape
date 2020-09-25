@@ -12,10 +12,13 @@
 
 ## Table of Contents 
 * [Installation](#installation)
+  * [pip](#pip)
+  * [clone](#clone)
 * [Features](#features)
   * [Profile](#profile)
   * [Post](#post)
   * [Hashtag](#hashtag)
+* [License](#license)
 * [Support](#support)
 
 ---
@@ -23,19 +26,17 @@
 ## Installation
 
 ### pip
-- Install from PyPI using
+> Install from PyPI using
 ```shell
 pip3 install insta-scrape
 ```
 
-### GitHub
-#### Clone
-- Clone to your local machine using 
+### Clone
+> Clone right from Github to your local machine using 
 ```shell
 $ git clone https://github.com/chris-greening/instascrape.git 
 ```
-#### Setup 
-- Install required dependencies using 
+> and install required dependencies using 
 ```shell
 $ pip3 install -f requirements.txt
 ```
@@ -47,13 +48,16 @@ $ pip3 install -f requirements.txt
 ### Profile 
 > Representation of an Instagram profile. Calling static_load takes care of requesting and scraping static HTML regarding the given URL or username. 
 > Profile.static_load scrapes 36 data points including 
-- followers:        int
-- following:        int
-- post count:       int 
-- profile pic URL:  str
-- business account: bool
-- verified:         bool 
-- etc. 
+```python
+followers: int
+following: int
+posts: int 
+profile_pic_url: str
+is_business_account: bool
+is_verified: bool 
+#etc. 
+```
+> Sample code:
 ```python
 from instascrape import Profile
 url = 'https://www.instagram.com/gvanrossum/'
@@ -64,13 +68,16 @@ post.static_load()
 ### Post
 > Representation of a single Instagram post. Calling static_load takes care of requesting and scraping static HTML regarding the given URL or post shortcode.
 > Post.static_load scrapes 29 data points including
-- amount of likes:    int
-- amount of comments: int
-- hashtags used:      List[str]
-- usernames tagged:   List[str]
-- caption:            str
-- location:           str
-- etc. 
+```python
+likes: int
+amount_of_comments: int
+hashtags: List[str]
+tagged_users: List[str]
+caption: str
+location: str
+#etc. 
+```
+> Sample code:
 ```python
 from instascrape import Post 
 url = 'https://www.instagram.com/p/CFcSLyBgseW/'
@@ -81,18 +88,25 @@ post.static_load()
 ### Hashtag
 > Representation of an Instagram hashtag page. Calling static_load takes care of requesting and scraping static HTML regarding the given URL or hashtag name.
 > Hashtag.static_load scrapes 10 data points including
-- amount of posts:    int
-- pic URL:            str
-- name:               str
-- user is following:  bool
-- allowed to follow:  bool
-- etc. 
+```python
+amount_of_posts: int
+name: str
+is_following: bool
+allow_following: bool
+#etc. 
+```
+> Sample code:
 ```python
 from instascrape import Hashtag 
 url = 'https://www.instagram.com/explore/tags/python/'
 hashtag = Hashtag(url)
 hashtag.static_load()
 ```
+---
+
+## License
+[MIT](LICENSE)
+
 ---
 
 ## Support 
