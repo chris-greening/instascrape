@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from insta_scraper import StaticInstaScraper
+from .insta_scraper import StaticInstaScraper
 
 
 class Hashtag(StaticInstaScraper):

@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from typing import List
 
-from insta_scraper import StaticInstaScraper
+from .insta_scraper import StaticInstaScraper
 
 
 class Post(StaticInstaScraper):
