@@ -10,6 +10,8 @@
   * [Hashtag](#hashtag)
 * [Support](#support)
 
+---
+
 ## Installation
 
 ### Clone 
@@ -22,6 +24,8 @@ $ git clone https://github.com/chris-greening/instascrape.git
 ```shell
 $ pip3 install -f requirements.txt
 ```
+
+---
 
 ## Features
 
@@ -74,7 +78,7 @@ url = 'https://www.instagram.com/explore/tags/python/'
 hashtag = Hashtag(url)
 hashtag.static_load()
 ```
-
+---
 
 ## Support 
 Reach out to me if you have questions or ideas!
