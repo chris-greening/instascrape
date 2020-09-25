@@ -2,6 +2,7 @@
 
 > Super lightweight Python 3 web scraping tools for data mining Instagram
 
+[![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
 [![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/) 
