@@ -2,7 +2,7 @@
 
 > Lightweight Python 3 web scraper for data mining Instagram easily and efficiently!
 
-
+[![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
 [![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/) 
 [![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
@@ -22,12 +22,19 @@
 
 ## Installation
 
-### Clone 
+### pip
+- Install from PyPI using
+```shell
+pip3 install insta-scrape
+```
+
+### GitHub
+#### Clone
 - Clone to your local machine using 
 ```shell
 $ git clone https://github.com/chris-greening/instascrape.git 
 ```
-### Setup 
+#### Setup 
 - Install required dependencies using 
 ```shell
 $ pip3 install -f requirements.txt
