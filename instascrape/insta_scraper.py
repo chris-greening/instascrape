@@ -28,10 +28,6 @@ class StaticInstaScraper(ABC):
         json_data = self._get_json_from_soup(soup)
         self._scrape_json(json_data)
 
-    @abstractmethod
-    def _scrape_json(self, json_data):
-        pass
-
     def _get_json_from_soup(self, soup) -> dict:
         """Return JSON data as a dictionary"""
         json_script = [
@@ -44,5 +40,8 @@ class StaticInstaScraper(ABC):
         json_str = json_script[left_index:right_index]
         return json.loads(json_str)
 
+    @abstractmethod
+    def _scrape_json(self, json_data):
+        pass
 
 
