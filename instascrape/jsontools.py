@@ -3,8 +3,9 @@ import datetime
 
 from typing import List
 
+
 class JSONScraper(ABC):
-    def __init__(self, json_data: dict, name: str=None):
+    def __init__(self, json_data: dict, name: str = None):
         """Container for storing all scraped data from Instagram JSON"""
         self.json_data = json_data
         if name is not None:
@@ -22,9 +23,10 @@ class JSONScraper(ABC):
     def __repr__(self):
         class_name = type(self).__name__
         output_str = "<{}: " + f"{class_name}>"
-        if hasattr(self, 'name'):
+        if hasattr(self, "name"):
             return output_str.format(self.name)
         return output_str.format("unnamed")
+
 
 class ProfileJSON(JSONScraper):
     def parse_json(self):
@@ -33,7 +35,9 @@ class ProfileJSON(JSONScraper):
         self.locale = self.json_data["locale"]
 
         # Convenience definition for prof info
-        self.prof_info =self.json_data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        self.prof_info = self.json_data["entry_data"]["ProfilePage"][0]["graphql"][
+            "user"
+        ]
         self.biography = self.prof_info["biography"]
         self.blocked_by_viewer = self.prof_info["blocked_by_viewer"]
         self.business_email = self.prof_info["business_email"]
@@ -67,6 +71,7 @@ class ProfileJSON(JSONScraper):
         self.connected_fb_page = self.prof_info["connected_fb_page"]
         self.posts = self.prof_info["edge_owner_to_timeline_media"]["count"]
 
+
 class HashtagJSON(JSONScraper):
     def parse_json(self):
         self.country_code = self.json_data["country_code"]
@@ -82,6 +87,7 @@ class HashtagJSON(JSONScraper):
         self.profile_pic_url = tag_data["profile_pic_url"]
         self.amount_of_posts = tag_data["edge_hashtag_to_media"]["count"]
 
+
 class PostJSON(JSONScraper):
     def parse_json(self):
         self.country_code = self.json_data["country_code"]
@@ -89,7 +95,9 @@ class PostJSON(JSONScraper):
         self.locale = self.json_data["locale"]
 
         # Convenience definition for post info
-        post_info = self.json_data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
+        post_info = self.json_data["entry_data"]["PostPage"][0]["graphql"][
+            "shortcode_media"
+        ]
         self.upload_date = datetime.datetime.fromtimestamp(
             post_info["taken_at_timestamp"]
         )
@@ -124,6 +132,7 @@ class PostJSON(JSONScraper):
 
     def get_tagged_users(self) -> List[str]:
         """Scrape the usernames of the tagged users"""
-        tagged_users_json = self.json_data["entry_data"]["PostPage"][0][
-            "graphql"]["shortcode_media"]["edge_media_to_tagged_user"]["edges"]
+        tagged_users_json = self.json_data["entry_data"]["PostPage"][0]["graphql"][
+            "shortcode_media"
+        ]["edge_media_to_tagged_user"]["edges"]
         return [user["node"]["user"]["username"] for user in tagged_users_json]

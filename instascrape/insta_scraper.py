@@ -8,6 +8,7 @@ from abc import ABC, abstractmethod
 import requests
 from bs4 import BeautifulSoup
 
+
 class StaticInstaScraper(ABC):
     def __init__(self, url):
         self.url = url
@@ -21,7 +22,7 @@ class StaticInstaScraper(ABC):
         self._scrape_html(page_source)
 
     def _scrape_html(self, page_source):
-        soup = BeautifulSoup(page_source, features='lxml')
+        soup = BeautifulSoup(page_source, features="lxml")
         self._scrape_soup(soup)
 
     def _scrape_soup(self, soup):
@@ -31,9 +32,7 @@ class StaticInstaScraper(ABC):
     def _get_json_from_soup(self, soup) -> dict:
         """Return JSON data as a dictionary"""
         json_script = [
-            str(script)
-            for script in soup.find_all("script")
-            if "config" in str(script)
+            str(script) for script in soup.find_all("script") if "config" in str(script)
         ][0]
         left_index = json_script.find("{")
         right_index = json_script.rfind("}") + 1
@@ -43,5 +42,3 @@ class StaticInstaScraper(ABC):
     @abstractmethod
     def _scrape_json(self, json_data):
         pass
-
-

@@ -3,6 +3,7 @@ from __future__ import annotations
 from .insta_scraper import StaticInstaScraper
 from .jsontools import ProfileJSON
 
+
 class Profile(StaticInstaScraper):
     def __init__(self, url):
         super().__init__(url)
@@ -15,6 +16,7 @@ class Profile(StaticInstaScraper):
     def from_username(cls, username: str):
         url = f"https://www.instagram.com/{username}/"
         return cls(url)
+
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
