@@ -6,6 +6,7 @@ from typing import List
 from .insta_scraper import StaticInstaScraper
 from .jsontools import PostJSON
 
+
 class Post(StaticInstaScraper):
     def __init__(self, url: str) -> None:
         super().__init__(url)

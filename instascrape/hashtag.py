@@ -3,6 +3,7 @@ from __future__ import annotations
 from .insta_scraper import StaticInstaScraper
 from .jsontools import HashtagJSON
 
+
 class Hashtag(StaticInstaScraper):
     def __init__(self, url):
         super().__init__(url)
