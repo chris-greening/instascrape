@@ -1,6 +1,7 @@
-# instascrape
+# instascrape: super lightweight Instagram scraping toolkit
 
-> Super lightweight Python 3 web scraping tools for data mining Instagram
+## What is it?
+> **instascrape** is an incredibly lightweight set of tools geared towards scraping Instagram data. It makes *no* assumptions about your project and is instead designed for flexibility and developer productivity. It is excellent for for the seasoned data scientist trying to quickly get an idea of a pages engagement as well as beginners looking to explore web scraping and the beauty of Python for the very first time. 
 
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
