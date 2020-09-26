@@ -5,6 +5,20 @@ from .jsontools import HashtagJSON
 
 
 class Hashtag(StaticInstaScraper):
+    """
+    Representation of an Instagram hashtag page.
+
+    Attribues
+    ---------
+    url : str
+        Full URL to a Instagram hashtag
+
+    Methods
+    -------
+    static_load(session=requests.Session())
+        Makes request to URL, instantiates BeautifulSoup, finds JSON data,
+        then parses JSON data.
+    """
     def __init__(self, url):
         super().__init__(url)
 
@@ -15,6 +29,25 @@ class Hashtag(StaticInstaScraper):
 
     @classmethod
     def from_hashtag(cls, hashtag: str):
+        """
+        Factory method for convenience to create Hashtag instance given
+        just a hashtag name instead of a full URL.
+
+        Parameters
+        ----------
+        hashtag : str
+            Name of the Hashtag for scraping
+
+        Returns
+        -------
+        Hashtag(url: str)
+            Instance of Hashtag with URL created from the given hashtag name
+
+        Example
+        -------
+        >>>Hashtag.from_hashtag('pythonprogramming')
+        <https://www.instagram.com/tags/pythonprogramming/: Hashtag>
+        """
         url = f"https://www.instagram.com/tags/{hashtag}/"
         return cls(url)
 

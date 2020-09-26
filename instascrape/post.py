@@ -8,7 +8,27 @@ from .jsontools import PostJSON
 
 
 class Post(StaticInstaScraper):
+    """
+    Representation of a single Instagram post.
+
+    Attribues
+    ---------
+    url : str
+        Full URL to an existing Instagram profile
+
+    Methods
+    -------
+    static_load(session=requests.Session())
+        Makes request to URL, instantiates BeautifulSoup, finds JSON data,
+        then parses JSON data.
+    """
     def __init__(self, url: str) -> None:
+        """
+        Parameters
+        ----------
+        url : str
+            Full URL to an existing Instagram profile
+        """
         super().__init__(url)
 
     def _scrape_soup(self, soup) -> None:
@@ -28,7 +48,20 @@ class Post(StaticInstaScraper):
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
-        """Return a Post given a shortcode"""
+        """
+        Factory method for convenience to create Post instance given
+        just a shortcode instead of a full URL.
+
+        Parameters
+        ----------
+        shortcode : str
+            Shortcode of the Post for scraping
+
+        Returns
+        -------
+        Post(url)
+            Instance of Post with URL at the given shortcode
+        """
         url = f"https://www.instagram.com/p/{shortcode}/"
         return cls(url)
 
