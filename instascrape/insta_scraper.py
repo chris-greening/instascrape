@@ -9,7 +9,29 @@ import requests
 from bs4 import BeautifulSoup
 
 class StaticInstaScraper(ABC):
+    """
+    Abstract base class for the Profile, Post, and Hashtag subclasses
+    that handles much of the routine scraping methods
+
+    Attribues
+    ---------
+    url : str
+        Full URL to an Instagram page
+
+    Methods
+    -------
+    static_load(session=requests.Session())
+        Makes request to URL, instantiates BeautifulSoup, finds JSON data,
+        then parses JSON data.
+    """
+
     def __init__(self, url):
+        """
+        Parameters
+        ----------
+        url : str
+            Full URL to an Instagram page
+        """
         self.url = url
 
     def static_load(self, session=requests.Session()):
@@ -42,6 +64,9 @@ class StaticInstaScraper(ABC):
 
     @abstractmethod
     def _scrape_json(self, json_data):
+        """
+        Specific way of scraping the JSON data is left up to the subclasses
+        """
         pass
 
     def __repr__(self):
