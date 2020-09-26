@@ -7,10 +7,6 @@ class Profile(StaticInstaScraper):
     def __init__(self, url):
         super().__init__(url)
 
-    def _scrape_soup(self):
-        """Scrape data from the profile page"""
-        super()._scrape_soup()
-
     def _scrape_json(self, prof_json: dict):
         self.country_code = prof_json["country_code"]
         self.language_code = prof_json["language_code"]
@@ -55,7 +51,6 @@ class Profile(StaticInstaScraper):
     def from_username(cls, username: str):
         url = f"https://www.instagram.com/{username}/"
         return cls(url)
-
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
