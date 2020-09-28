@@ -1,1 +1,1 @@
-*.ipynb linguist-language=Python
+examples/*.ipynb linguist-language=Python
