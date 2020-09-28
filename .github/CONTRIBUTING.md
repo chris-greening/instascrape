@@ -8,10 +8,10 @@ We love your input! We want to make contributing to this project as easy and tra
 - Becoming a maintainer
 
 ## We develop with GitHub
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests. Changes that have been accepted to `master` will also be uploaded to the instascrape PyPI package.
 
 ## We use the [GitHub flow](https://guides.github.com/introduction/flow/), so all code changes happen through pull requests
-Pull requests are the best way to propose changes to the codebase (we use [GitHub Flow](https://guides.github.com/introduction/flow/)). We actively welcome your pull requests:
+Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `master`.
 2. If you've added code that should be tested, add tests.
@@ -39,11 +39,11 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
 ## Use a consistent coding style
-This project uses black coding style to maintain consistency and readability. Please try to conform to this standard when possible
+This project uses [black](https://pypi.org/project/black/) coding style to maintain consistency and readability. Please try to conform to this standard when possible
 
 
 ## License
 By contributing, you agree that your contributions will be licensed under its MIT License.
 
 ## References
-This document was adapted from [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62)
+This document was adapted from [briandk's](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62) CONTRIBUTING.md template.
