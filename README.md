@@ -1,3 +1,5 @@
+![instascrape logo](/media/logo.png?raw=true)
+
 # instascrape: super lightweight Instagram scraping toolkit
 
 ## What is it?
