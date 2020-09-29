@@ -4,12 +4,6 @@ import datetime
 
 from typing import List, Any
 
-#TODO: create args in parse_json that define what attributes exist for each
-# class after scraped, might be worth defining as dataclasses or creating separate
-# classes that will store the names of prospective data points. This way we can
-# possibly specify what data points it is we want to parse and not have to get
-# all in one fell swoop
-
 class JSONScraper(ABC):
     """
     Abstract base class containing methods for handling and parsing Instagram 
@@ -17,10 +11,6 @@ class JSONScraper(ABC):
 
     Attributes 
     ----------
-    METADATA_KEYS : list 
-        List of strings containing attributes that are considered metadata 
-        regarding the JSON data but are not actual data points scraped from the 
-        JSON itself
     json_dict : dict
         Python dictionary containing the Instagram JSON data
     name : str, optional 
@@ -42,7 +32,7 @@ class JSONScraper(ABC):
         returns a JSONData object with that dictionary
     """ 
 
-    METADATA_KEYS = ['json_dict', 'name']
+    _METADATA_KEYS = ['json_dict', 'name']
 
     def __init__(self, json_dict: dict, name: str = None) -> None:
         """Container for storing all scraped data from Instagram JSON"""
@@ -57,7 +47,11 @@ class JSONScraper(ABC):
     @property
     def scraped_attr(self) -> List[str]:
         """Return list of names of attributes that have been scraped from the JSON"""
-        return [attr for attr in self.__dict__ if attr not in JSONScraper.METADATA_KEYS]
+        return [attr for attr in self.__dict__ if attr not in JSONScraper._METADATA_KEYS]
+
+    def to_dict(self) -> dict:
+        """Return a dictionary containing all of the data that has been scraped"""
+        return {key: val for key, val in self.__dict__.items() if key not in JSONScraper._METADATA_KEYS}
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
@@ -138,12 +132,6 @@ class ProfileJSON(JSONScraper):
     """
     Tool for parsing data from Instagram profile JSON data
 
-    Attributes 
-    ----------
-    METADATA_KEYS : list 
-        List of strings containing attributes that are considered metadata 
-        regarding the JSON data but are not actual data points scraped from the 
-        JSON itself
     json_dict : dict
         Python dictionary containing the Instagram JSON data
     name : str, optional 
@@ -212,10 +200,6 @@ class HashtagJSON(JSONScraper):
 
     Attributes 
     ----------
-    METADATA_KEYS : list 
-        List of strings containing attributes that are considered metadata 
-        regarding the JSON data but are not actual data points scraped from the 
-        JSON itself
     json_dict : dict
         Python dictionary containing the Instagram JSON data
     name : str, optional 
@@ -255,10 +239,6 @@ class PostJSON(JSONScraper):
 
     Attributes 
     ----------
-    METADATA_KEYS : list 
-        List of strings containing attributes that are considered metadata 
-        regarding the JSON data but are not actual data points scraped from the 
-        JSON itself
     json_dict : dict
         Python dictionary containing the Instagram JSON data
     name : str, optional 
