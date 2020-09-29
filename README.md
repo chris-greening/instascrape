@@ -26,6 +26,9 @@
 * [License](#license)
 * [Support](#support)
 
+![Graph of instagram data](/media/realpython.png?raw=true)
+Example of Instagram likes per post data scraped using instascrape (this repository and its author(s) are not affiliated with Real Python)
+
 ---
 
 ## Installation
