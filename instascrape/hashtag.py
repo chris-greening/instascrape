@@ -19,9 +19,6 @@ class Hashtag(StaticInstaScraper):
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
     """
-    def __init__(self, url):
-        super().__init__(url)
-
     def _scrape_json(self, json_data: dict):
         """Scrape the JSON"""
         self.data = HashtagJSON(json_data)
@@ -49,7 +46,7 @@ class Hashtag(StaticInstaScraper):
         <https://www.instagram.com/tags/pythonprogramming/: Hashtag>
         """
         url = f"https://www.instagram.com/tags/{hashtag}/"
-        return cls(url)
+        return cls(url, name=hashtag)
 
 
 if __name__ == "__main__":

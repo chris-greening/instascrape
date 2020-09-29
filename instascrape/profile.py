@@ -19,16 +19,6 @@ class Profile(StaticInstaScraper):
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
     """
-
-    def __init__(self, url):
-        """
-        Parameters
-        ----------
-        url : str
-            Full URL to an existing Instagram profile
-        """
-        super().__init__(url)
-
     def _scrape_json(self, json_data: dict):
         self.data = ProfileJSON(json_data)
         self.data.parse_json()
@@ -56,7 +46,7 @@ class Profile(StaticInstaScraper):
         """
 
         url = f"https://www.instagram.com/{username}/"
-        return cls(url)
+        return cls(url, name=username)
 
 
 if __name__ == "__main__":

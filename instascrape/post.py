@@ -22,15 +22,6 @@ class Post(StaticInstaScraper):
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
     """
-    def __init__(self, url: str) -> None:
-        """
-        Parameters
-        ----------
-        url : str
-            Full URL to an existing Instagram profile
-        """
-        super().__init__(url)
-
     def _scrape_soup(self, soup) -> None:
         """Scrape data from the soup"""
         self.hashtags = self._get_hashtags(soup)
@@ -61,9 +52,14 @@ class Post(StaticInstaScraper):
         -------
         Post(url)
             Instance of Post with URL at the given shortcode
+
+        Example
+        -------
+        >>>Post.from_shortcode('CFcSLyBgseW')
+        <https://www.instagram.com/p/CFcSLyBgseW/: Post>
         """
         url = f"https://www.instagram.com/p/{shortcode}/"
-        return cls(url)
+        return cls(url, name=shortcode)
 
 
 if __name__ == "__main__":
