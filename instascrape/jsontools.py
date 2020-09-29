@@ -92,12 +92,44 @@ class JSONScraper(ABC):
 
     @classmethod
     def from_json_string(cls, json_string: str, name: str = None):
-        """Load JSON data object from a JSON string"""
+        """
+        Factory method for returning a JSONData object given a string 
+        representation of JSON data. 
+
+        Parameters
+        ----------
+        json_string : str 
+            String representation of the JSON data for loading into dict 
+        name : str, optional  
+            Optional name of the JSON data 
+        
+        Returns 
+        -------
+        JSONData : JSONData
+            JSONData  object containing the JSON data loaded from string as a dictionary 
+
+        """
         return cls(json.loads(json_string), name)
 
     @classmethod
     def from_json_file(cls, json_fpath: str, name: str = None):
-        """Load JSON data object from a JSON file"""
+        """
+        Factory method for returning a JSONData object given a filepath 
+        to a .json file that contains valid JSON data. 
+
+        Parameters
+        ----------
+        json_fpath : str 
+            Filepath to the .json file
+        name : str, optional  
+            Optional name of the JSON data 
+        
+        Returns 
+        -------
+        JSONData : JSONData
+            JSONData object containing the JSON data loaded from file as a dictionary 
+
+        """
         with open(json_fpath, 'r') as infile:
             json_data = json.load(infile)
         return cls(json_data, name)
