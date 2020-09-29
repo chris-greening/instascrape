@@ -13,7 +13,7 @@ from typing import List, Any
 class JSONScraper(ABC):
     """
     Abstract base class containing methods for handling and parsing Instagram 
-    JSON data served back in static GET requests
+    JSON data 
 
     Attributes 
     ----------
@@ -135,7 +135,36 @@ class JSONScraper(ABC):
         return cls(json_data, name)
 
 class ProfileJSON(JSONScraper):
-    def parse_json(self):
+    """
+    Tool for parsing data from Instagram profile JSON data
+
+    Attributes 
+    ----------
+    METADATA_KEYS : list 
+        List of strings containing attributes that are considered metadata 
+        regarding the JSON data but are not actual data points scraped from the 
+        JSON itself
+    json_dict : dict
+        Python dictionary containing the Instagram JSON data
+    name : str, optional 
+        Custom name that will represent this JSON data
+
+    Methods 
+    -------
+    parse_json() -> None
+        Parses the JSON data regarding a single Instagram profile 
+    load_value(data_dict: dict, key: str, fail_return: Any=None)
+        Returns value in dictionary at the specified key. If value doesn't 
+        exist, returns a default value
+    from_json_string(json_str: str, name: str = None)
+        Loads a json string as a dictionary and returns a JSONData object with 
+        that dictionary.
+    from_json_file(json_fpath: str, name: str = None)
+        Loads a json file at a given JSON filepath into a dictionary and 
+        returns a JSONData object with that dictionary
+    """ 
+    def parse_json(self) -> None:
+        """Parse profile JSON data"""
         self.country_code = self.json_dict["country_code"]
         self.language_code = self.json_dict["language_code"]
         self.locale = self.json_dict["locale"]
@@ -178,7 +207,35 @@ class ProfileJSON(JSONScraper):
         self.posts = prof_info["edge_owner_to_timeline_media"]["count"]
 
 class HashtagJSON(JSONScraper):
-    def parse_json(self):
+    """
+    Tool for parsing data fron Instagram hashtag JSON data
+
+    Attributes 
+    ----------
+    METADATA_KEYS : list 
+        List of strings containing attributes that are considered metadata 
+        regarding the JSON data but are not actual data points scraped from the 
+        JSON itself
+    json_dict : dict
+        Python dictionary containing the Instagram JSON data
+    name : str, optional 
+        Custom name that will represent this JSON data
+
+    Methods 
+    -------
+    parse_json() -> None
+        Parses the JSON data regarding a single Instagram hashtag 
+    load_value(data_dict: dict, key: str, fail_return: Any=None)
+        Returns value in dictionary at the specified key. If value doesn't 
+        exist, returns a default value
+    from_json_string(json_str: str, name: str = None)
+        Loads a json string as a dictionary and returns a JSONData object with 
+        that dictionary.
+    from_json_file(json_fpath: str, name: str = None)
+        Loads a json file at a given JSON filepath into a dictionary and 
+        returns a JSONData object with that dictionary
+    """ 
+    def parse_json(self) -> None:
         self.country_code = self.json_dict["country_code"]
         self.language_code = self.json_dict["language_code"]
         self.locale = self.json_dict["locale"]
@@ -193,7 +250,35 @@ class HashtagJSON(JSONScraper):
         self.amount_of_posts = tag_data["edge_hashtag_to_media"]["count"]
 
 class PostJSON(JSONScraper):
-    def parse_json(self):
+    """
+    Tool for parsing data from an Instagram post JSON data
+
+    Attributes 
+    ----------
+    METADATA_KEYS : list 
+        List of strings containing attributes that are considered metadata 
+        regarding the JSON data but are not actual data points scraped from the 
+        JSON itself
+    json_dict : dict
+        Python dictionary containing the Instagram JSON data
+    name : str, optional 
+        Custom name that will represent this JSON data
+
+    Methods 
+    -------
+    parse_json() -> None
+        Parses the JSON data regarding a single Instagram post
+    load_value(data_dict: dict, key: str, fail_return: Any=None)
+        Returns value in dictionary at the specified key. If value doesn't 
+        exist, returns a default value
+    from_json_string(json_str: str, name: str = None)
+        Loads a json string as a dictionary and returns a JSONData object with 
+        that dictionary.
+    from_json_file(json_fpath: str, name: str = None)
+        Loads a json file at a given JSON filepath into a dictionary and 
+        returns a JSONData object with that dictionary
+    """ 
+    def parse_json(self) -> None:
      
         self.country_code = self.load_value(self.json_dict, "country_code")
         self.language_code = self.load_value(self.json_dict, "language_code")
@@ -239,7 +324,14 @@ class PostJSON(JSONScraper):
         self.is_private = owner["is_private"]
 
     def get_tagged_users(self) -> List[str]:
-        """Scrape the usernames of the tagged users"""
+        """
+        Scrape the usernames of users that have been tagged in the post
+        
+        Returns
+        -------
+        List[str]
+            List of strings containing the usernames of tagged users
+        """
         tagged_users_json = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
             "shortcode_media"
         ]["edge_media_to_tagged_user"]["edges"]
