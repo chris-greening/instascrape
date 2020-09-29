@@ -12,8 +12,8 @@
 #
 import os
 import sys
-#sys.path.insert(0, os.path.abspath('../instascrape'))
-sys.path.insert(0, r'D:\Programming\pythonstuff\instascrape')
+sys.path.insert(0, os.path.abspath('../instascrape'))
+# sys.path.insert(0, r'D:\Programming\pythonstuff\instascrape')
 
 
 # -- Project information -----------------------------------------------------
