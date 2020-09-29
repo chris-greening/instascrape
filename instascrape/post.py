@@ -35,7 +35,7 @@ class Post(StaticInstaScraper):
         """Scrape data from the posts json"""
         # TODO: might be a good idea to store these vars in a dataclass
         self.data = PostJSON(json_data)
-        self.data.parse_json()
+        self._load_json_into_namespace(self.data)
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
