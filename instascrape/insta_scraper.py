@@ -64,6 +64,11 @@ class StaticInstaScraper(ABC):
         json_str = json_script[left_index:right_index]
         return json.loads(json_str)
 
+    def _load_json_into_namespace(self, data):
+        """Parse and load JSON data into objects namespace"""
+        data.parse_json()
+        self.__dict__.update(data.to_dict())
+
     @abstractmethod
     def _scrape_json(self, json_data):
         """
