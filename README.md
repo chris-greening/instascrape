@@ -22,6 +22,7 @@
 * [Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
+* [Documentation](#documentation)
 * [Features](#features)
   * [Profile](#profile)
   * [Post](#post)
@@ -39,7 +40,7 @@ Example of Instagram likes per post data scraped using instascrape (this reposit
 ### pip
 > Install from PyPI using
 ```shell
-pip3 install insta-scrape
+$ pip3 install insta-scrape
 ```
 
 ### Clone
@@ -51,6 +52,11 @@ $ git clone https://github.com/chris-greening/instascrape.git
 ```shell
 $ pip3 install -f requirements.txt
 ```
+
+---
+
+## Documentation 
+The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html)
 
 ---
 
