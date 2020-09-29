@@ -16,6 +16,8 @@
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
 
+![Sample programming gif](/media/sample_code.gif?raw=true)
+
 ---
 
 ## Table of Contents 
