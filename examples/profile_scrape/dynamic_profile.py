@@ -35,7 +35,7 @@ class DynamicProfile(Profile):
         lenOfPage = browser.execute_script(js_script)
         match=False
         while not match:
-            time.sleep(np.random.normal(3, 1.5))
+            time.sleep(abs(np.random.normal(3, 1.5)))
             lastCount = lenOfPage
             lenOfPage = browser.execute_script(js_script)
             source_data.append(browser.page_source)
