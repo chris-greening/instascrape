@@ -20,8 +20,9 @@ class Profile(StaticInstaScraper):
         then parses JSON data.
     """
     def _scrape_json(self, json_data: dict):
+        """Scrape JSON data and load into instances namespace"""
         self.data = ProfileJSON(json_data)
-        self.data.parse_json()
+        self._load_json_into_namespace(self.data)
 
     @classmethod
     def from_username(cls, username: str):

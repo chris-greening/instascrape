@@ -22,7 +22,7 @@ class Hashtag(StaticInstaScraper):
     def _scrape_json(self, json_data: dict):
         """Scrape the JSON"""
         self.data = HashtagJSON(json_data)
-        self.data.parse_json()
+        self._load_json_into_namespace(self.data)
 
     @classmethod
     def from_hashtag(cls, hashtag: str):
