@@ -25,7 +25,7 @@ class StaticInstaScraper(ABC):
         then parses JSON data.
     """
 
-    def __init__(self, url):
+    def __init__(self, url, name=None):
         """
         Parameters
         ----------
@@ -33,6 +33,8 @@ class StaticInstaScraper(ABC):
             Full URL to an Instagram page
         """
         self.url = url
+        if name is not None:
+            self.name = name
 
     def static_load(self, session=requests.Session()):
         self._scrape_url(self.url, session=session)
