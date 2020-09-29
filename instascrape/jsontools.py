@@ -36,6 +36,12 @@ class JSONScraper(ABC):
             return output_str.format(self.name)
         return output_str.format("unnamed")
 
+    def load_value(self, data_dict, key):
+        try: 
+            return data_dict[key]
+        except KeyError: 
+            return None
+
     @classmethod
     def from_json_string(cls, json_string: str, name: str):
         """Load JSON data object from a JSON string"""
@@ -92,7 +98,6 @@ class ProfileJSON(JSONScraper):
         self.connected_fb_page = prof_info["connected_fb_page"]
         self.posts = prof_info["edge_owner_to_timeline_media"]["count"]
 
-
 class HashtagJSON(JSONScraper):
     def parse_json(self):
         self.country_code = self.json_dict["country_code"]
@@ -111,37 +116,41 @@ class HashtagJSON(JSONScraper):
 
 class PostJSON(JSONScraper):
     def parse_json(self):
-        self.country_code = self.json_dict["country_code"]
-        self.language_code = self.json_dict["language_code"]
-        self.locale = self.json_dict["locale"]
+     
+        self.country_code = self.load_value(self.json_dict, "country_code")
+        self.language_code = self.load_value(self.json_dict, "language_code")
+        self.locale = self.load_value(self.json_dict, "locale")
 
         # Convenience definition for post info
         post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
             "shortcode_media"
         ]
         self.upload_date = datetime.datetime.fromtimestamp(
-            post_info["taken_at_timestamp"]
+            self.load_value(post_info,"taken_at_timestamp")
         )
-        self.accessibility_caption = post_info["accessibility_caption"]
-        self.likes = post_info["edge_media_preview_like"]["count"]
-        self.amount_of_comments = post_info["edge_media_preview_comment"]["count"]
-        self.caption_is_edited = post_info["caption_is_edited"]
-        self.has_ranked_comments = post_info["has_ranked_comments"]
-        self.location = post_info["location"]
-        self.is_ad = post_info["is_ad"]
-        self.viewer_can_reshare = post_info["viewer_can_reshare"]
-        self.shortcode = post_info["shortcode"]
-        self.dimensions = post_info["dimensions"]
-        self.is_video = post_info["is_video"]
-        self.fact_check_overall_rating = post_info["fact_check_overall_rating"]
-        self.fact_check_information = post_info["fact_check_information"]
+        self.accessibility_caption = self.load_value(post_info,"accessibility_caption")
+        self.likes = self.load_value(post_info["edge_media_preview_like"], "count")
+        self.amount_of_comments = self.load_value(post_info["edge_media_preview_comment"], "count")
+        self.caption_is_edited = self.load_value(post_info,"caption_is_edited")
+        self.has_ranked_comments = self.load_value(post_info,"has_ranked_comments")
+        self.location = self.load_value(post_info,"location")
+        self.is_ad = self.load_value(post_info,"is_ad")
+        self.viewer_can_reshare = self.load_value(post_info,"viewer_can_reshare")
+        self.shortcode = self.load_value(post_info,"shortcode")
+        self.dimensions = self.load_value(post_info,"dimensions")
+        self.is_video = self.load_value(post_info,"is_video")
+        self.fact_check_overall_rating = self.load_value(post_info,"fact_check_overall_rating")
+        self.fact_check_information = self.load_value(post_info,"fact_check_information")
 
         # Get caption and tagged users
-        self.caption = post_info["edge_media_to_caption"]["edges"][0]["node"]["text"]
+        try:
+            self.caption = self.load_value(post_info["edge_media_to_caption"]["edges"][0]["node"], "text")
+        except IndexError:
+            self.caption = ""
         self.tagged_users = self.get_tagged_users()
 
         # Owner json data
-        owner = post_info["owner"]
+        owner = self.load_value(post_info,"owner")
         self.is_verified = owner["is_verified"]
         self.profile_pic_url = owner["profile_pic_url"]
         self.username = owner["username"]
