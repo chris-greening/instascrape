@@ -67,22 +67,8 @@ The official documentation can be found on [Read The Docs](https://instascrape.r
 ### Profile 
 > Representation of an Instagram profile. Calling static_load takes care of requesting and scraping static HTML regarding the given URL or username. 
 > Profile.static_load scrapes 36 data points including 
-```python
-followers: int
-following: int
-posts: int 
-profile_pic_url: str
-is_business_account: bool
-is_verified: bool 
-#etc. 
-```
-> Sample code:
-```python
-from instascrape import Profile
-url = 'https://www.instagram.com/gvanrossum/'
-post = Profile(url)
-post.static_load()
-```
+
+<img src="media/profile_example 0.png" width=700>
 
 ### Post
 > Representation of a single Instagram post. Calling static_load takes care of requesting and scraping static HTML regarding the given URL or post shortcode.
