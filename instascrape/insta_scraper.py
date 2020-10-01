@@ -25,6 +25,8 @@ class StaticInstaScraper(ABC):
         then parses JSON data.
     """
 
+    _METADATA_KEYS = ['url', 'name']
+
     def __init__(self, url, name=None):
         """
         Parameters
@@ -38,6 +40,10 @@ class StaticInstaScraper(ABC):
 
     def static_load(self, session=requests.Session()):
         self._scrape_url(self.url, session=session)
+
+    def to_dict(self) -> dict:
+        """Return a dictionary containing all of the data that has been scraped"""
+        return {key: val for key, val in self.__dict__.items() if key not in StaticInstaScraper._METADATA_KEYS}
 
     def _scrape_url(self, url, session=requests.Session()) -> None:
         """Load url and scrape data"""
