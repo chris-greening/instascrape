@@ -3,9 +3,11 @@ from __future__ import annotations
 import datetime
 from typing import List
 
-from .insta_scraper import StaticInstaScraper
-from .jsontools import PostJSON
+import requests
 
+from .insta_scraper import StaticInstaScraper
+from .hashtag import Hashtag
+from .jsontools import PostJSON
 
 class Post(StaticInstaScraper):
     """
@@ -21,6 +23,7 @@ class Post(StaticInstaScraper):
     static_load(session=requests.Session())
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
+    scrape_hashtags
     """
     def _scrape_soup(self, soup) -> None:
         """Scrape data from the soup"""
@@ -33,9 +36,16 @@ class Post(StaticInstaScraper):
 
     def _scrape_json(self, json_data: dict) -> None:
         """Scrape data from the posts json"""
-        # TODO: might be a good idea to store these vars in a dataclass
         self.data = PostJSON(json_data)
         self._load_json_into_namespace(self.data)
+
+    def scrape_hashtags(self, session=requests.Session(), status_output=False):
+        """Load hashtags used in post as Hashtag objects"""
+        self.hashtag_objects = []
+        for tag in self.hashtags:
+            if status_output: print(f"Loading {tag}")
+            tag_obj = Hashtag.from_hashtag(tag)
+            tag_obj.static_load(session=session)
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
