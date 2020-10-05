@@ -55,6 +55,7 @@ class JSONScraper(ABC):
             self.json_dict, 'connection_quality_rating')
         self.platform = self.load_value(self.json_dict, 'platform')
 
+        self.browser_push_pub_key = self.load_value(self.json_dict, 'browser_push_pub_key')
         self.device_id = self.load_value(self.json_dict, 'device_id')
         self.encryption = self.load_value(self.json_dict, 'encryption')
 
