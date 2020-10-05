@@ -355,3 +355,25 @@ class HttpErrorPageJSON(JSONScraper):
         self.encryption = self.load_value(self.json_dict, 'encryption')
 
         self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
+
+
+class LoginAndSignupJSON(JSONScraper):
+    def parse_json(self):
+        config = self.json_dict['config']
+        self.csrf_token = self.load_value(config, 'csrf_token')
+
+        self.country_code = self.load_value(self.json_dict, "country_code")
+        self.language_code = self.load_value(self.json_dict, "language_code")
+        self.locale = self.load_value(self.json_dict, "locale")
+
+        self.hostname = self.load_value(self.json_dict, 'hostname')
+        self.is_whitelisted_crawl_bot = self.load_value(
+            self.json_dict, 'is_whitelisted_crawl_bot')
+        self.connection_quality_rating = self.load_value(
+            self.json_dict, 'connection_quality_rating')
+        self.platform = self.load_value(self.json_dict, 'platform')
+
+        self.device_id = self.load_value(self.json_dict, 'device_id')
+        self.encryption = self.load_value(self.json_dict, 'encryption')
+
+        self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
