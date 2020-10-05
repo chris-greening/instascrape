@@ -25,6 +25,7 @@ class LandingPage(StaticInstaScraper):
         self.data = LandingPageJSON(json_data)
         self._load_json_into_namespace(self.data)
 
+
 if __name__ == "__main__":
     url = r"https://www.instagram.com"
     landing_page = LandingPage(url)

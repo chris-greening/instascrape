@@ -9,6 +9,7 @@ from .insta_scraper import StaticInstaScraper
 from .hashtag import Hashtag
 from .jsontools import PostJSON
 
+
 class Post(StaticInstaScraper):
     """
     Representation of a single Instagram post.
@@ -25,6 +26,7 @@ class Post(StaticInstaScraper):
         then parses JSON data.
     scrape_hashtags
     """
+
     def _scrape_soup(self, soup) -> None:
         """Scrape data from the soup"""
         self.hashtags = self._get_hashtags(soup)
@@ -43,7 +45,8 @@ class Post(StaticInstaScraper):
         """Load hashtags used in post as Hashtag objects"""
         self.hashtag_objects = []
         for tag in self.hashtags:
-            if status_output: print(f"Loading {tag}")
+            if status_output:
+                print(f"Loading {tag}")
             tag_obj = Hashtag.from_hashtag(tag)
             tag_obj.static_load(session=session)
 

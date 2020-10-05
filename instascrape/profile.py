@@ -19,6 +19,7 @@ class Profile(StaticInstaScraper):
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
     """
+
     def _scrape_json(self, json_data: dict):
         """Scrape JSON data and load into instances namespace"""
         self.data = ProfileJSON(json_data)

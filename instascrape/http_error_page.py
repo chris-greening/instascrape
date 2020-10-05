@@ -25,6 +25,7 @@ class HttpErrorPage(StaticInstaScraper):
         self.data = HttpErrorPageJSON(json_data)
         self._load_json_into_namespace(self.data)
 
+
 if __name__ == "__main__":
     url = r"https://www.instagram.com/idkdidkdidkdidkdkdidkkdidikd"
     http_error_page = HttpErrorPage(url)
