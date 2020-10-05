@@ -8,6 +8,7 @@ from abc import ABC, abstractmethod
 import requests
 from bs4 import BeautifulSoup
 
+
 class StaticInstaScraper(ABC):
     """
     Abstract base class for the Profile, Post, and Hashtag subclasses
@@ -25,7 +26,7 @@ class StaticInstaScraper(ABC):
         then parses JSON data.
     """
 
-    _METADATA_KEYS = ['url', 'name', 'data']
+    _METADATA_KEYS = ["url", "name", "data"]
 
     def __init__(self, url, name=None):
         """
@@ -43,10 +44,18 @@ class StaticInstaScraper(ABC):
 
     def to_dict(self) -> dict:
         """Return a dictionary containing all of the data that has been scraped"""
-        return {key: val for key, val in self.__dict__.items() if key not in StaticInstaScraper._METADATA_KEYS}
+        return {
+            key: val
+            for key, val in self.__dict__.items()
+            if key not in StaticInstaScraper._METADATA_KEYS
+        }
 
     def to_list(self) -> dict:
-        return [(key, val) for key, val in self.__dict__.items() if key not in StaticInstaScraper._METADATA_KEYS]
+        return [
+            (key, val)
+            for key, val in self.__dict__.items()
+            if key not in StaticInstaScraper._METADATA_KEYS
+        ]
 
     def _scrape_url(self, url, session=requests.Session()) -> None:
         """Load url and scrape data"""
@@ -54,7 +63,7 @@ class StaticInstaScraper(ABC):
         self._scrape_html(page_source)
 
     def _scrape_html(self, page_source):
-        soup = BeautifulSoup(page_source, features='lxml')
+        soup = BeautifulSoup(page_source, features="lxml")
         self._scrape_soup(soup)
 
     def _scrape_soup(self, soup):
@@ -64,9 +73,7 @@ class StaticInstaScraper(ABC):
     def _get_json_from_soup(self, soup) -> dict:
         """Return JSON data as a dictionary"""
         json_script = [
-            str(script)
-            for script in soup.find_all("script")
-            if "config" in str(script)
+            str(script) for script in soup.find_all("script") if "config" in str(script)
         ][0]
         left_index = json_script.find("{")
         right_index = json_script.rfind("}") + 1
@@ -87,4 +94,3 @@ class StaticInstaScraper(ABC):
 
     def __repr__(self):
         return f"<{self.url}: {type(self).__name__}>"
-
