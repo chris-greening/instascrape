@@ -19,8 +19,7 @@ class JSONScraper(ABC):
     Methods 
     -------
     parse_json() -> None
-        Abstract method, parses the JSON data specific to the Instagram object 
-        type
+        Parses JSON data that every Instagram type has
     load_value(data_dict: dict, key: str, fail_return: Any=None)
         Returns value in dictionary at the specified key. If value doesn't 
         exist, returns a default value
@@ -40,9 +39,26 @@ class JSONScraper(ABC):
         if name is not None:
             self.name = name
 
-    @abstractmethod
     def parse_json(self) -> None:
         """Parse JSON object"""
+        config = self.json_dict['config']
+        self.csrf_token = self.load_value(config, 'csrf_token')
+
+        self.country_code = self.load_value(self.json_dict, "country_code")
+        self.language_code = self.load_value(self.json_dict, "language_code")
+        self.locale = self.load_value(self.json_dict, "locale")
+
+        self.hostname = self.load_value(self.json_dict, 'hostname')
+        self.is_whitelisted_crawl_bot = self.load_value(
+            self.json_dict, 'is_whitelisted_crawl_bot')
+        self.connection_quality_rating = self.load_value(
+            self.json_dict, 'connection_quality_rating')
+        self.platform = self.load_value(self.json_dict, 'platform')
+
+        self.device_id = self.load_value(self.json_dict, 'device_id')
+        self.encryption = self.load_value(self.json_dict, 'encryption')
+
+        self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
 
     @property
     def scraped_attr(self) -> List[str]:
@@ -153,9 +169,7 @@ class ProfileJSON(JSONScraper):
     """ 
     def parse_json(self) -> None:
         """Parse profile JSON data"""
-        self.country_code = self.json_dict["country_code"]
-        self.language_code = self.json_dict["language_code"]
-        self.locale = self.json_dict["locale"]
+        super().parse_json()
 
         # Convenience definition for prof info
         prof_info = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"][
@@ -220,9 +234,7 @@ class HashtagJSON(JSONScraper):
         returns a JSONData object with that dictionary
     """ 
     def parse_json(self) -> None:
-        self.country_code = self.json_dict["country_code"]
-        self.language_code = self.json_dict["language_code"]
-        self.locale = self.json_dict["locale"]
+        super().parse_json()
 
         tag_data = self.json_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
         self.id = tag_data["id"]
@@ -259,10 +271,7 @@ class PostJSON(JSONScraper):
         returns a JSONData object with that dictionary
     """ 
     def parse_json(self) -> None:
-     
-        self.country_code = self.load_value(self.json_dict, "country_code")
-        self.language_code = self.load_value(self.json_dict, "language_code")
-        self.locale = self.load_value(self.json_dict, "locale")
+        super().parse_json()
 
         # Convenience definition for post info
         post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
@@ -319,61 +328,12 @@ class PostJSON(JSONScraper):
 
 class LandingPageJSON(JSONScraper):
     def parse_json(self):
-        config = self.json_dict['config']
-        self.csrf_token = self.load_value(config, 'csrf_token')
-
-        self.country_code = self.load_value(self.json_dict, "country_code")
-        self.language_code = self.load_value(self.json_dict, "language_code")
-        self.locale = self.load_value(self.json_dict, "locale")
-
-        self.hostname = self.load_value(self.json_dict, 'hostname')
-        self.is_whitelisted_crawl_bot = self.load_value(self.json_dict, 'is_whitelisted_crawl_bot')
-        self.connection_quality_rating = self.load_value(self.json_dict, 'connection_quality_rating')
-        self.platform = self.load_value(self.json_dict, 'platform')
-
-        self.device_id = self.load_value(self.json_dict, 'device_id')
-        self.encryption = self.load_value(self.json_dict, 'encryption')
-
-        self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
-
+        super().parse_json()
 
 class HttpErrorPageJSON(JSONScraper):
     def parse_json(self):
-        config = self.json_dict['config']
-        self.csrf_token = self.load_value(config, 'csrf_token')
-
-        self.country_code = self.load_value(self.json_dict, "country_code")
-        self.language_code = self.load_value(self.json_dict, "language_code")
-        self.locale = self.load_value(self.json_dict, "locale")
-
-        self.hostname = self.load_value(self.json_dict, 'hostname')
-        self.is_whitelisted_crawl_bot = self.load_value(self.json_dict, 'is_whitelisted_crawl_bot')
-        self.connection_quality_rating = self.load_value(self.json_dict, 'connection_quality_rating')
-        self.platform = self.load_value(self.json_dict, 'platform')
-
-        self.device_id = self.load_value(self.json_dict, 'device_id')
-        self.encryption = self.load_value(self.json_dict, 'encryption')
-
-        self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
-
+        super().parse_json()
 
 class LoginAndSignupJSON(JSONScraper):
     def parse_json(self):
-        config = self.json_dict['config']
-        self.csrf_token = self.load_value(config, 'csrf_token')
-
-        self.country_code = self.load_value(self.json_dict, "country_code")
-        self.language_code = self.load_value(self.json_dict, "language_code")
-        self.locale = self.load_value(self.json_dict, "locale")
-
-        self.hostname = self.load_value(self.json_dict, 'hostname')
-        self.is_whitelisted_crawl_bot = self.load_value(
-            self.json_dict, 'is_whitelisted_crawl_bot')
-        self.connection_quality_rating = self.load_value(
-            self.json_dict, 'connection_quality_rating')
-        self.platform = self.load_value(self.json_dict, 'platform')
-
-        self.device_id = self.load_value(self.json_dict, 'device_id')
-        self.encryption = self.load_value(self.json_dict, 'encryption')
-
-        self.rollout_hash = self.load_value(self.json_dict, 'rollout_hash')
+        super().parse_json()
