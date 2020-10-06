@@ -52,7 +52,7 @@ $ git clone https://github.com/chris-greening/instascrape.git
 ```
 > and install required dependencies using 
 ```shell
-$ pip3 install -f requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 ---
