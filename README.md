@@ -21,7 +21,7 @@
 ---
 
 ## Table of Contents 
-* [:computer: Installation](#installation)
+* [:computer: Installation](#:computer:-installation)
   * [pip](#pip)
   * [clone](#clone)
 * [:newspaper: Documentation](#documentation)
