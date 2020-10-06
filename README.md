@@ -21,18 +21,18 @@
 ---
 
 ## Table of Contents 
-* [Installation](#installation)
+* [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
-* [Documentation](#documentation)
-* [Features](#features)
+* [:newspaper: Documentation](#documentation)
+* [:scroll: Features](#features)
   * [Profile](#profile)
   * [Post](#post)
   * [Hashtag](#hashtag)
-* [Contributing](#contributing)
-* [Hacktoberfest 2020 :jack_o_lantern:](#hacktoberfest-2020)
-* [License](#license)
-* [Support](#support)
+* [:pray: Contributing](#contributing)
+* [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
+* [:credit_card: License](#license)
+* [:grey_question: Support](#support)
 
 ![Graph of instagram data](/media/realpython.png?raw=true)
 Example of Instagram likes per post data scraped using instascrape (this repository and its author(s) are not affiliated with Real Python)
