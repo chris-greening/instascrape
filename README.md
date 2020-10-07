@@ -14,6 +14,7 @@
 [![Downloads](https://pepy.tech/badge/insta-scrape)](https://pepy.tech/project/insta-scrape)
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
+[![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
 [![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape) 
 
 ![Sample programming gif](/media/sample_code.gif?raw=true)
@@ -24,6 +25,7 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
+  * [dependencies](#dependencies)
 * [:newspaper: Documentation](#documentation)
 * [:scroll: Features](#features)
   * [Profile](#profile)
@@ -52,15 +54,44 @@ $ pip3 install insta-scrape
 ```shell
 $ git clone https://github.com/chris-greening/instascrape.git 
 ```
-> and install required dependencies using 
+### Dependencies
+
+> Install required dependencies using 
 ```shell
 $ pip3 install -r requirements.txt
 ```
-
+>Or install these libraries manually: :sleeping:
+```shell
+$ pip3 install beautifulsoup4==4.9.3
+```
+```shell
+$ pip3 install certifi==2020.6.20
+```
+```shell
+$ pip3 install chardet==3.0.4
+```
+```shell
+$ pip3 install idna==2.10
+```
+```shell
+$ pip3 install lxml==4.5.2
+```
+```shell
+$ pip3 install pytest==6.1.1
+```
+```shell
+$ pip3 install requests==2.24.0
+```
+```shell
+$ pip3 install soupsieve==2.0.1
+```
+```shell
+$ pip3 install urllib3==1.25.10
+```
 ---
 
 ## Documentation 
-The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html)
+The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:	
 
 ---
 
