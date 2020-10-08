@@ -60,34 +60,6 @@ $ git clone https://github.com/chris-greening/instascrape.git
 ```shell
 $ pip3 install -r requirements.txt
 ```
->Or install these libraries manually: :sleeping:
-```shell
-$ pip3 install beautifulsoup4==4.9.3
-```
-```shell
-$ pip3 install certifi==2020.6.20
-```
-```shell
-$ pip3 install chardet==3.0.4
-```
-```shell
-$ pip3 install idna==2.10
-```
-```shell
-$ pip3 install lxml==4.5.2
-```
-```shell
-$ pip3 install pytest==6.1.1
-```
-```shell
-$ pip3 install requests==2.24.0
-```
-```shell
-$ pip3 install soupsieve==2.0.1
-```
-```shell
-$ pip3 install urllib3==1.25.10
-```
 ---
 
 ## Documentation 
