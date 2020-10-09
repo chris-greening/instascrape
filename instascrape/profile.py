@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import insta_scraper
-import jsontools
+import static_scraper
+import json_scraper
 
-class Profile(insta_scraper.StaticInstaScraper):
+class Profile(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -50,7 +50,7 @@ class Profile(insta_scraper.StaticInstaScraper):
         return cls(url, name=username)
 
 
-class ProfileJSON(jsontools.JSONScraper):
+class ProfileJSON(json_scraper.JSONScraper):
     """
     Tool for parsing data from Instagram profile JSON data
 

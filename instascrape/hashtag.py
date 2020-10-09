@@ -4,10 +4,10 @@ import sys
 import os
 # sys.path.insert(0, os.path.abspath('..'))
 
-import insta_scraper
-import jsontools
+import static_scraper
+import json_scraper
 
-class Hashtag(insta_scraper.StaticInstaScraper):
+class Hashtag(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram hashtag page.
 
@@ -53,7 +53,7 @@ class Hashtag(insta_scraper.StaticInstaScraper):
         return cls(url, name=hashtag)
 
 
-class HashtagJSON(jsontools.JSONScraper):
+class HashtagJSON(json_scraper.JSONScraper):
     """
     Tool for parsing data fron Instagram hashtag JSON data
 
