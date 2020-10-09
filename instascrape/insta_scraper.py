@@ -8,7 +8,6 @@ from abc import ABC, abstractmethod
 import requests
 from bs4 import BeautifulSoup
 
-
 class StaticInstaScraper(ABC):
     """
     Abstract base class for the Profile, Post, and Hashtag subclasses
