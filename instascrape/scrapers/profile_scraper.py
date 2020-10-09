@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from . import static_scraper
 from . import json_scraper
+from .post_scraper import PostJSON
 
 class ProfileScraper(static_scraper.StaticHTMLScraper):
     """
@@ -23,6 +24,14 @@ class ProfileScraper(static_scraper.StaticHTMLScraper):
         """Scrape JSON data and load into instances namespace"""
         self.data = ProfileJSON(json_data)
         self._load_json_into_namespace(self.data)
+
+    def get_recent_posts(self):
+    #     self.posts = []
+    #     for post_json in self.data.json_dict['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges']:
+    #         post = PostJSON(json_dict=post_json)
+    #         post.parse_json(exception=False)
+    #         self.posts.append(post)
+        pass
 
     @classmethod
     def from_username(cls, username: str):
@@ -75,7 +84,7 @@ class ProfileJSON(json_scraper.JSONScraper):
     """
 
     def parse_json(self, *args, **kwargs) -> None:
-        super().parse_json(*args, **kwargs)
+        # super().parse_json(*args, **kwargs)
 
         # Convenience definition for prof info
         prof_info = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]
@@ -110,7 +119,7 @@ class ProfileJSON(json_scraper.JSONScraper):
         self.requested_by_viewer = prof_info["requested_by_viewer"]
         self.username = prof_info["username"]
         self.connected_fb_page = prof_info["connected_fb_page"]
-        self.posts = prof_info["edge_owner_to_timeline_media"]["count"]
+        self.amount_of_posts = prof_info["edge_owner_to_timeline_media"]["count"]
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
