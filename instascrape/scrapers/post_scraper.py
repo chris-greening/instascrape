@@ -108,10 +108,9 @@ class PostJSON(json_scraper.JSONScraper):
         post_dict = window_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
         self.parse_partial(post_dict, missing, exception)
 
-    def parse_partial(self, post_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
-        # super().parse_json(*args, **kwargs)
+        self.scrape_timestamp = datetime.datetime.now()
 
-        print(post_dict.keys())
+    def parse_partial(self, post_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
         self.upload_date = datetime.datetime.fromtimestamp(
             self.load_value(post_dict, "taken_at_timestamp", missing, exception)
         )
@@ -160,12 +159,10 @@ class PostJSON(json_scraper.JSONScraper):
         self.has_blocked_viewer = owner["has_blocked_viewer"]
         self.is_private = owner["is_private"]
 
-    def parse_from_profile(self, post_dict, missing: Any = "ERROR", exception: bool = True):
-        '__typename', 'id', 'shortcode', 'dimensions', 'display_url', 'edge_media_to_tagged_user',
-        'fact_check_overall_rating', 'fact_check_information', 'gating_info', 'media_overlay_info', 'media_preview', 'owner', 'is_video',
-        'accessibility_caption', 'edge_media_to_caption', 'edge_media_to_comment', 'comments_disabled', 'taken_at_timestamp', 'edge_liked_by',
-        'edge_media_preview_like', 'location', 'thumbnail_src', 'thumbnail_resources'
+        self.scrape_timestamp = datetime.datetime.now()
 
+    def parse_from_profile(self, post_dict, missing: Any = "ERROR", exception: bool = True):
+        """Parse the JSON data for a post from a user's profile page"""
         self.id = self.load_value(post_dict, 'id', missing, exception)
         self.shortcode = self.load_value(post_dict, 'shortcode', missing, exception)
         self.dimensions = self.load_value(post_dict, 'dimensions', missing, exception)
@@ -192,6 +189,8 @@ class PostJSON(json_scraper.JSONScraper):
         self.location = self.load_value(post_dict, 'location', missing, exception)
         self.thumbnail_src = self.load_value(post_dict, 'thumbnail_src', missing, exception)
         self.thumbnail_resources = self.load_value(post_dict, 'thumbnail_resources', missing, exception)
+
+        self.scrape_timestamp = datetime.datetime.now()
 
     def get_tagged_users(self) -> List[str]:
         """

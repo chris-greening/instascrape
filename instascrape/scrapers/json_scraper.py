@@ -36,12 +36,6 @@ class JSONScraper(ABC):
 
     _METADATA_KEYS = ["json_dict", "name", 'parse_timestamp']
 
-    # def __init__(self, json_dict: dict, name: str = None) -> None:
-    #     """Container for storing all scraped data from Instagram JSON"""
-    #     self.json_dict = json_dict
-    #     if name is not None:
-    #         self.name = name
-
     def parse_base(self, json_dict, missing: Any = 'ERROR', exception: bool = True):
         config = json_dict["config"]
         self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
