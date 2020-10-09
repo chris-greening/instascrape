@@ -11,7 +11,7 @@ from .hashtag_scraper import HashtagScraper
 
 class PostScraper(static_scraper.StaticHTMLScraper):
     """
-    Representation of a single Instagram post.
+    Scraper for a single post.
 
     Attribues
     ---------

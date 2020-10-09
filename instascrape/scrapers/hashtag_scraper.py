@@ -9,7 +9,7 @@ from . import json_scraper
 
 class HashtagScraper(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram hashtag page.
+    Scraper for gathering data from a hashtag page.
 
     Attribues
     ---------
