@@ -100,8 +100,8 @@ class PostJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self) -> None:
-        super().parse_json()
+    def parse_json(self, *args, **kwargs) -> None:
+        super().parse_json(*args, **kwargs)
 
         # Convenience definition for post info
         post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
