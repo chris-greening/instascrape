@@ -25,7 +25,7 @@ class StaticHTMLScraper(ABC):
         then parses JSON data.
     """
 
-    _METADATA_KEYS = ["url", "name", "data"]
+    _METADATA_KEYS = ["url", "name", "data", 'page_source', 'soup']
 
     def __init__(self, url, name=None):
         """
@@ -58,12 +58,12 @@ class StaticHTMLScraper(ABC):
 
     def _scrape_url(self, url, session=requests.Session()) -> None:
         """Load url and scrape data"""
-        page_source = session.get(url).text
-        self._scrape_html(page_source)
+        self.page_source = session.get(url).text
+        self._scrape_html(self.page_source)
 
     def _scrape_html(self, page_source):
-        soup = BeautifulSoup(page_source, features="lxml")
-        self._scrape_soup(soup)
+        self.soup = BeautifulSoup(page_source, features="lxml")
+        self._scrape_soup(self.soup)
 
     def _scrape_soup(self, soup):
         json_data = self._get_json_from_soup(soup)
