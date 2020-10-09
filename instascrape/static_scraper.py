@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import requests
 from bs4 import BeautifulSoup
 
-class StaticInstaScraper(ABC):
+class StaticScraper(ABC):
     """
     Abstract base class for the Profile, Post, and Hashtag subclasses
     that handles much of the routine scraping methods
