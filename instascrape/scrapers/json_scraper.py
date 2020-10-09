@@ -36,49 +36,51 @@ class JSONScraper(ABC):
 
     _METADATA_KEYS = ["json_dict", "name", 'parse_timestamp']
 
-    def __init__(self, json_dict: dict, name: str = None) -> None:
-        """Container for storing all scraped data from Instagram JSON"""
-        self.json_dict = json_dict
-        if name is not None:
-            self.name = name
+    # def __init__(self, json_dict: dict, name: str = None) -> None:
+    #     """Container for storing all scraped data from Instagram JSON"""
+    #     self.json_dict = json_dict
+    #     if name is not None:
+    #         self.name = name
 
-    def parse_json(self, missing: Any = 'ERROR', exception: bool = True) -> None:
+    def parse_base(self, json_dict, missing: Any = 'ERROR', exception: bool = True):
+        config = json_dict["config"]
+        self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
+
+        self.country_code = self.load_value(
+            json_dict, "country_code", missing, exception)
+        self.language_code = self.load_value(
+            json_dict, "language_code", missing, exception)
+        self.locale = self.load_value(
+            json_dict, "locale", missing, exception)
+
+        self.hostname = self.load_value(
+            json_dict, "hostname", missing, exception)
+        self.is_whitelisted_crawl_bot = self.load_value(
+            json_dict, "is_whitelisted_crawl_bot", missing, exception
+        )
+        self.connection_quality_rating = self.load_value(
+            json_dict, "connection_quality_rating", missing, exception
+        )
+        self.platform = self.load_value(
+            json_dict, "platform", missing, exception)
+
+        self.browser_push_pub_key = self.load_value(
+            json_dict, "browser_push_pub_key", missing, exception
+        )
+        self.device_id = self.load_value(
+            json_dict, "device_id", missing, exception)
+        self.encryption = self.load_value(
+            json_dict, "encryption", missing, exception)
+
+        self.rollout_hash = self.load_value(
+            json_dict, "rollout_hash", missing, exception)
+
+    def parse_json(self,) -> None:
         """Parse JSON object"""
 
         #Time the scrape was performed
         self.scrape_timestamp = datetime.datetime.now()
 
-        config = self.json_dict["config"]
-        self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
-
-        self.country_code = self.load_value(
-            self.json_dict, "country_code", missing, exception)
-        self.language_code = self.load_value(
-            self.json_dict, "language_code", missing, exception)
-        self.locale = self.load_value(
-            self.json_dict, "locale", missing, exception)
-
-        self.hostname = self.load_value(
-            self.json_dict, "hostname", missing, exception)
-        self.is_whitelisted_crawl_bot = self.load_value(
-            self.json_dict, "is_whitelisted_crawl_bot", missing, exception
-        )
-        self.connection_quality_rating = self.load_value(
-            self.json_dict, "connection_quality_rating", missing, exception
-        )
-        self.platform = self.load_value(
-            self.json_dict, "platform", missing, exception)
-
-        self.browser_push_pub_key = self.load_value(
-            self.json_dict, "browser_push_pub_key", missing, exception
-        )
-        self.device_id = self.load_value(
-            self.json_dict, "device_id", missing, exception)
-        self.encryption = self.load_value(
-            self.json_dict, "encryption", missing, exception)
-
-        self.rollout_hash = self.load_value(
-            self.json_dict, "rollout_hash", missing, exception)
 
     @property
     def scraped_attr(self) -> List[str]:
