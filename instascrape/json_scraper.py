@@ -92,11 +92,27 @@ class JSONScraper(ABC):
         }
 
     def to_json(self, fpath: str) -> None:
-        """Write data to .json file"""
+        """
+        Write scraped data to .json file
+
+        Parameters
+        ----------
+        fpath : str
+            Filepath of the .json to write data to
+
+        """
         with open(fpath, 'w') as outjson:
             json.dump(self.to_dict(), outjson)
 
     def to_csv(self, fpath: str) -> None:
+        """
+        Write scraped data to .csv
+
+        Parameters
+        ----------
+        fpath : str
+            Filepath of the .csv to write data to
+        """
         with open(fpath, 'w', newline='') as csv_file:
             writer = csv.writer(csv_file)
             for key, value in self.to_dict().items():
