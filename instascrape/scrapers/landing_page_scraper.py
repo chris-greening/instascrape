@@ -5,7 +5,7 @@ from . import json_scraper
 
 class LandingPageScraper(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram profile page.
+    Scraper for the landing page.
 
     Attribues
     ---------

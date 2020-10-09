@@ -5,7 +5,7 @@ from . import json_scraper
 
 class HttpErrorScraper(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram profile page.
+    Scraper for an HTTP Error page.
 
     Attribues
     ---------

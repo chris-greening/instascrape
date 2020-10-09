@@ -5,7 +5,7 @@ from . import json_scraper
 
 class ProfileScraper(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram profile page.
+    Scraper for a profile page.
 
     Attribues
     ---------
