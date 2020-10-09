@@ -101,12 +101,15 @@ class PostJSON(json_scraper.JSONScraper):
     """
 
     def parse_json(self, *args, **kwargs) -> None:
-        super().parse_json(*args, **kwargs)
+        # super().parse_json(*args, **kwargs)
 
         # Convenience definition for post info
-        post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
-            "shortcode_media"
-        ]
+        try:
+            post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
+                "shortcode_media"
+            ]
+        except KeyError:
+            post_info = self.json_dict
         self.upload_date = datetime.datetime.fromtimestamp(
             self.load_value(post_info, "taken_at_timestamp")
         )

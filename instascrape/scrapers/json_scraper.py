@@ -34,7 +34,7 @@ class JSONScraper(ABC):
         returns a JSONData object with that dictionary
     """
 
-    _METADATA_KEYS = ["json_dict", "name"]
+    _METADATA_KEYS = ["json_dict", "name", 'parse_timestamp']
 
     def __init__(self, json_dict: dict, name: str = None) -> None:
         """Container for storing all scraped data from Instagram JSON"""
@@ -44,6 +44,10 @@ class JSONScraper(ABC):
 
     def parse_json(self, missing: Any = 'ERROR', exception: bool = True) -> None:
         """Parse JSON object"""
+
+        #Time the scrape was performed
+        self.scrape_timestamp = datetime.datetime.now()
+
         config = self.json_dict["config"]
         self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
 
