@@ -74,9 +74,8 @@ class ProfileJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self) -> None:
-        """Parse profile JSON data"""
-        super().parse_json()
+    def parse_json(self, *args, **kwargs) -> None:
+        super().parse_json(*args, **kwargs)
 
         # Convenience definition for prof info
         prof_info = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]

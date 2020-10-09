@@ -79,8 +79,8 @@ class HashtagJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self) -> None:
-        super().parse_json()
+    def parse_json(self, *args, **kwargs) -> None:
+        super().parse_json(*args, **kwargs)
 
         tag_data = self.json_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
         self.id = tag_data["id"]

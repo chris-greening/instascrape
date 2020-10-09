@@ -25,8 +25,8 @@ class LandingPage(static_scraper.StaticHTMLScraper):
         self._load_json_into_namespace(self.data)
 
 class LandingPageJSON(json_scraper.JSONScraper):
-    def parse_json(self):
-        super().parse_json()
+    def parse_json(self, *args, **kwargs) -> None:
+        super().parse_json(*args, **kwargs)
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com"
