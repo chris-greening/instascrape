@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
-class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
+class LoginAndSignupScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -32,5 +32,5 @@ class LoginAndSignupJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/accounts/login"
-    login = LoginAndSignupPage(url)
+    login = LoginAndSignupScraper(url)
     login.static_load()

@@ -5,11 +5,11 @@ from typing import List
 
 import requests
 
-from instascrape import static_scraper
-from instascrape import json_scraper
-from .hashtag import Hashtag
+from . import static_scraper
+from . import json_scraper
+from .hashtag_scraper import HashtagScraper
 
-class Post(static_scraper.StaticHTMLScraper):
+class PostScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of a single Instagram post.
 
@@ -46,11 +46,11 @@ class Post(static_scraper.StaticHTMLScraper):
         for tag in self.hashtags:
             if status_output:
                 print(f"Loading {tag}")
-            tag_obj = Hashtag.from_hashtag(tag)
+            tag_obj = HashtagScraper.from_hashtag(tag)
             tag_obj.static_load(session=session)
 
     @classmethod
-    def from_shortcode(cls, shortcode: str) -> Post:
+    def from_shortcode(cls, shortcode: str) -> PostScraper:
         """
         Factory method for convenience to create Post instance given
         just a shortcode instead of a full URL.
@@ -171,5 +171,5 @@ class PostJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/p/CFQNno8hSDX/"
-    post = Post(url)
+    post = PostScraper(url)
     post.static_load()

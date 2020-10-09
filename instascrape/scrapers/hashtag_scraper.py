@@ -4,10 +4,10 @@ import sys
 import os
 # sys.path.insert(0, os.path.abspath('..'))
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
-class Hashtag(static_scraper.StaticHTMLScraper):
+class HashtagScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram hashtag page.
 
@@ -93,5 +93,5 @@ class HashtagJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = "https://www.instagram.com/explore/tags/worldviewmag/"
-    worldviewmag = Hashtag(url)
+    worldviewmag = HashtagScraper(url)
     worldviewmag.static_load()

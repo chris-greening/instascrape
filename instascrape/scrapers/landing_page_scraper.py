@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
-class LandingPage(static_scraper.StaticHTMLScraper):
+class LandingPageScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -30,5 +30,5 @@ class LandingPageJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com"
-    landing_page = LandingPage(url)
+    landing_page = LandingPageScraper(url)
     landing_page.static_load()
