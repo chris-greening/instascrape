@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import insta_scraper
-import jsontools
+import static_scraper
+import json_scraper
 
-class LoginAndSignupPage(insta_scraper.StaticInstaScraper):
+class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -25,7 +25,7 @@ class LoginAndSignupPage(insta_scraper.StaticInstaScraper):
         self._load_json_into_namespace(self.data)
 
 
-class LoginAndSignupJSON(jsontools.JSONScraper):
+class LoginAndSignupJSON(json_scraper.JSONScraper):
     def parse_json(self):
         super().parse_json()
 

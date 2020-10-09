@@ -5,11 +5,11 @@ from typing import List
 
 import requests
 
-import insta_scraper
-import jsontools
+import static_scraper
+import json_scraper
 from .hashtag import Hashtag
 
-class Post(insta_scraper.StaticInstaScraper):
+class Post(static_scraper.StaticHTMLScraper):
     """
     Representation of a single Instagram post.
 
@@ -74,7 +74,7 @@ class Post(insta_scraper.StaticInstaScraper):
         return cls(url, name=shortcode)
 
 
-class PostJSON(jsontools.JSONScraper):
+class PostJSON(json_scraper.JSONScraper):
     """
     Tool for parsing data from an Instagram post JSON data
 

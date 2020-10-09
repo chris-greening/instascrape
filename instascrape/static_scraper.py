@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import requests
 from bs4 import BeautifulSoup
 
-class StaticScraper(ABC):
+class StaticHTMLScraper(ABC):
     """
     Abstract base class for the Profile, Post, and Hashtag subclasses
     that handles much of the routine scraping methods
@@ -46,14 +46,14 @@ class StaticScraper(ABC):
         return {
             key: val
             for key, val in self.__dict__.items()
-            if key not in StaticInstaScraper._METADATA_KEYS
+            if key not in StaticHTMLScraper._METADATA_KEYS
         }
 
     def to_list(self) -> dict:
         return [
             (key, val)
             for key, val in self.__dict__.items()
-            if key not in StaticInstaScraper._METADATA_KEYS
+            if key not in StaticHTMLScraper._METADATA_KEYS
         ]
 
     def _scrape_url(self, url, session=requests.Session()) -> None:

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import insta_scraper
-import jsontools
+import static_scraper
+import json_scraper
 
 
-class HttpErrorPage(insta_scraper.StaticInstaScraper):
+class HttpErrorPage(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -25,7 +25,7 @@ class HttpErrorPage(insta_scraper.StaticInstaScraper):
         self.data = HttpErrorPageJSON(json_data)
         self._load_json_into_namespace(self.data)
 
-class HttpErrorPageJSON(jsontools.JSONScraper):
+class HttpErrorPageJSON(json_scraper.JSONScraper):
     def parse_json(self):
         super().parse_json()
 
