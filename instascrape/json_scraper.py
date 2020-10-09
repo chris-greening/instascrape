@@ -1,4 +1,5 @@
 import json
+import csv
 from abc import ABC, abstractmethod
 import datetime
 
@@ -84,6 +85,12 @@ class JSONScraper(ABC):
         """Write data to .json file"""
         with open(fpath, 'w') as outjson:
             json.dump(self.to_dict(), outjson)
+
+    def to_csv(self, fpath: str) -> None:
+        with open(fpath, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            for key, value in self.to_dict().items():
+                writer.writerow([key, value])
 
     def load_value(self, data_dict: dict, key: str, fail_default: Any = None) -> Any:
         """
