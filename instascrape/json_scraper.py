@@ -5,6 +5,8 @@ import datetime
 
 from typing import List, Any
 
+from .exceptions import exceptions
+
 class JSONScraper(ABC):
     """
     Abstract base class containing methods for handling and parsing Instagram
@@ -40,31 +42,39 @@ class JSONScraper(ABC):
         if name is not None:
             self.name = name
 
-    def parse_json(self) -> None:
+    def parse_json(self, missing: Any = 'ERROR', exception: bool = True) -> None:
         """Parse JSON object"""
         config = self.json_dict["config"]
-        self.csrf_token = self.load_value(config, "csrf_token")
+        self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
 
-        self.country_code = self.load_value(self.json_dict, "country_code")
-        self.language_code = self.load_value(self.json_dict, "language_code")
-        self.locale = self.load_value(self.json_dict, "locale")
+        self.country_code = self.load_value(
+            self.json_dict, "country_code", missing, exception)
+        self.language_code = self.load_value(
+            self.json_dict, "language_code", missing, exception)
+        self.locale = self.load_value(
+            self.json_dict, "locale", missing, exception)
 
-        self.hostname = self.load_value(self.json_dict, "hostname")
+        self.hostname = self.load_value(
+            self.json_dict, "hostname", missing, exception)
         self.is_whitelisted_crawl_bot = self.load_value(
-            self.json_dict, "is_whitelisted_crawl_bot"
+            self.json_dict, "is_whitelisted_crawl_bot", missing, exception
         )
         self.connection_quality_rating = self.load_value(
-            self.json_dict, "connection_quality_rating"
+            self.json_dict, "connection_quality_rating", missing, exception
         )
-        self.platform = self.load_value(self.json_dict, "platform")
+        self.platform = self.load_value(
+            self.json_dict, "platform", missing, exception)
 
         self.browser_push_pub_key = self.load_value(
-            self.json_dict, "browser_push_pub_key"
+            self.json_dict, "browser_push_pub_key", missing, exception
         )
-        self.device_id = self.load_value(self.json_dict, "device_id")
-        self.encryption = self.load_value(self.json_dict, "encryption")
+        self.device_id = self.load_value(
+            self.json_dict, "device_id", missing, exception)
+        self.encryption = self.load_value(
+            self.json_dict, "encryption", missing, exception)
 
-        self.rollout_hash = self.load_value(self.json_dict, "rollout_hash")
+        self.rollout_hash = self.load_value(
+            self.json_dict, "rollout_hash", missing, exception)
 
     @property
     def scraped_attr(self) -> List[str]:
@@ -92,7 +102,7 @@ class JSONScraper(ABC):
             for key, value in self.to_dict().items():
                 writer.writerow([key, value])
 
-    def load_value(self, data_dict: dict, key: str, fail_default: Any = None) -> Any:
+    def load_value(self, data_dict: dict, key: str, missing: Any = None, exception: bool = True) -> Any:
         """
         Returns the value of a dictionary at a given key, returning a specified
         value if the key does not exsit.
@@ -113,7 +123,9 @@ class JSONScraper(ABC):
         try:
             return_val = data_dict[key]
         except KeyError:
-            return_val = fail_default
+            if exception:
+                raise exceptions.JSONKeyError(key)
+            return_val = missing
         return return_val
 
     @classmethod
