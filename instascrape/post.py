@@ -5,8 +5,8 @@ from typing import List
 
 import requests
 
-import static_scraper
-import json_scraper
+from instascrape import static_scraper
+from instascrape import json_scraper
 from .hashtag import Hashtag
 
 class Post(static_scraper.StaticHTMLScraper):

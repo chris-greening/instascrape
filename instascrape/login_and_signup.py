@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import static_scraper
-import json_scraper
+from instascrape import static_scraper
+from instascrape import json_scraper
 
 class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
     """

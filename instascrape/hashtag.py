@@ -4,8 +4,8 @@ import sys
 import os
 # sys.path.insert(0, os.path.abspath('..'))
 
-import static_scraper
-import json_scraper
+from instascrape import static_scraper
+from instascrape import json_scraper
 
 class Hashtag(static_scraper.StaticHTMLScraper):
     """
