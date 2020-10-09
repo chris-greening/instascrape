@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import datetime
-from typing import List
+from typing import List, Any
 
 import requests
 
@@ -37,7 +37,8 @@ class PostScraper(static_scraper.StaticHTMLScraper):
 
     def _scrape_json(self, json_data: dict) -> None:
         """Scrape data from the posts json"""
-        self.data = PostJSON(json_data)
+        self.data = PostJSON()
+        self.data.parse_full(json_data)
         self._load_json_into_namespace(self.data)
 
     def scrape_hashtags(self, session=requests.Session(), status_output=False):
@@ -100,55 +101,56 @@ class PostJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self, *args, **kwargs) -> None:
+    def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
+        """Parse .json data from window"""
+        self.json_dict = window_dict
+        self.parse_base(window_dict, missing, exception)
+        post_dict = window_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
+        self.parse_partial(post_dict, missing, exception)
+
+    def parse_partial(self, post_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
         # super().parse_json(*args, **kwargs)
 
-        # Convenience definition for post info
-        try:
-            post_info = self.json_dict["entry_data"]["PostPage"][0]["graphql"][
-                "shortcode_media"
-            ]
-        except KeyError:
-            post_info = self.json_dict
+        print(post_dict.keys())
         self.upload_date = datetime.datetime.fromtimestamp(
-            self.load_value(post_info, "taken_at_timestamp")
+            self.load_value(post_dict, "taken_at_timestamp", missing, exception)
         )
         self.accessibility_caption = self.load_value(
-            post_info, "accessibility_caption")
+            post_dict, "accessibility_caption")
         self.likes = self.load_value(
-            post_info["edge_media_preview_like"], "count")
+            post_dict["edge_media_preview_like"], "count")
         self.amount_of_comments = self.load_value(
-            post_info["edge_media_preview_comment"], "count"
+            post_dict["edge_media_preview_comment"], "count"
         )
         self.caption_is_edited = self.load_value(
-            post_info, "caption_is_edited")
+            post_dict, "caption_is_edited")
         self.has_ranked_comments = self.load_value(
-            post_info, "has_ranked_comments")
-        self.location = self.load_value(post_info, "location")
-        self.is_ad = self.load_value(post_info, "is_ad")
+            post_dict, "has_ranked_comments")
+        self.location = self.load_value(post_dict, "location")
+        self.is_ad = self.load_value(post_dict, "is_ad")
         self.viewer_can_reshare = self.load_value(
-            post_info, "viewer_can_reshare")
-        self.shortcode = self.load_value(post_info, "shortcode")
-        self.dimensions = self.load_value(post_info, "dimensions")
-        self.is_video = self.load_value(post_info, "is_video")
+            post_dict, "viewer_can_reshare")
+        self.shortcode = self.load_value(post_dict, "shortcode")
+        self.dimensions = self.load_value(post_dict, "dimensions")
+        self.is_video = self.load_value(post_dict, "is_video")
         self.fact_check_overall_rating = self.load_value(
-            post_info, "fact_check_overall_rating"
+            post_dict, "fact_check_overall_rating"
         )
         self.fact_check_information = self.load_value(
-            post_info, "fact_check_information"
+            post_dict, "fact_check_information"
         )
 
         # Get caption and tagged users
         try:
             self.caption = self.load_value(
-                post_info["edge_media_to_caption"]["edges"][0]["node"], "text"
+                post_dict["edge_media_to_caption"]["edges"][0]["node"], "text"
             )
         except IndexError:
             self.caption = ""
         self.tagged_users = self.get_tagged_users()
 
         # Owner json data
-        owner = self.load_value(post_info, "owner")
+        owner = self.load_value(post_dict, "owner")
         self.is_verified = owner["is_verified"]
         self.profile_pic_url = owner["profile_pic_url"]
         self.username = owner["username"]
@@ -157,6 +159,39 @@ class PostJSON(json_scraper.JSONScraper):
         self.full_name = owner["full_name"]
         self.has_blocked_viewer = owner["has_blocked_viewer"]
         self.is_private = owner["is_private"]
+
+    def parse_from_profile(self, post_dict, missing: Any = "ERROR", exception: bool = True):
+        '__typename', 'id', 'shortcode', 'dimensions', 'display_url', 'edge_media_to_tagged_user',
+        'fact_check_overall_rating', 'fact_check_information', 'gating_info', 'media_overlay_info', 'media_preview', 'owner', 'is_video',
+        'accessibility_caption', 'edge_media_to_caption', 'edge_media_to_comment', 'comments_disabled', 'taken_at_timestamp', 'edge_liked_by',
+        'edge_media_preview_like', 'location', 'thumbnail_src', 'thumbnail_resources'
+
+        self.id = self.load_value(post_dict, 'id', missing, exception)
+        self.shortcode = self.load_value(post_dict, 'shortcode', missing, exception)
+        self.dimensions = self.load_value(post_dict, 'dimensions', missing, exception)
+        self.display_url = self.load_value(post_dict, 'display_url', missing, exception)
+        self.tagged_users = self.load_value(post_dict, 'edge_media_to_tagged_user', missing, exception)
+        self.fact_check_overall_rating = self.load_value(post_dict, 'fact_check_overall_rating', missing, exception)
+        self.fact_check_information = self.load_value(post_dict, 'fact_check_information', missing, exception)
+        self.gating_info = self.load_value(post_dict, 'gating_info', missing, exception)
+        self.media_overlay_info = self.load_value(post_dict, 'media_overlay_info', missing, exception)
+        self.media_preview = self.load_value(post_dict, 'media_preview', missing, exception)
+        self.owner = self.load_value(post_dict, 'owner', missing, exception)
+        self.is_video = self.load_value(post_dict, 'is_video', missing, exception)
+        self.accessibility_caption = self.load_value(post_dict, 'accessibility_caption', missing, exception)
+        self.caption = self.load_value(
+            post_dict['edge_media_to_caption']['edges'][0]['node'], 'text', missing, exception)
+        self.amount_of_comments = self.load_value(post_dict['edge_media_to_comment'], 'count', missing, exception)
+        self.comments_disabled = self.load_value(post_dict, 'comments_disabled', missing, exception)
+        self.upload_date = datetime.datetime.fromtimestamp(
+            self.load_value(post_dict, "taken_at_timestamp",
+                            missing, exception)
+        )
+        self.edge_liked_by = self.load_value(post_dict, 'edge_liked_by', missing, exception)
+        self.likes = self.load_value(post_dict['edge_media_preview_like'], 'count', missing, exception)
+        self.location = self.load_value(post_dict, 'location', missing, exception)
+        self.thumbnail_src = self.load_value(post_dict, 'thumbnail_src', missing, exception)
+        self.thumbnail_resources = self.load_value(post_dict, 'thumbnail_resources', missing, exception)
 
     def get_tagged_users(self) -> List[str]:
         """
