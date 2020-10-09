@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from . import static_scraper
 from . import json_scraper
 from .post_scraper import PostJSON
@@ -22,16 +24,18 @@ class ProfileScraper(static_scraper.StaticHTMLScraper):
 
     def _scrape_json(self, json_data: dict):
         """Scrape JSON data and load into instances namespace"""
-        self.data = ProfileJSON(json_data)
+        self.data = ProfileJSON()
+        self.data.parse_full(json_data)
         self._load_json_into_namespace(self.data)
 
     def get_recent_posts(self):
-    #     self.posts = []
-    #     for post_json in self.data.json_dict['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges']:
-    #         post = PostJSON(json_dict=post_json)
-    #         post.parse_json(exception=False)
-    #         self.posts.append(post)
-        pass
+        """Get data from the 12 most recent posts"""
+        self.posts = []
+        for post_json in self.data.json_dict['entry_data']['ProfilePage'][0][
+            'graphql']['user']['edge_owner_to_timeline_media']['edges']:
+            post = PostJSON()
+            post.parse_from_profile(post_json['node'], exception=False)
+            self.posts.append(post)
 
     @classmethod
     def from_username(cls, username: str):
@@ -83,43 +87,47 @@ class ProfileJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self, *args, **kwargs) -> None:
-        # super().parse_json(*args, **kwargs)
+    def parse_full(self, window_dict: dict, missing: Any="ERROR", exception: bool=True) -> None:
+        """Parse .json data from window"""
+        self.json_dict = window_dict
+        self.parse_base(window_dict, missing, exception)
+        prof_info = window_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        self.parse_partial(prof_info, missing, exception)
 
+    def parse_partial(self, prof_dict, missing: Any="ERROR", exception: bool=True) -> None:
         # Convenience definition for prof info
-        prof_info = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]
-        self.biography = prof_info["biography"]
-        self.blocked_by_viewer = prof_info["blocked_by_viewer"]
-        self.business_email = prof_info["business_email"]
-        self.restricted_by_viewer = prof_info["restricted_by_viewer"]
-        self.country_block = prof_info["country_block"]
-        self.external_url = prof_info["external_url"]
-        self.followers = prof_info["edge_followed_by"]["count"]
-        self.followed_by_viewer = prof_info["followed_by_viewer"]
-        self.following = prof_info["edge_follow"]["count"]
-        self.follows_viewer = prof_info["follows_viewer"]
-        self.name = prof_info["full_name"]
-        self.has_ar_effects = prof_info["has_ar_effects"]
-        self.has_clips = prof_info["has_clips"]
-        self.has_guides = prof_info["has_guides"]
-        self.has_channel = prof_info["has_channel"]
-        self.has_blocked_viewer = prof_info["has_blocked_viewer"]
-        self.highlight_reel_count = prof_info["highlight_reel_count"]
-        self.has_requested_viewer = prof_info["has_requested_viewer"]
-        self.id = prof_info["id"]
-        self.is_business_account = prof_info["is_business_account"]
-        self.is_joined_recently = prof_info["is_joined_recently"]
-        self.business_category = prof_info["business_category_name"]
-        self.overall_category = prof_info["overall_category_name"]
-        self.category_enum = prof_info["category_enum"]
-        self.is_private = prof_info["is_private"]
-        self.is_verified = prof_info["is_verified"]
-        self.mutual_followed_by = prof_info["edge_mutual_followed_by"]["count"]
-        self.profile_pic_url = prof_info["profile_pic_url"]
-        self.requested_by_viewer = prof_info["requested_by_viewer"]
-        self.username = prof_info["username"]
-        self.connected_fb_page = prof_info["connected_fb_page"]
-        self.amount_of_posts = prof_info["edge_owner_to_timeline_media"]["count"]
+        self.biography = prof_dict["biography"]
+        self.blocked_by_viewer = prof_dict["blocked_by_viewer"]
+        self.business_email = prof_dict["business_email"]
+        self.restricted_by_viewer = prof_dict["restricted_by_viewer"]
+        self.country_block = prof_dict["country_block"]
+        self.external_url = prof_dict["external_url"]
+        self.followers = prof_dict["edge_followed_by"]["count"]
+        self.followed_by_viewer = prof_dict["followed_by_viewer"]
+        self.following = prof_dict["edge_follow"]["count"]
+        self.follows_viewer = prof_dict["follows_viewer"]
+        self.name = prof_dict["full_name"]
+        self.has_ar_effects = prof_dict["has_ar_effects"]
+        self.has_clips = prof_dict["has_clips"]
+        self.has_guides = prof_dict["has_guides"]
+        self.has_channel = prof_dict["has_channel"]
+        self.has_blocked_viewer = prof_dict["has_blocked_viewer"]
+        self.highlight_reel_count = prof_dict["highlight_reel_count"]
+        self.has_requested_viewer = prof_dict["has_requested_viewer"]
+        self.id = prof_dict["id"]
+        self.is_business_account = prof_dict["is_business_account"]
+        self.is_joined_recently = prof_dict["is_joined_recently"]
+        self.business_category = prof_dict["business_category_name"]
+        self.overall_category = prof_dict["overall_category_name"]
+        self.category_enum = prof_dict["category_enum"]
+        self.is_private = prof_dict["is_private"]
+        self.is_verified = prof_dict["is_verified"]
+        self.mutual_followed_by = prof_dict["edge_mutual_followed_by"]["count"]
+        self.profile_pic_url = prof_dict["profile_pic_url"]
+        self.requested_by_viewer = prof_dict["requested_by_viewer"]
+        self.username = prof_dict["username"]
+        self.connected_fb_page = prof_dict["connected_fb_page"]
+        self.amount_of_posts = prof_dict["edge_owner_to_timeline_media"]["count"]
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
