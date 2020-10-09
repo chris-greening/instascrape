@@ -113,9 +113,6 @@ class ProfileJSON(jsontools.JSONScraper):
         self.connected_fb_page = prof_info["connected_fb_page"]
         self.posts = prof_info["edge_owner_to_timeline_media"]["count"]
 
-
-
-
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
     profile = Profile(url)
