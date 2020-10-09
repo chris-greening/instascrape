@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
-class HttpErrorPage(static_scraper.StaticHTMLScraper):
+class HttpErrorScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -30,5 +30,5 @@ class HttpErrorPageJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/idkdidkdidkdidkdkdidkkdidikd"
-    http_error_page = HttpErrorPage(url)
+    http_error_page = HttpErrorScraper(url)
     http_error_page.static_load()

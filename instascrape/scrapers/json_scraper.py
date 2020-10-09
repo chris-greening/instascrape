@@ -5,7 +5,7 @@ import datetime
 
 from typing import List, Any
 
-from .exceptions import exceptions
+from ..exceptions import exceptions
 
 class JSONScraper(ABC):
     """

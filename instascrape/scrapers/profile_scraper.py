@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
-class Profile(static_scraper.StaticHTMLScraper):
+class ProfileScraper(static_scraper.StaticHTMLScraper):
     """
     Representation of an Instagram profile page.
 
@@ -114,5 +114,5 @@ class ProfileJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
-    profile = Profile(url)
+    profile = ProfileScraper(url)
     profile.static_load()
