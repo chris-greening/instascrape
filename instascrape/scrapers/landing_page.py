@@ -6,9 +6,9 @@ import datetime
 from . import static_scraper
 from . import json_scraper
 
-class LoginAndSignupScraper(static_scraper.StaticHTMLScraper):
+class LandingPage(static_scraper.StaticHTMLScraper):
     """
-    Scraper for the login and signup page.
+    Scraper for the landing page.
 
     Attribues
     ---------
@@ -24,11 +24,11 @@ class LoginAndSignupScraper(static_scraper.StaticHTMLScraper):
 
     def _scrape_json(self, json_data: dict):
         """Scrape JSON data and load into instances namespace"""
-        self.data = LoginAndSignupJSON()
+        self.data = LandingPageJSON()
         self.data.parse_full(json_data)
         self._load_json_into_namespace(self.data)
 
-class LoginAndSignupJSON(json_scraper.JSONScraper):
+class LandingPageJSON(json_scraper.JSONScraper):
     def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
         """Parse .json data from window"""
         self.json_dict = window_dict
@@ -37,6 +37,6 @@ class LoginAndSignupJSON(json_scraper.JSONScraper):
         self.scrape_timestamp = datetime.datetime.now()
 
 if __name__ == "__main__":
-    url = r"https://www.instagram.com/accounts/login"
-    login = LoginAndSignupScraper(url)
-    login.static_load()
+    url = r"https://www.instagram.com"
+    landing_page = LandingPageScraper(url)
+    landing_page.static_load()

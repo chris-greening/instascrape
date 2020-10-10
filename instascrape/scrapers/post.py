@@ -9,7 +9,7 @@ from . import static_scraper
 from . import json_scraper
 from .hashtag_scraper import HashtagScraper
 
-class PostScraper(static_scraper.StaticHTMLScraper):
+class Post(static_scraper.StaticHTMLScraper):
     """
     Scraper for a single post.
 
@@ -51,7 +51,7 @@ class PostScraper(static_scraper.StaticHTMLScraper):
             tag_obj.static_load(session=session)
 
     @classmethod
-    def from_shortcode(cls, shortcode: str) -> PostScraper:
+    def from_shortcode(cls, shortcode: str) -> Post:
         """
         Factory method for convenience to create Post instance given
         just a shortcode instead of a full URL.

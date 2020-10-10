@@ -9,7 +9,7 @@ from typing import Any
 from . import static_scraper
 from . import json_scraper
 
-class HashtagScraper(static_scraper.StaticHTMLScraper):
+class Hashtag(static_scraper.StaticHTMLScraper):
     """
     Scraper for gathering data from a hashtag page.
 
