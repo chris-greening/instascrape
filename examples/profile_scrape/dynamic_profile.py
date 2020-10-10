@@ -1,6 +1,8 @@
 import os
 import sys
+from sys import platform
 import time
+from pathlib import Path
 
 from pandas import DataFrame
 import numpy as np
@@ -18,19 +20,22 @@ chrome_options.add_experimental_option("prefs", prefs)
 class DynamicProfile(Profile):
     """Subclass of Profile to provide some dynamic functionality using Selenium"""
 
-    def dynamic_load(self):
+    def dynamic_load(self, max_posts=sys.maxsize):
         """Scroll the users Profile page and load all posts into Post objects"""
         source_data, browser = self._scroll_page()
         post_soup = self._seperate_posts(source_data)
-        self._create_post_objects(post_soup)
+        self._create_post_objects(post_soup, max_posts)
         self._grab_useful_data()
         browser.close()
 
     def _scroll_page(self):
         """Scroll page and load the source code"""
-        browser = Chrome(
-            r"C:\Users\Chris\chromedriver.exe", chrome_options=chrome_options
-        )
+        root_dir = Path(__file__).parent.parent.parent
+        if platform == "linux" or platform == "linux2" or platform == 'darwin':
+            path = 'chromedrivers'
+        else:
+            path = 'win.exe'
+        browser = Chrome(os.path.join(root_dir, 'chromedrivers/{}'.format(path)), options=chrome_options)
         browser.get(self.url)
 
         source_data = []
@@ -61,18 +66,19 @@ class DynamicProfile(Profile):
                     post_soup.append(tag)
         return post_soup
 
-    def _create_post_objects(self, post_soup):
+    def _create_post_objects(self, post_soup, post_size):
         # create post objects for each post on the page
         self.posts = []
         for post in post_soup:
             shortcode = post["href"].replace("/p/", "")[:-1]
             self.posts.append(Post.from_shortcode(shortcode))
+            if len(self.posts) >= post_size:
+                break
 
     def _grab_useful_data(self):
         for i, post in enumerate(self.posts):
             if i % 10 == 0:
-                print(i)
-            time.sleep(3)
+                print('Read {} posts'.format(i))
             try:
                 post.static_load()
             except Exception as e:
