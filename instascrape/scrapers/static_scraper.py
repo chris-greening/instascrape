@@ -25,7 +25,7 @@ class StaticHTMLScraper(ABC):
         then parses JSON data.
     """
 
-    _METADATA_KEYS = ["url", "name", "data", 'page_source', 'soup']
+    _METADATA_KEYS = ["url", "name", "data", 'page_source', 'soup', 'scrape_timestamp']
 
     def __init__(self, url, name=None):
         """
@@ -81,7 +81,6 @@ class StaticHTMLScraper(ABC):
 
     def _load_json_into_namespace(self, data):
         """Parse and load JSON data into objects namespace"""
-        data.parse_json()
         self.__dict__.update(data.to_dict())
 
     @abstractmethod
