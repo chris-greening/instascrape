@@ -103,5 +103,5 @@ class HashtagJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = "https://www.instagram.com/explore/tags/worldviewmag/"
-    worldviewmag = HashtagScraper(url)
+    worldviewmag = Hashtag(url)
     worldviewmag.static_load()

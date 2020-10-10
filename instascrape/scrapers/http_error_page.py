@@ -38,5 +38,5 @@ class HttpErrorPageJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/idkdidkdidkdidkdkdidkkdidikd"
-    http_error_page = HttpErrorScraper(url)
+    http_error_page = HttpErrorPage(url)
     http_error_page.static_load()

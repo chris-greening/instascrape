@@ -38,5 +38,5 @@ class LandingPageJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com"
-    landing_page = LandingPageScraper(url)
+    landing_page = LandingPage(url)
     landing_page.static_load()
