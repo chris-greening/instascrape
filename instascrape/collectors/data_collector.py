@@ -4,7 +4,7 @@ import time
 
 from typing import List, Callable
 
-class DataCollector:
+class IntervalCollector:
     """
     Given a list of scraper objects, perform different data collection tasks
     """
