@@ -36,6 +36,9 @@ class JSONScraper(ABC):
 
     _METADATA_KEYS = ["json_dict", "name", 'parse_timestamp']
 
+    def __init__(self, name: str=None) -> None:
+        self.name = name
+
     def parse_base(self, json_dict, missing: Any = 'ERROR', exception: bool = True):
         config = json_dict["config"]
         self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
@@ -68,13 +71,6 @@ class JSONScraper(ABC):
 
         self.rollout_hash = self.load_value(
             json_dict, "rollout_hash", missing, exception)
-
-    def parse_json(self,) -> None:
-        """Parse JSON object"""
-
-        #Time the scrape was performed
-        self.scrape_timestamp = datetime.datetime.now()
-
 
     @property
     def scraped_attr(self) -> List[str]:
@@ -144,49 +140,49 @@ class JSONScraper(ABC):
             return_val = missing
         return return_val
 
-    @classmethod
-    def from_json_string(cls, json_string: str, name: str = None):
-        """
-        Factory method for returning a JSONData object given a string
-        representation of JSON data.
+    # @classmethod
+    # def from_json_string(cls, json_string: str, name: str = None):
+    #     """
+    #     Factory method for returning a JSONData object given a string
+    #     representation of JSON data.
 
-        Parameters
-        ----------
-        json_string : str
-            String representation of the JSON data for loading into dict
-        name : str, optional
-            Optional name of the JSON data
+    #     Parameters
+    #     ----------
+    #     json_string : str
+    #         String representation of the JSON data for loading into dict
+    #     name : str, optional
+    #         Optional name of the JSON data
 
-        Returns
-        -------
-        JSONData : JSONData
-            JSONData  object containing the JSON data loaded from string as a dictionary
+    #     Returns
+    #     -------
+    #     JSONData : JSONData
+    #         JSONData  object containing the JSON data loaded from string as a dictionary
 
-        """
-        return cls(json.loads(json_string), name)
+    #     """
+    #     return cls(json.loads(json_string), name)
 
-    @classmethod
-    def from_json_file(cls, json_fpath: str, name: str = None):
-        """
-        Factory method for returning a JSONData object given a filepath
-        to a .json file that contains valid JSON data.
+    # @classmethod
+    # def from_json_file(cls, json_fpath: str, name: str = None):
+    #     """
+    #     Factory method for returning a JSONData object given a filepath
+    #     to a .json file that contains valid JSON data.
 
-        Parameters
-        ----------
-        json_fpath : str
-            Filepath to the .json file
-        name : str, optional
-            Optional name of the JSON data
+    #     Parameters
+    #     ----------
+    #     json_fpath : str
+    #         Filepath to the .json file
+    #     name : str, optional
+    #         Optional name of the JSON data
 
-        Returns
-        -------
-        JSONData : JSONData
-            JSONData object containing the JSON data loaded from file as a dictionary
+    #     Returns
+    #     -------
+    #     JSONData : JSONData
+    #         JSONData object containing the JSON data loaded from file as a dictionary
 
-        """
-        with open(json_fpath, "r") as infile:
-            json_data = json.load(infile)
-        return cls(json_data, name)
+    #     """
+    #     with open(json_fpath, "r") as infile:
+    #         json_data = json.load(infile)
+    #     return cls(json_data, name)
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
