@@ -22,11 +22,9 @@ class LandingPage(static_scraper.StaticHTMLScraper):
         then parses JSON data.
     """
 
-    def _scrape_json(self, json_data: dict):
-        """Scrape JSON data and load into instances namespace"""
-        self.data = LandingPageJSON()
-        self.data.parse_full(json_data)
-        self._load_json_into_namespace(self.data)
+    def _scrape_json(self, json_dict: dict):
+        """Scrape the JSON"""
+        super()._scrape_json(json_dict)
 
 class LandingPageJSON(json_scraper.JSONScraper):
     def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
@@ -35,6 +33,9 @@ class LandingPageJSON(json_scraper.JSONScraper):
         self.parse_base(window_dict, missing, exception)
 
         self.scrape_timestamp = datetime.datetime.now()
+
+
+LandingPage.set_associated_json(LandingPageJSON)
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com"

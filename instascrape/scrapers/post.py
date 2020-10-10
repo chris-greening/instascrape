@@ -35,11 +35,9 @@ class Post(static_scraper.StaticHTMLScraper):
         hashtags_meta = soup.find_all("meta", {"property": "instapp:hashtags"})
         return [tag["content"] for tag in hashtags_meta]
 
-    def _scrape_json(self, json_data: dict) -> None:
-        """Scrape data from the posts json"""
-        self.data = PostJSON()
-        self.data.parse_full(json_data)
-        self._load_json_into_namespace(self.data)
+    def _scrape_json(self, json_dict: dict):
+        """Scrape the JSON"""
+        super()._scrape_json(json_dict)
 
     def scrape_hashtags(self, session=requests.Session(), status_output=False):
         """Load hashtags used in post as Hashtag objects"""
@@ -205,6 +203,9 @@ class PostJSON(json_scraper.JSONScraper):
             "shortcode_media"
         ]["edge_media_to_tagged_user"]["edges"]
         return [user["node"]["user"]["username"] for user in tagged_users_json]
+
+
+Post.set_associated_json(PostJSON)
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/p/CFQNno8hSDX/"

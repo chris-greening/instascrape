@@ -20,13 +20,13 @@ class Profile(static_scraper.StaticHTMLScraper):
     static_load(session=requests.Session())
         Makes request to URL, instantiates BeautifulSoup, finds JSON data,
         then parses JSON data.
+    get_recent_posts()
+        Scrape the most recent 12 posts from the profile into PostJSON objects
     """
 
-    def _scrape_json(self, json_data: dict):
-        """Scrape JSON data and load into instances namespace"""
-        self.data = ProfileJSON()
-        self.data.parse_full(json_data)
-        self._load_json_into_namespace(self.data)
+    def _scrape_json(self, json_dict: dict):
+        """Scrape the JSON"""
+        super()._scrape_json(json_dict)
 
     def get_recent_posts(self):
         """Get data from the 12 most recent posts"""
@@ -128,6 +128,9 @@ class ProfileJSON(json_scraper.JSONScraper):
         self.username = prof_dict["username"]
         self.connected_fb_page = prof_dict["connected_fb_page"]
         self.amount_of_posts = prof_dict["edge_owner_to_timeline_media"]["count"]
+
+
+Profile.set_associated_json(ProfileJSON)
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
