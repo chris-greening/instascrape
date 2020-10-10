@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import sys
 import os
+import datetime
+from typing import Any
 # sys.path.insert(0, os.path.abspath('..'))
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from . import static_scraper
+from . import json_scraper
 
 class Hashtag(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram hashtag page.
+    Scraper for gathering data from a hashtag page.
 
     Attribues
     ---------
@@ -79,17 +81,25 @@ class HashtagJSON(json_scraper.JSONScraper):
         returns a JSONData object with that dictionary
     """
 
-    def parse_json(self, *args, **kwargs) -> None:
-        super().parse_json(*args, **kwargs)
+    def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
+        """Parse .json data from window"""
+        self.json_dict = window_dict
+        self.parse_base(window_dict, missing, exception)
+        tag_dict = window_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+        self.parse_partial(tag_dict, missing, exception)
 
-        tag_data = self.json_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
-        self.id = tag_data["id"]
-        self.name = tag_data["name"]
-        self.allow_following = tag_data["allow_following"]
-        self.is_following = tag_data["is_following"]
-        self.is_top_media_only = tag_data["is_top_media_only"]
-        self.profile_pic_url = tag_data["profile_pic_url"]
-        self.amount_of_posts = tag_data["edge_hashtag_to_media"]["count"]
+        self.scrape_timestamp = datetime.datetime.now()
+
+    def parse_partial(self, tag_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
+        self.id = tag_dict["id"]
+        self.name = tag_dict["name"]
+        self.allow_following = tag_dict["allow_following"]
+        self.is_following = tag_dict["is_following"]
+        self.is_top_media_only = tag_dict["is_top_media_only"]
+        self.profile_pic_url = tag_dict["profile_pic_url"]
+        self.amount_of_posts = tag_dict["edge_hashtag_to_media"]["count"]
+
+        self.scrape_timestamp = datetime.datetime.now()
 
 if __name__ == "__main__":
     url = "https://www.instagram.com/explore/tags/worldviewmag/"
