@@ -1,1 +1,1 @@
-from .data_collector import *
+from .interval_collectors import *
