@@ -92,6 +92,10 @@ class StaticHTMLScraper(ABC):
         self.recent_data.parse_full(json_dict)
         self.data_points.append(self.recent_data)
 
+    def clear(self):
+        """Clear all collected data points"""
+        self.data_points = []
+
     @property
     def AssociatedJSON(self):
         raise NotImplementedError
