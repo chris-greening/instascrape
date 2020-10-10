@@ -1,11 +1,14 @@
 from __future__ import annotations
 
-from instascrape import static_scraper
-from instascrape import json_scraper
+from typing import Any
+import datetime
+
+from . import static_scraper
+from . import json_scraper
 
 class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
     """
-    Representation of an Instagram profile page.
+    Scraper for the login and signup page.
 
     Attribues
     ---------
@@ -21,14 +24,17 @@ class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
 
     def _scrape_json(self, json_data: dict):
         """Scrape JSON data and load into instances namespace"""
-        self.data = LoginAndSignupJSON(json_data)
+        self.data = LoginAndSignupJSON()
+        self.data.parse_full(json_data)
         self._load_json_into_namespace(self.data)
 
-
 class LoginAndSignupJSON(json_scraper.JSONScraper):
-    def parse_json(self, *args, **kwargs) -> None:
-        super().parse_json(*args, **kwargs)
+    def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
+        """Parse .json data from window"""
+        self.json_dict = window_dict
+        self.parse_base(window_dict, missing, exception)
 
+        self.scrape_timestamp = datetime.datetime.now()
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/accounts/login"

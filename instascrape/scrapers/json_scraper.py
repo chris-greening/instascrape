@@ -5,7 +5,7 @@ import datetime
 
 from typing import List, Any
 
-from .exceptions import exceptions
+from ..exceptions import exceptions
 
 class JSONScraper(ABC):
     """
@@ -34,47 +34,43 @@ class JSONScraper(ABC):
         returns a JSONData object with that dictionary
     """
 
-    _METADATA_KEYS = ["json_dict", "name"]
+    _METADATA_KEYS = ["json_dict", "name", 'parse_timestamp']
 
-    def __init__(self, json_dict: dict, name: str = None) -> None:
-        """Container for storing all scraped data from Instagram JSON"""
-        self.json_dict = json_dict
-        if name is not None:
-            self.name = name
+    def __init__(self, name: str=None) -> None:
+        self.name = name
 
-    def parse_json(self, missing: Any = 'ERROR', exception: bool = True) -> None:
-        """Parse JSON object"""
-        config = self.json_dict["config"]
+    def parse_base(self, json_dict, missing: Any = 'ERROR', exception: bool = True):
+        config = json_dict["config"]
         self.csrf_token = self.load_value(config, "csrf_token", missing, exception)
 
         self.country_code = self.load_value(
-            self.json_dict, "country_code", missing, exception)
+            json_dict, "country_code", missing, exception)
         self.language_code = self.load_value(
-            self.json_dict, "language_code", missing, exception)
+            json_dict, "language_code", missing, exception)
         self.locale = self.load_value(
-            self.json_dict, "locale", missing, exception)
+            json_dict, "locale", missing, exception)
 
         self.hostname = self.load_value(
-            self.json_dict, "hostname", missing, exception)
+            json_dict, "hostname", missing, exception)
         self.is_whitelisted_crawl_bot = self.load_value(
-            self.json_dict, "is_whitelisted_crawl_bot", missing, exception
+            json_dict, "is_whitelisted_crawl_bot", missing, exception
         )
         self.connection_quality_rating = self.load_value(
-            self.json_dict, "connection_quality_rating", missing, exception
+            json_dict, "connection_quality_rating", missing, exception
         )
         self.platform = self.load_value(
-            self.json_dict, "platform", missing, exception)
+            json_dict, "platform", missing, exception)
 
         self.browser_push_pub_key = self.load_value(
-            self.json_dict, "browser_push_pub_key", missing, exception
+            json_dict, "browser_push_pub_key", missing, exception
         )
         self.device_id = self.load_value(
-            self.json_dict, "device_id", missing, exception)
+            json_dict, "device_id", missing, exception)
         self.encryption = self.load_value(
-            self.json_dict, "encryption", missing, exception)
+            json_dict, "encryption", missing, exception)
 
         self.rollout_hash = self.load_value(
-            self.json_dict, "rollout_hash", missing, exception)
+            json_dict, "rollout_hash", missing, exception)
 
     @property
     def scraped_attr(self) -> List[str]:
@@ -144,49 +140,49 @@ class JSONScraper(ABC):
             return_val = missing
         return return_val
 
-    @classmethod
-    def from_json_string(cls, json_string: str, name: str = None):
-        """
-        Factory method for returning a JSONData object given a string
-        representation of JSON data.
+    # @classmethod
+    # def from_json_string(cls, json_string: str, name: str = None):
+    #     """
+    #     Factory method for returning a JSONData object given a string
+    #     representation of JSON data.
 
-        Parameters
-        ----------
-        json_string : str
-            String representation of the JSON data for loading into dict
-        name : str, optional
-            Optional name of the JSON data
+    #     Parameters
+    #     ----------
+    #     json_string : str
+    #         String representation of the JSON data for loading into dict
+    #     name : str, optional
+    #         Optional name of the JSON data
 
-        Returns
-        -------
-        JSONData : JSONData
-            JSONData  object containing the JSON data loaded from string as a dictionary
+    #     Returns
+    #     -------
+    #     JSONData : JSONData
+    #         JSONData  object containing the JSON data loaded from string as a dictionary
 
-        """
-        return cls(json.loads(json_string), name)
+    #     """
+    #     return cls(json.loads(json_string), name)
 
-    @classmethod
-    def from_json_file(cls, json_fpath: str, name: str = None):
-        """
-        Factory method for returning a JSONData object given a filepath
-        to a .json file that contains valid JSON data.
+    # @classmethod
+    # def from_json_file(cls, json_fpath: str, name: str = None):
+    #     """
+    #     Factory method for returning a JSONData object given a filepath
+    #     to a .json file that contains valid JSON data.
 
-        Parameters
-        ----------
-        json_fpath : str
-            Filepath to the .json file
-        name : str, optional
-            Optional name of the JSON data
+    #     Parameters
+    #     ----------
+    #     json_fpath : str
+    #         Filepath to the .json file
+    #     name : str, optional
+    #         Optional name of the JSON data
 
-        Returns
-        -------
-        JSONData : JSONData
-            JSONData object containing the JSON data loaded from file as a dictionary
+    #     Returns
+    #     -------
+    #     JSONData : JSONData
+    #         JSONData object containing the JSON data loaded from file as a dictionary
 
-        """
-        with open(json_fpath, "r") as infile:
-            json_data = json.load(infile)
-        return cls(json_data, name)
+    #     """
+    #     with open(json_fpath, "r") as infile:
+    #         json_data = json.load(infile)
+    #     return cls(json_data, name)
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
