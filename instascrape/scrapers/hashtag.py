@@ -1,4 +1,5 @@
 from __future__ import annotations
+# pylint: disable=used-before-assignment
 
 import sys
 import os
@@ -25,10 +26,9 @@ class Hashtag(static_scraper.StaticHTMLScraper):
         then parses JSON data.
     """
 
-    def _scrape_json(self, json_data: dict):
+    def _scrape_json(self, json_dict: dict):
         """Scrape the JSON"""
-        self.data = HashtagJSON(json_data)
-        self._load_json_into_namespace(self.data)
+        super()._scrape_json(json_dict)
 
     @classmethod
     def from_hashtag(cls, hashtag: str):
@@ -53,7 +53,6 @@ class Hashtag(static_scraper.StaticHTMLScraper):
         """
         url = f"https://www.instagram.com/tags/{hashtag}/"
         return cls(url, name=hashtag)
-
 
 class HashtagJSON(json_scraper.JSONScraper):
     """
@@ -100,6 +99,10 @@ class HashtagJSON(json_scraper.JSONScraper):
         self.amount_of_posts = tag_dict["edge_hashtag_to_media"]["count"]
 
         self.scrape_timestamp = datetime.datetime.now()
+
+
+Hashtag.set_associated_json(HashtagJSON)
+
 
 if __name__ == "__main__":
     url = "https://www.instagram.com/explore/tags/worldviewmag/"

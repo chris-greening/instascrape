@@ -37,6 +37,7 @@ class StaticHTMLScraper(ABC):
         self.url = url
         if name is not None:
             self.name = name
+        self.data_points = []
 
     def static_load(self, session=requests.Session()):
         self._scrape_url(self.url, session=session)
@@ -83,12 +84,21 @@ class StaticHTMLScraper(ABC):
         """Parse and load JSON data into objects namespace"""
         self.__dict__.update(data.to_dict())
 
-    @abstractmethod
-    def _scrape_json(self, json_data):
+    def _scrape_json(self, json_dict):
         """
         Specific way of scraping the JSON data is left up to the subclasses
         """
-        pass
+        self.recent_data = self.AssociatedJSON()
+        self.recent_data.parse_full(json_dict)
+        self.data_points.append(self.recent_data)
+
+    @property
+    def AssociatedJSON(self):
+        raise NotImplementedError
+
+    @classmethod
+    def set_associated_json(cls, AssociatedJSON):
+        cls.AssociatedJSON = AssociatedJSON
 
     def __repr__(self):
         return f"<{self.url}: {type(self).__name__}>"
