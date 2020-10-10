@@ -7,7 +7,7 @@ import requests
 
 from . import static_scraper
 from . import json_scraper
-from .hashtag_scraper import HashtagScraper
+from .hashtag import Hashtag
 
 class Post(static_scraper.StaticHTMLScraper):
     """
@@ -47,7 +47,7 @@ class Post(static_scraper.StaticHTMLScraper):
         for tag in self.hashtags:
             if status_output:
                 print(f"Loading {tag}")
-            tag_obj = HashtagScraper.from_hashtag(tag)
+            tag_obj = Hashtag.from_hashtag(tag)
             tag_obj.static_load(session=session)
 
     @classmethod
@@ -208,5 +208,5 @@ class PostJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/p/CFQNno8hSDX/"
-    post = PostScraper(url)
+    post = Post(url)
     post.static_load()

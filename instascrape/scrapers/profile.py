@@ -4,7 +4,7 @@ from typing import Any
 
 from . import static_scraper
 from . import json_scraper
-from .post_scraper import PostJSON
+from .post import PostJSON
 
 class Profile(static_scraper.StaticHTMLScraper):
     """
@@ -131,5 +131,5 @@ class ProfileJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/chris_greening/"
-    profile = ProfileScraper(url)
+    profile = Profile(url)
     profile.static_load()

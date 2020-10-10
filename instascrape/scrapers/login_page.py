@@ -38,5 +38,5 @@ class LoginAndSignupJSON(json_scraper.JSONScraper):
 
 if __name__ == "__main__":
     url = r"https://www.instagram.com/accounts/login"
-    login = LoginAndSignupScraper(url)
+    login = LoginAndSignupPage(url)
     login.static_load()
