@@ -184,6 +184,9 @@ class JSONScraper(ABC):
     #         json_data = json.load(infile)
     #     return cls(json_data, name)
 
+    def __getitem__(self, key):
+        return getattr(self, key)
+
     def __repr__(self) -> str:
         class_name = type(self).__name__
         output_str = "<{}: " + f"{class_name}>"
