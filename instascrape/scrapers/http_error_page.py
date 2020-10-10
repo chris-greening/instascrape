@@ -6,7 +6,7 @@ import datetime
 from . import static_scraper
 from . import json_scraper
 
-class HttpErrorScraper(static_scraper.StaticHTMLScraper):
+class HttpErrorPage(static_scraper.StaticHTMLScraper):
     """
     Scraper for an HTTP Error page.
 

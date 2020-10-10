@@ -6,7 +6,7 @@ from . import static_scraper
 from . import json_scraper
 from .post_scraper import PostJSON
 
-class ProfileScraper(static_scraper.StaticHTMLScraper):
+class Profile(static_scraper.StaticHTMLScraper):
     """
     Scraper for a profile page.
 
