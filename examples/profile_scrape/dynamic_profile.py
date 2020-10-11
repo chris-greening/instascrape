@@ -20,22 +20,16 @@ chrome_options.add_experimental_option("prefs", prefs)
 class DynamicProfile(Profile):
     """Subclass of Profile to provide some dynamic functionality using Selenium"""
 
-    def dynamic_load(self, max_posts=sys.maxsize):
+    def dynamic_load(self, browser, max_posts=sys.maxsize):
         """Scroll the users Profile page and load all posts into Post objects"""
-        source_data, browser = self._scroll_page()
+        source_data = self._scroll_page(browser)
         post_soup = self._seperate_posts(source_data)
         self._create_post_objects(post_soup, max_posts)
         self._grab_useful_data()
         browser.close()
 
-    def _scroll_page(self):
+    def _scroll_page(self, browser):
         """Scroll page and load the source code"""
-        root_dir = Path(__file__).parent.parent.parent
-        if platform == "linux" or platform == "linux2" or platform == 'darwin':
-            path = 'chromedrivers'
-        else:
-            path = 'win.exe'
-        browser = Chrome(os.path.join(root_dir, 'chromedrivers/{}'.format(path)), options=chrome_options)
         browser.get(self.url)
 
         source_data = []
