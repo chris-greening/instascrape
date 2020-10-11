@@ -43,9 +43,9 @@ Example of Instagram likes per post data scraped using instascrape (this reposit
 
 ## Installation
 
-### Python versions compatibility
+### Minimum Python version
 
-Due the use of annotations from future the minimum version to run this library it is `python 3.7`
+This library currently requires [Python 3.7](https://www.python.org/downloads/release/python-370/) or higher.
 
 
 ### pip
