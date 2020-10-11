@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import static_scraper
-from . import json_scraper
-from .post import PostJSON
+from instascrape.scrapers import static_scraper
+from instascrape.scrapers import json_scraper
+from instascrape.scrapers import PostJSON
 
 class Profile(static_scraper.StaticHTMLScraper):
     """

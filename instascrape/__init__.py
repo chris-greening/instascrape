@@ -1,2 +1,2 @@
-from .scrapers import *
-from .collectors import *
+from instascrape.scrapers import *
+from instascrape.collectors import *

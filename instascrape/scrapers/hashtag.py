@@ -7,8 +7,8 @@ import datetime
 from typing import Any
 # sys.path.insert(0, os.path.abspath('..'))
 
-from . import static_scraper
-from . import json_scraper
+from instascrape.scrapers import static_scraper
+from instascrape.scrapers import json_scraper
 
 class Hashtag(static_scraper.StaticHTMLScraper):
     """

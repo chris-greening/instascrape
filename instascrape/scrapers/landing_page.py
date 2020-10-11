@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import Any
 import datetime
 
-from . import static_scraper
-from . import json_scraper
+from instascrape.scrapers import static_scraper
+from instascrape.scrapers import json_scraper
 
 class LandingPage(static_scraper.StaticHTMLScraper):
     """
