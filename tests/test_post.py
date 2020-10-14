@@ -24,3 +24,9 @@ def test_from_shortcode(google_post):
 
     assert result_post.url == google_post.url
     assert result_post.data_points[0].caption == google_post.data_points[0].caption
+
+def test_tagged_users(google_post):
+    expected_tags = ["jimmyfallon", "fallontonight"]
+
+    tagged_arr = google_post.data_points[0].get_tagged_users()
+    assert all([tag in expected_tags for tag in tagged_arr])
