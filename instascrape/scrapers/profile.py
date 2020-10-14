@@ -30,12 +30,13 @@ class Profile(static_scraper.StaticHTMLScraper):
 
     def get_recent_posts(self):
         """Get data from the 12 most recent posts"""
-        self.posts = []
+        posts = []
         for post_json in self.recent_data.json_dict['entry_data']['ProfilePage'][0][
             'graphql']['user']['edge_owner_to_timeline_media']['edges']:
             post = PostJSON()
             post.parse_from_profile(post_json['node'], exception=False)
-            self.posts.append(post)
+            posts.append(post)
+        return posts
 
     @classmethod
     def from_username(cls, username: str):
