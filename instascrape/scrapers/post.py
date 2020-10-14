@@ -39,14 +39,19 @@ class Post(static_scraper.StaticHTMLScraper):
         """Scrape the JSON"""
         super()._scrape_json(json_dict)
 
-    def scrape_hashtags(self, session=requests.Session(), status_output=False):
-        """Load hashtags used in post as Hashtag objects"""
-        self.hashtag_objects = []
+    def scrape_hashtags(self, session=requests.Session(), status_output=False) -> List[Hashtag]:
+        """
+        Return list of string hashtags converted to Hashtag instances that were
+        used in post
+        """
+        hashtag_objects = []
         for tag in self.hashtags:
             if status_output:
                 print(f"Loading {tag}")
             tag_obj = Hashtag.from_hashtag(tag)
             tag_obj.static_load(session=session)
+            hashtag_objects.append(tag_obj)
+        return hashtag_objects
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
