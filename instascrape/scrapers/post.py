@@ -113,7 +113,7 @@ class PostJSON(json_scraper.JSONScraper):
             self.load_value(post_dict, "taken_at_timestamp", missing, exception)
         )
         self.accessibility_caption = self.load_value(
-            post_dict, "accessibility_caption")
+            post_dict, "accessibility_caption", missing=missing, exception=False)
         self.likes = self.load_value(
             post_dict["edge_media_preview_like"], "count")
         self.amount_of_comments = self.load_value(
