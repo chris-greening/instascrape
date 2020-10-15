@@ -43,13 +43,21 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     Parameters
     ----------
     json_data: Union[JSONDict, str]
+        JSON data that will be checked and parsed to determine what type of page
+        the program is looking at (Profile, Post, Hashtag, etc)
 
     Returns
     -------
-
+    instagram_type : str
+        Name of the type of page the program is currently parsing or looking at
     """
+    if type(json_data) is not dict:
+        json_data = json.loads(json_data)
+    instagram_type = list(json_data['entry_data'])[0]
+    return instagram_type
 
 if __name__ == '__main__':
     import requests
     source = requests.get('https://www.instagram.com/chris_greening').text
     data = json_from_source(source)
+    print(determine_json_type(data))
