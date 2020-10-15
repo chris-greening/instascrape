@@ -26,6 +26,7 @@ class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
         """Scrape the JSON"""
         super()._scrape_json(json_dict)
 
+
 class LoginAndSignupJSON(json_scraper.JSONScraper):
     def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
         """Parse .json data from window"""
