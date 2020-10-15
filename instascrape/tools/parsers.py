@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from typing import Union, Dict, Any
 import json 
+
 from bs4 import BeautifulSoup
+import requests
 
 JSONDict = Dict[str, Any]
 
-def json_from_source(source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
+#TODO: look into emulating some sort of multiple dispatch for getting JSON data
+# from HTML, soup, URL, file, etc... all from one function call
+def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
     """
     Return JSON data parsed from Instagram source HTML
     
@@ -21,7 +25,7 @@ def json_from_source(source: Union[str, BeautifulSoup], as_dict: bool = True) ->
     -------
     json_data : Union[JSONDict, str]
         Parsed JSON data from the HTML source as either a JSON-like dictionary
-        or just the string
+        or just the string serialization
     """
     if type(source) is not BeautifulSoup:
         source = BeautifulSoup(source, features='lxml')
@@ -56,8 +60,31 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     instagram_type = list(json_data['entry_data'])[0]
     return instagram_type
 
+def json_from_url(url: str, as_dict: bool = True) -> Union[JSONDict, str]:
+    """
+    Return JSON data parsed from a provided Instagram URL
+
+    Parameters
+    ----------
+    url : str
+        URL of the page to get the JSON data from
+    as_dict : bool = True
+        Return JSON as dict if True else return JSON as string
+
+    Returns
+    -------
+    json_data : Union[JSONDict, str]
+        Parsed JSON data from the URL as either a JSON-like dictionary
+        or just the string serialization
+    """
+    source = requests.get(url).text
+    json_data = json_from_html(source=source, as_dict=as_dict)
+    return json_data
+
 if __name__ == '__main__':
     import requests
     source = requests.get('https://www.instagram.com/chris_greening').text
-    data = json_from_source(source)
+    data = json_from_html(source)
     print(determine_json_type(data))
+
+
