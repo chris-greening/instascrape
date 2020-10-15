@@ -13,7 +13,7 @@ class Post(static_scraper.StaticHTMLScraper):
     """
     Scraper for a single post.
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an existing Instagram profile

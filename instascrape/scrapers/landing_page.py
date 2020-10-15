@@ -10,7 +10,7 @@ class LandingPage(static_scraper.StaticHTMLScraper):
     """
     Scraper for the landing page.
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an existing Instagram profile
