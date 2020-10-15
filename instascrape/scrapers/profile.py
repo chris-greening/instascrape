@@ -10,7 +10,7 @@ class Profile(static_scraper.StaticHTMLScraper):
     """
     Scraper for a profile page.
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an existing Instagram profile
