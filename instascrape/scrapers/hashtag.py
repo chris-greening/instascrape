@@ -1,8 +1,6 @@
 from __future__ import annotations
 # pylint: disable=used-before-assignment
 
-import sys
-import os
 import datetime
 from typing import Any
 # sys.path.insert(0, os.path.abspath('..'))
@@ -14,16 +12,15 @@ class Hashtag(static_scraper.StaticHTMLScraper):
     """
     Scraper for gathering data from a hashtag page.
 
-    Attribues
+    Attributes
     ---------
-    url : str
+    hashtag : str
         Full URL to a Instagram hashtag
 
     Methods
     -------
-    static_load(session=requests.Session())
-        Makes request to URL, instantiates BeautifulSoup, finds JSON data,
-        then parses JSON data.
+    from_hashtag(hashtag)
+        Creates a StaticHTMLScraper to scrape hastags page
     """
 
     def _scrape_json(self, json_dict: dict):
@@ -56,7 +53,7 @@ class Hashtag(static_scraper.StaticHTMLScraper):
 
 class HashtagJSON(json_scraper.JSONScraper):
     """
-    Tool for parsing data fron Instagram hashtag JSON data
+    Tool for parsing data from Instagram hashtag JSON data
 
     Attributes
     ----------
@@ -67,17 +64,10 @@ class HashtagJSON(json_scraper.JSONScraper):
 
     Methods
     -------
-    parse_json() -> None
-        Parses the JSON data regarding a single Instagram hashtag
-    load_value(data_dict: dict, key: str, fail_return: Any=None)
-        Returns value in dictionary at the specified key. If value doesn't
-        exist, returns a default value
-    from_json_string(json_str: str, name: str = None)
-        Loads a json string as a dictionary and returns a JSONData object with
-        that dictionary.
-    from_json_file(json_fpath: str, name: str = None)
-        Loads a json file at a given JSON filepath into a dictionary and
-        returns a JSONData object with that dictionary
+    parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None
+        Parse .json data from window
+    parse_partial(self, tag_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None
+        Parse partial data from tag dictionary
     """
 
     def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:

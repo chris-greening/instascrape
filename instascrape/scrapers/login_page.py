@@ -10,7 +10,7 @@ class LoginAndSignupPage(static_scraper.StaticHTMLScraper):
     """
     Scraper for the login and signup page.
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an existing Instagram profile

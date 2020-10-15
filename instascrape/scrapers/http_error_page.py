@@ -10,7 +10,7 @@ class HttpErrorPage(static_scraper.StaticHTMLScraper):
     """
     Scraper for an HTTP Error page.
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an existing Instagram profile
@@ -27,6 +27,14 @@ class HttpErrorPage(static_scraper.StaticHTMLScraper):
         super()._scrape_json(json_dict)
 
 class HttpErrorPageJSON(json_scraper.JSONScraper):
+    """
+    Scraper for an JSON Error page.
+
+    Methods
+    -------
+    parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None
+        Get the data from a dict in JSON format
+    """
     def parse_full(self, window_dict: dict, missing: Any = "ERROR", exception: bool = True) -> None:
         """Parse .json data from window"""
         self.json_dict = window_dict
