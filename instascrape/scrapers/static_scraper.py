@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import datetime
-from typing import Dict
+from typing import Dict, List
 from abc import ABC, abstractmethod
 
 import requests
@@ -13,7 +13,7 @@ class StaticHTMLScraper(ABC):
     Abstract base class for the Profile, Post, and Hashtag subclasses
     that handles much of the routine scraping methods
 
-    Attribues
+    Attributes
     ---------
     url : str
         Full URL to an Instagram page
@@ -50,7 +50,7 @@ class StaticHTMLScraper(ABC):
             if key not in StaticHTMLScraper._METADATA_KEYS
         }
 
-    def to_list(self) -> dict:
+    def to_list(self) -> List:
         return [
             (key, val)
             for key, val in self.__dict__.items()
