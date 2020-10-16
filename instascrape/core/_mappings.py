@@ -1,7 +1,8 @@
 from collections import deque
 from copy import deepcopy
+from abc import ABC
 
-class _GeneralMapping:
+class _GeneralMapping(ABC):
     """General mappings to the JSON data that are present in all JSON data"""
     mapping = {
         'config': deque(['config', 'csrf_token']),
