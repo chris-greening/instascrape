@@ -14,7 +14,7 @@ from instascrape.scrapers.json_scraper import JsonScraper
 from instascrape.core._mappings import _MetaMapping
 
 class _StaticHtmlScraper(ABC):
-    _METADATA_KEYS = ['json_dict', 'url', '_json_scraper']
+    _METADATA_KEYS = ['json_dict', 'url', '_json_scraper', 'scrape_timestamp']
 
     def __init__(self, url, name=None):
         """
@@ -32,6 +32,7 @@ class _StaticHtmlScraper(ABC):
         mapper = _MetaMapping.get_mapper(map_type)
         scraped_dict = self._json_scraper.parse_json(json_dict=self.json_dict, map_dict=mapper.return_mapping())
         self._load_into_namespace(scraped_dict=scraped_dict)
+        self.scrape_timestamp = datetime.datetime.now()
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         data_dict = {
