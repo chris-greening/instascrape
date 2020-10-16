@@ -4,6 +4,8 @@ import json
 import datetime
 from typing import Dict, Any
 from abc import ABC, abstractmethod
+import csv
+import json
 
 import requests
 from bs4 import BeautifulSoup
@@ -12,7 +14,7 @@ from instascrape.scrapers.json_scraper import JsonScraper
 from instascrape.core._mappings import _MetaMapping
 
 class _StaticHtmlScraper(ABC):
-    _METADATA_KEYS = ['json_dict', 'url']
+    _METADATA_KEYS = ['json_dict', 'url', '_json_scraper']
 
     def __init__(self, url, name=None):
         """
@@ -38,6 +40,16 @@ class _StaticHtmlScraper(ABC):
                 if key not in self._METADATA_KEYS
         } if not metadata else self.__dict__
         return data_dict
+
+    def to_csv(self, fp: str, metadata: bool = False):
+        with open(fp, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            for key, value in self.to_dict(metadata=metadata).items():
+                writer.writerow([key, value])
+
+    def to_json(self, fp: str, metadata: bool = False):
+        with open(fp, 'w') as outjson:
+            json.dump(self.to_dict(metadata=metadata), outjson)
 
     def __getitem__(self, key):
         return getattr(self, key)
