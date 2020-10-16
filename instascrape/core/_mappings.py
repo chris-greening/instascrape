@@ -119,12 +119,16 @@ class _HashtagMapping(_GeneralMapping):
         'amount_of_posts': deque(tag + ['edge_hashtag_to_media', 'count']),
     })
 
+class _LoginMapping(_GeneralMapping):
+    mapping = _GeneralMapping.return_mapping().copy()
+
 class _MetaMapping:
     """Map the page type to the necessary mapping class"""
     mapping = {
         "ProfilePage": _ProfileMapping,
         "TagPage": _HashtagMapping,
-        "PostPage": _PostMapping
+        "PostPage": _PostMapping,
+        "LoginAndSignupPage": _LoginMapping
     }
 
     @classmethod
