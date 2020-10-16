@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import datetime
-from typing import Dict, Any
+from typing import Dict, Any, List
 from abc import ABC, abstractmethod
 import csv
 import json
@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from instascrape.scrapers.json_scraper import JsonScraper
 
 class _StaticHtmlScraper(ABC):
-    _METADATA_KEYS = ['json_dict', 'url', '_json_scraper', 'scrape_timestamp']
+    _METADATA_KEYS = ['json_dict', 'url', '_json_scraper', 'scrape_timestamp', 'map_dict', 'json_data']
 
     def __init__(self, url, name=None):
         """
@@ -26,9 +26,11 @@ class _StaticHtmlScraper(ABC):
         self.url = url
         self._json_scraper = JsonScraper()
 
-    def load(self):
+    def load(self, keys=List[str]):
+        if type(keys) == str:
+            keys = [keys]
         self.json_dict = self._json_scraper.json_from_url(self.url)
-        scraped_dict = self._json_scraper.parse_json(json_dict=self.json_dict, map_dict=self._Mapping.return_mapping())
+        scraped_dict = self._json_scraper.parse_json(json_dict=self.json_dict, map_dict=self._Mapping.return_mapping(keys=keys))
         self._load_into_namespace(scraped_dict=scraped_dict)
         self.scrape_timestamp = datetime.datetime.now()
 
