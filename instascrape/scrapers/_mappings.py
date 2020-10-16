@@ -1,7 +1,7 @@
 from collections import deque
 from copy import deepcopy
 
-class GeneralMapping:
+class _GeneralMapping:
     """General mappings to the JSON data that are present in all JSON data"""
     mapping = {
         'config': deque(['config', 'csrf_token']),
@@ -26,8 +26,8 @@ class GeneralMapping:
             keys = list(cls.mapping)
         return {key: deepcopy(cls.mapping[key]) for key in keys}
 
-class PostMapping(GeneralMapping):
-    mapping = GeneralMapping.return_mapping().copy()
+class _PostMapping(_GeneralMapping):
+    mapping = _GeneralMapping.return_mapping().copy()
     post_page = ['entry_data', 'PostPage', 0]
     post = post_page + ['graphql', 'shortcode_media']
     mapping.update({
@@ -61,8 +61,8 @@ class PostMapping(GeneralMapping):
         'viewer_can_reshare': deque(post + ['viewer_can_reshare']),
     })
 
-class ProfileMapping(GeneralMapping):
-    mapping = GeneralMapping.return_mapping().copy()
+class _ProfileMapping(_GeneralMapping):
+    mapping = _GeneralMapping.return_mapping().copy()
     profile_page = ['entry_data', 'ProfilePage', 0]
     user = profile_page + ['graphql', 'user']
     mapping.update({
@@ -105,8 +105,8 @@ class ProfileMapping(GeneralMapping):
         'posts': deque(user + ['edge_owner_to_timeline_media', 'count']),
     })
 
-class HashtagMapping(GeneralMapping):
-    mapping = GeneralMapping.return_mapping().copy()
+class _HashtagMapping(_GeneralMapping):
+    mapping = _GeneralMapping.return_mapping().copy()
     hashtag_page = ['entry_data', 'TagPage', 0]
     tag = hashtag_page + ['graphql', 'hashtag']
     mapping.update({
@@ -119,14 +119,14 @@ class HashtagMapping(GeneralMapping):
         'amount_of_posts': deque(tag + ['edge_hashtag_to_media', 'count']),
     })
 
-class MetaMapping:
+class _MetaMapping:
     """Map the page type to the necessary mapping class"""
     mapping = {
-        "ProfilePage": ProfileMapping,
-        "TagPage": HashtagMapping,
-        "PostPage": PostMapping
+        "ProfilePage": _ProfileMapping,
+        "TagPage": _HashtagMapping,
+        "PostPage": _PostMapping
     }
 
     @classmethod
-    def get_mapper(cls, page_type):
+    def get_mapper(cls, page_type: str):
         return cls.mapping[page_type]
