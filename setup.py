@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/chris-greening/instascrape",
     packages=["instascrape"],
-    install_requires=["requests", "beautifulsoup4", "selenium"],
+    install_requires=["requests", "beautifulsoup4"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
