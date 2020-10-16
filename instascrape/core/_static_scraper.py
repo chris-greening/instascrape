@@ -26,11 +26,16 @@ class _StaticHtmlScraper(ABC):
         self.url = url
         self._json_scraper = JsonScraper()
 
-    def load(self, keys=List[str]):
+    def load(self, keys: List[str] = [], exclude: List[str] = []):
         if type(keys) == str:
             keys = [keys]
+        if type(exclude) == str:
+            exclude = [exclude]
         self.json_dict = self._json_scraper.json_from_url(self.url)
-        scraped_dict = self._json_scraper.parse_json(json_dict=self.json_dict, map_dict=self._Mapping.return_mapping(keys=keys))
+        scraped_dict = self._json_scraper.parse_json(
+                                json_dict=self.json_dict,
+                                map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude)
+                            )
         self._load_into_namespace(scraped_dict=scraped_dict)
         self.scrape_timestamp = datetime.datetime.now()
 

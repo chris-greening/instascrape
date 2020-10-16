@@ -10,7 +10,7 @@ from instascrape.core._mappings import _PostMapping
 class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
 
-    def load(self, keys: List[str]):
+    def load(self, keys: List[str] = [], exclude: List[str] = []):
         super().load(keys=keys)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
