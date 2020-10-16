@@ -4,7 +4,7 @@ from sys import platform
 import time
 from pathlib import Path
 
-from pandas import DataFrame
+import pandas as pd
 import numpy as np
 from selenium.webdriver import Chrome, ChromeOptions
 from bs4 import BeautifulSoup
@@ -48,7 +48,7 @@ class DynamicProfile(Profile):
     def _seperate_posts(self, source_data):
 
         post_soup = []
-        for source in source_data:
+        for source in source_data[0]:
             soup = BeautifulSoup(source, features="lxml")
             # posts = soup.find("span", {"id":"react-root"})
 
@@ -74,11 +74,22 @@ class DynamicProfile(Profile):
             if i % 10 == 0:
                 print('Read {} posts'.format(i))
             try:
-                post.static_load()
+                post.load()
             except Exception as e:
                 print(e)
 
 
 if __name__ == "__main__":
     chris = DynamicProfile.from_username("chris_greening")
-    chris.dynamic_load()
+    chris.load()
+    chris.dynamic_load(Chrome('/tmp/chromedriver'), max_posts=15)
+
+    data_arr = []
+    for post in chris.posts:
+        try:
+            data_arr.append((post.upload_date, post.likes, post.comments))
+            print(data_arr)
+        except AttributeError as e:
+            print(e)
+            pass
+
