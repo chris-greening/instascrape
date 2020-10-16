@@ -7,16 +7,16 @@ from instascrape.scrapers import *
 
 class InstaScrape:
     def scrape_profile(self, username: str) -> Dict[str, str]:
-        profile_obj = Profile.from_username(username)
-        profile_obj.load()
-        return profile_obj.recent_data.to_dict()
+        profile = Profile.from_username(username)
+        profile.load()
+        return profile.to_dict()
 
     def scrape_post(self, url: str) -> Dict[str, str]:
-        post_obj = Post(url)
-        post_obj.load()
-        return post_obj.recent_data.to_dict()
+        post = Post(url)
+        post.load()
+        return post.recent_data.to_dict()
 
     def scrape_hashtag(self, hashtag: str) -> Dict[str, str]:
-        hashtag_obj = Hashtag.from_hashtag(hashtag)
-        hashtag_obj.load()
-        return hashtag_obj.recent_data.to_dict()
+        hashtag = Hashtag.from_hashtag(hashtag)
+        hashtag.load()
+        return hashtag.recent_data.to_dict()
