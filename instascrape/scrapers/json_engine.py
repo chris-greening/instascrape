@@ -5,13 +5,14 @@ from typing import Dict, Union, Any, List
 
 JSONDict = Dict[str, Any]
 
-class JsonEngine:
+class _JsonParseEngine:
     """
     Generalized version of the JSONScraper classes that will act more as a backend engine that
     the user doesn't have to ever worry about or think of
     """
 
     DEFAULT_VAL = float('nan')
+    METADATA_KEYS = ['json_data', 'map_dict']
 
     def __init__(self, json_data: JSONDict, map_dict: Dict[str, deque]) -> None:
         self.json_data = json_data
@@ -33,9 +34,10 @@ class JsonEngine:
         else:
             self._set_value(orig_key, value, directive_queue)
 
-if __name__ == '__main__':
-    from instascrape.tools.parsers import json_from_url
-    from instascrape.scrapers.mappings import ProfileMapping
+    def to_dict(self):
+        return {
+            key: val
+            for key, val in self.__dict__.items()
+                if key not in self.METADATA_KEYS
+            }
 
-    json_dict = json_from_url('https://www.instagram.com/p/CGX0G64hu4Q/')
-    data = JsonEngine(json_dict, ProfileMapping.return_mapping())
