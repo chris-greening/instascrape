@@ -1,9 +1,26 @@
 from collections import deque
 from copy import deepcopy
+from typing import Dict, List
 from abc import ABC
 
 class _GeneralMapping(ABC):
-    """General mappings to the JSON data that are present in all JSON data"""
+    """
+    Maps the user interfacing attribute names with a directive for parsing that
+    data point from JSON data
+
+    Attributes
+    ----------
+    mapping : Dict[str, deque]
+        Each key: val pair represents one data point and the directive for
+        traversing a JSON dict and accessing that value
+
+    Methods
+    -------
+    return_mapping(keys: List[str]=[]) -> Dict[str, deque]
+        Interface for returning only mapping directives that are specified in
+        a list of keys
+
+    """"""General mappings to the JSON data that are present in all JSON data"""
     mapping = {
         'config': deque(['config', 'csrf_token']),
         'viewer': deque(['config', 'viewer']),
@@ -22,9 +39,20 @@ class _GeneralMapping(ABC):
     }
 
     @classmethod
-    def return_mapping(cls, keys=[]):
+    def return_mapping(cls, keys: List[str]=[], exclude: List[str]=[]) -> Dict[str, deque]:
+        """
+        Return key-directive pairs specified by key names. If no keys are
+        specified, return all
+
+        Parameters
+        ----------
+        keys : List[str]
+            Keys that specify what directives to return
+        """
         if not keys:
             keys = list(cls.mapping)
+        if exclude:
+            keys = [key for key in keys if key not in exclude]
         return {key: deepcopy(cls.mapping[key]) for key in keys}
 
 class _PostMapping(_GeneralMapping):
