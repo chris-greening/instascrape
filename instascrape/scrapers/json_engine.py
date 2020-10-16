@@ -1,6 +1,7 @@
-from abc import ABC
-from typing import Dict, Union, Any, List
+from __future__ import annotations
+
 from collections import deque
+from typing import Dict, Union, Any, List
 
 JSONDict = Dict[str, Any]
 
@@ -33,7 +34,8 @@ class JsonEngine:
             self._set_value(orig_key, value, directive_queue)
 
 if __name__ == '__main__':
-    from instascrape import json_from_url
+    from instascrape.tools.parsers import json_from_url
+    from instascrape.scrapers.mappings import ProfileMapping
 
-    json_dict = json_from_url('https://www.instagram.com/chris_greening')
+    json_dict = json_from_url('https://www.instagram.com/p/CGX0G64hu4Q/')
     data = JsonEngine(json_dict, ProfileMapping.return_mapping())
