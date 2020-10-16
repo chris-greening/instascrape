@@ -6,7 +6,7 @@ from typing import List, Any
 
 import requests
 
-from instascrape.scrapers._static_scraper import _StaticHtmlScraper
+from instascrape.core._static_scraper import _StaticHtmlScraper
 
 class Post(_StaticHtmlScraper):
     def load(self):

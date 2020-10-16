@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from instascrape.scrapers._static_scraper import _StaticHtmlScraper
+from instascrape.core._static_scraper import _StaticHtmlScraper
 
 class Profile(_StaticHtmlScraper):
     @classmethod

@@ -5,7 +5,7 @@ import datetime
 from typing import Any
 # sys.path.insert(0, os.path.abspath('..'))
 
-from instascrape.scrapers._static_scraper import _StaticHtmlScraper
+from instascrape.core._static_scraper import _StaticHtmlScraper
 
 class Hashtag(_StaticHtmlScraper):
     @classmethod
