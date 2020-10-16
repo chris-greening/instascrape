@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from instascrape.scrapers import static_scraper
+from instascrape.scrapers._static_scraper import _StaticHtmlScraper
 
-class Profile(static_scraper.StaticHTMLScraper):
+class Profile(_StaticHtmlScraper):
     @classmethod
     def from_username(cls, username: str):
         """
@@ -29,9 +29,3 @@ class Profile(static_scraper.StaticHTMLScraper):
 
         url = f"https://www.instagram.com/{username}/"
         return cls(url, name=username)
-
-
-if __name__ == "__main__":
-    url = r"https://www.instagram.com/chris_greening/"
-    profile = Profile(url)
-    profile.static_load()
