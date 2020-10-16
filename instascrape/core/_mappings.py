@@ -1,7 +1,12 @@
+from __future__ import annotations
+#pylint: disable=used-before-assignment
+
 from collections import deque
 from copy import deepcopy
-from typing import Dict, List
+from typing import Dict, List, Union
 from abc import ABC
+
+MappingObject = Union[_PostMapping, _ProfileMapping, _HashtagMapping, _LoginMapping]
 
 class _GeneralMapping(ABC):
     """
@@ -176,7 +181,6 @@ class _MetaMapping:
     -------
     get_mapper(page_type: str)
         Return the mapping object that correlates to the string
-
     """
     str_to_mapper_obj = {
         "ProfilePage": _ProfileMapping,
@@ -186,5 +190,5 @@ class _MetaMapping:
     }
 
     @classmethod
-    def get_mapper(cls, page_type: str):
+    def get_mapper(cls, page_type: str) -> MappingObject:
         return cls.str_to_mapper_obj[page_type]
