@@ -5,8 +5,11 @@ import datetime
 from typing import List, Any
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
+from instascrape.core._mappings import _PostMapping
 
 class Post(_StaticHtmlScraper):
+    _Mapping = _PostMapping
+
     def load(self):
         super().load()
         self.upload_date = datetime.datetime.fromtimestamp(self.taken_at_timestamp)

@@ -3,11 +3,13 @@ from __future__ import annotations
 
 import datetime
 from typing import Any
-# sys.path.insert(0, os.path.abspath('..'))
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
+from instascrape.core._mappings import _HashtagMapping
 
 class Hashtag(_StaticHtmlScraper):
+    _Mapping = _HashtagMapping
+
     @classmethod
     def from_hashtag(cls, hashtag: str):
         """
