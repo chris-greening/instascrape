@@ -10,9 +10,9 @@ from instascrape.core._mappings import _PostMapping
 class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
 
-    def load(self):
-        super().load()
-        self.upload_date = datetime.datetime.fromtimestamp(self.taken_at_timestamp)
+    def load(self, keys: List[str]):
+        super().load(keys=keys)
+        self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
