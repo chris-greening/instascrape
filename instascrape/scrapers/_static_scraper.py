@@ -31,8 +31,14 @@ class _StaticHtmlScraper(ABC):
         scraped_dict = self._json_scraper.parse_json(json_dict=self.json_dict, map_dict=mapper.return_mapping())
         self._load_into_namespace(scraped_dict=scraped_dict)
 
-    def to_dict(self, include_metadata: bool = False) -> Dict[str, Any]:
-        pass
+    def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
+        data_dict = {
+            key: val
+            for key, val in self.__dict__.items()
+                if key not in self._METADATA_KEYS
+        } if not metadata else self.__dict__
+        return data_dict
+
 
     def _load_into_namespace(self, scraped_dict):
         for key, val in scraped_dict.items():
