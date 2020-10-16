@@ -3,8 +3,11 @@ from __future__ import annotations
 from typing import Any
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
+from instascrape.core._mappings import _ProfileMapping
 
 class Profile(_StaticHtmlScraper):
+    _Mapping = _ProfileMapping
+
     @classmethod
     def from_username(cls, username: str):
         """
