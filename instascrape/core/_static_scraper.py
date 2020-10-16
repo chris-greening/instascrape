@@ -39,6 +39,8 @@ class _StaticHtmlScraper(ABC):
         } if not metadata else self.__dict__
         return data_dict
 
+    def __getitem__(self, key):
+        return getattr(self, key)
 
     def _load_into_namespace(self, scraped_dict):
         for key, val in scraped_dict.items():
