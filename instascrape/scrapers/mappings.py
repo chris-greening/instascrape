@@ -107,5 +107,26 @@ class ProfileMapping(GeneralMapping):
 
 class HashtagMapping(GeneralMapping):
     mapping = GeneralMapping.return_mapping().copy()
-    profile_page = ['entry_data', 'ProfilePage', 0]
-    user = profile_page + ['graphql', 'user']
+    hashtag_page = ['entry_data', 'TagPage', 0]
+    tag = hashtag_page + ['graphql', 'hashtag']
+    mapping.update({
+        'id': deque(tag + ['id']),
+        'name': deque(tag + ['name']),
+        'allow_following': deque(tag + ['allow_following']),
+        'is_following': deque(tag + ['is_following']),
+        'is_top_media_only': deque(tag + ['is_top_media_only']),
+        'profile_pic_url': deque(tag + ['profile_pic_url']),
+        'amount_of_posts': deque(tag + ['edge_hashtag_to_media', 'count']),
+    })
+
+class MetaMapping:
+    """Map the page type to the necessary mapping class"""
+    mapping = {
+        "ProfilePage": ProfileMapping,
+        "TagPage": HashtagMapping,
+        "PostPage": PostMapping
+    }
+
+    @classmethod
+    def get_mapper(cls, page_type):
+        return cls.mapping[page_type]
