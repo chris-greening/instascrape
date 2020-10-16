@@ -17,9 +17,18 @@ class _JsonEngine:
         self.json_data = json_data
         self.map_dict = map_dict
 
-        self._fill_default_values()
+        self._set_default_values()
+        self._parse_mapping()
 
-    def _fill_default_values(self):
+    def _set_default_values(self):
+        """
+        Set default values prior to parsing as nan. If there is a failure
+        while parsing, the user will be able to drop the nan's
+        """
+        for key in self.map_dict:
+            setattr(self, key, self.DEFAULT_VAL)
+
+    def _parse_mapping(self):
         """
         Loop through each key in map_dict and set value given queue of
         directives that tell the engine how to parse the value from JSONDict
@@ -34,6 +43,8 @@ class _JsonEngine:
         at our value and orig_key becomes the user facing attribute and value
         becomes the value of that attribute
         """
+
+
         current_key = directive_queue.popleft()
         value = container[current_key]
         if len(directive_queue) == 0:
