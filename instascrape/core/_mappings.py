@@ -48,14 +48,21 @@ class _GeneralMapping(ABC):
         ----------
         keys : List[str]
             Keys that specify what directives to return
+
+        Returns
+        -------
+        directive_dict : Dict[str, deque]
+            Dictionary of keys and their directives
         """
         if not keys:
             keys = list(cls.mapping)
         if exclude:
             keys = [key for key in keys if key not in exclude]
-        return {key: deepcopy(cls.mapping[key]) for key in keys}
+        directive_dict = {key: deepcopy(cls.mapping[key]) for key in keys}
+        return directive_dict
 
 class _PostMapping(_GeneralMapping):
+    """Mapping specific to Instagram post pages"""
     mapping = _GeneralMapping.return_mapping().copy()
     post_page = ['entry_data', 'PostPage', 0]
     post = post_page + ['graphql', 'shortcode_media']
@@ -91,6 +98,7 @@ class _PostMapping(_GeneralMapping):
     })
 
 class _ProfileMapping(_GeneralMapping):
+    """Mapping specific to Instagram profile pages"""
     mapping = _GeneralMapping.return_mapping().copy()
     profile_page = ['entry_data', 'ProfilePage', 0]
     user = profile_page + ['graphql', 'user']
@@ -135,6 +143,7 @@ class _ProfileMapping(_GeneralMapping):
     })
 
 class _HashtagMapping(_GeneralMapping):
+    """Mapping specific to Instagram hashtag pages"""
     mapping = _GeneralMapping.return_mapping().copy()
     hashtag_page = ['entry_data', 'TagPage', 0]
     tag = hashtag_page + ['graphql', 'hashtag']
@@ -149,11 +158,27 @@ class _HashtagMapping(_GeneralMapping):
     })
 
 class _LoginMapping(_GeneralMapping):
+    """Mapping specific to Instagram login page"""
     mapping = _GeneralMapping.return_mapping().copy()
 
 class _MetaMapping:
-    """Map the page type to the necessary mapping class"""
-    mapping = {
+    """
+    Map the string in the Instagram JSON that indicates the type of page the
+    JSON was scraped from
+
+    Attributes
+    ----------
+    str_to_mapper_obj : Dict[str, Any]
+        Dictionary that maps the string name of the JSON type to the specific
+        mapping object
+
+    Methods
+    -------
+    get_mapper(page_type: str)
+        Return the mapping object that correlates to the string
+
+    """
+    str_to_mapper_obj = {
         "ProfilePage": _ProfileMapping,
         "TagPage": _HashtagMapping,
         "PostPage": _PostMapping,
@@ -162,4 +187,4 @@ class _MetaMapping:
 
     @classmethod
     def get_mapper(cls, page_type: str):
-        return cls.mapping[page_type]
+        return cls.str_to_mapper_obj[page_type]
