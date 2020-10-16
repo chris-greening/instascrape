@@ -6,17 +6,17 @@ from typing import Dict
 from instascrape.scrapers import *
 
 class InstaScrape:
-    def scrape_profile(self, username: str) -> Dict[str, str]:
+    def load_profile(self, username: str) -> Dict[str, str]:
         profile = Profile.from_username(username)
         profile.load()
-        return profile.to_dict()
+        return profile
 
-    def scrape_post(self, url: str) -> Dict[str, str]:
+    def load_post(self, url: str) -> Dict[str, str]:
         post = Post(url)
         post.load()
-        return post.recent_data.to_dict()
+        return post
 
-    def scrape_hashtag(self, hashtag: str) -> Dict[str, str]:
+    def load_hashtag(self, hashtag: str) -> Dict[str, str]:
         hashtag = Hashtag.from_hashtag(hashtag)
         hashtag.load()
-        return hashtag.recent_data.to_dict()
+        return hashtag
