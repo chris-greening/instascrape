@@ -55,7 +55,6 @@ $ pip3 install insta-scrape
 ```shell
 $ git clone https://github.com/chris-greening/instascrape.git
 ```
-### Dependencies
 
 > Install required dependencies using
 ```shell
