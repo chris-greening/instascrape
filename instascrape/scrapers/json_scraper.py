@@ -6,14 +6,15 @@ import json
 from bs4 import BeautifulSoup
 import requests
 
-from instascrape.scrapers._json_engine import _JsonEngine
+from instascrape.core._json_engine import _JsonEngine
 
 JSONDict = Dict[str, Any]
 
 class JsonScraper:
+
     def parse_json(self, json_dict, map_dict):
         _json_engine = _JsonEngine(json_dict, map_dict)
-        return _json_engine.to_dict()
+        return _json_engine.__dict__
 
     def json_from_html(self, source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
         """
