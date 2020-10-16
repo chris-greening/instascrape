@@ -7,8 +7,8 @@ JSONDict = Dict[str, Any]
 
 class _JsonEngine:
     """
-    Generalized version of the JSONScraper classes that will act more as a backend engine that
-    the user doesn't have to ever worry about or think of
+    Engine for crunching JSON dictionary's using a system of mapping directives
+    to access the JSON with a key value for the end user
     """
 
     DEFAULT_VAL = float('nan')
@@ -20,12 +20,20 @@ class _JsonEngine:
         self._fill_default_values()
 
     def _fill_default_values(self):
-        """Loop through each key in map_dict and set value given a list of directives"""
+        """
+        Loop through each key in map_dict and set value given queue of
+        directives that tell the engine how to parse the value from JSONDict
+        """
         for key in self.map_dict:
             self._set_value(key, self.json_data, self.map_dict[key])
 
     def _set_value(self, orig_key: str, container: dict, directive_queue: deque):
-        """Recursively set each value from the mapping"""
+        """
+        Recursively step through a queue of directives until the queue is
+        empty. When there are no more directives left in queue, we have arrived
+        at our value and orig_key becomes the user facing attribute and value
+        becomes the value of that attribute
+        """
         current_key = directive_queue.popleft()
         value = container[current_key]
         if len(directive_queue) == 0:
