@@ -1,3 +1,6 @@
+from collections import deque
+from copy import deepcopy
+
 class GeneralMapping:
     """General mappings to the JSON data that are present in all JSON data"""
     mapping = {
@@ -21,8 +24,42 @@ class GeneralMapping:
     def return_mapping(cls, keys=[]):
         if not keys:
             keys = list(cls.mapping)
-        return {key: cls.mapping[key] for key in keys}
+        return {key: deepcopy(cls.mapping[key]) for key in keys}
 
+class PostMapping(GeneralMapping):
+    mapping = GeneralMapping.return_mapping().copy()
+    post_page = ['entry_data', 'PostPage', 0]
+    post = post_page + ['graphql', 'shortcode_media']
+    mapping.update({
+        'id': deque(post + ['id']),
+        'shortcode': deque(post + ['shortcode']),
+        'dimensions': deque(post + ['dimensions']),
+        'gating_info': deque(post + ['gating_info']),
+        'fact_check_overall_rating': deque(post + ['fact_check_overall_rating']),
+        'fact_check_information': deque(post + ['fact_check_information']),
+        'sensitivity_friction_info': deque(post + ['sensitivity_friction_info']),
+        'media_overlay_info': deque(post + ['media_overlay_info']),
+        'media_preview': deque(post + ['media_preview']),
+        'display_url': deque(post + ['display_url']),
+        'accessibility_caption': deque(post + ['accessibility_caption']),
+        'is_video': deque(post + ['is_video']),
+        'tracking_token': deque(post + ['tracking_token']),
+        'tagged_users': deque(post + ['edge_media_to_tagged_user']),
+        'caption': deque(post + ['edge_media_to_caption', 'edges', 0, 'node', 'text']),
+        'caption_is_edited': deque(post + ['caption_is_edited']),
+        'has_ranked_comments': deque(post + ['has_ranked_comments']),
+        'comments': deque(post + ['edge_media_to_parent_comment', 'count']),
+        'comments_disabled': deque(post + ['comments_disabled']),
+        'commenting_disabled_for_viewer': deque(post + ['commenting_disabled_for_viewer']),
+        'taken_at_timestamp': deque(post + ['taken_at_timestamp']),
+        'likes': deque(post + ['edge_media_preview_like', 'count']),
+        'location': deque(post + ['location']),
+        'viewer_has_liked': deque(post + ['viewer_has_liked']),
+        'viewer_has_saved': deque(post + ['viewer_has_saved']),
+        'viewer_has_saved_to_collection': deque(post + ['viewer_has_saved_to_collection']),
+        'viewer_in_photo_of_you': deque(post + ['viewer_in_photo_of_you']),
+        'viewer_can_reshare': deque(post + ['viewer_can_reshare']),
+    })
 
 class ProfileMapping(GeneralMapping):
     mapping = GeneralMapping.return_mapping().copy()
