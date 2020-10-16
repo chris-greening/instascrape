@@ -104,3 +104,8 @@ class ProfileMapping(GeneralMapping):
         'connected_fb_page': deque(user + ['connected_fb_page']),
         'posts': deque(user + ['edge_owner_to_timeline_media', 'count']),
     })
+
+class HashtagMapping(GeneralMapping):
+    mapping = GeneralMapping.return_mapping().copy()
+    profile_page = ['entry_data', 'ProfilePage', 0]
+    user = profile_page + ['graphql', 'user']
