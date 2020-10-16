@@ -1,1 +1,0 @@
-from instascrape.tools.parsers import *
