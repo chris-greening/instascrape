@@ -4,8 +4,6 @@ from __future__ import annotations
 import datetime
 from typing import List, Any
 
-import requests
-
 from instascrape.core._static_scraper import _StaticHtmlScraper
 
 class Post(_StaticHtmlScraper):
