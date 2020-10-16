@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime
 from typing import List, Any
+import abc
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _PostMapping
