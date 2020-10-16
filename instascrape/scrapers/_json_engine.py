@@ -5,7 +5,7 @@ from typing import Dict, Union, Any, List
 
 JSONDict = Dict[str, Any]
 
-class _JsonParseEngine:
+class _JsonEngine:
     """
     Generalized version of the JSONScraper classes that will act more as a backend engine that
     the user doesn't have to ever worry about or think of
