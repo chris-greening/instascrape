@@ -8,6 +8,20 @@ from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _PostMapping
 
 class Post(_StaticHtmlScraper):
+    """
+    Scraper for an Instagram post page
+
+    Attributes
+    ----------
+    _Mapping
+        Mapping class with directives specific to scraping JSON from an
+        Instagram post page
+
+    Methods
+    -------
+    from_shortcode(shortcode: str) -> Post
+        Factory method that returns a Post object from a shortcode
+    """
     _Mapping = _PostMapping
 
     def load(self, keys: List[str] = [], exclude: List[str] = []):
