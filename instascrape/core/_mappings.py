@@ -6,7 +6,7 @@ from copy import deepcopy
 from typing import Dict, List, Union
 from abc import ABC
 
-MappingObject = Union[_PostMapping, _ProfileMapping, _HashtagMapping, _LoginMapping]
+MappingObject = Union['_PostMapping', '_ProfileMapping', '_HashtagMapping', '_LoginMapping']
 
 class _GeneralMapping(ABC):
     """
