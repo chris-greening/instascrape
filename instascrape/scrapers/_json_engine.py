@@ -12,7 +12,6 @@ class _JsonEngine:
     """
 
     DEFAULT_VAL = float('nan')
-    METADATA_KEYS = ['json_data', 'map_dict']
 
     def __init__(self, json_data: JSONDict, map_dict: Dict[str, deque]) -> None:
         self.json_data = json_data
@@ -33,11 +32,4 @@ class _JsonEngine:
             setattr(self, orig_key, value)
         else:
             self._set_value(orig_key, value, directive_queue)
-
-    def to_dict(self):
-        return {
-            key: val
-            for key, val in self.__dict__.items()
-                if key not in self.METADATA_KEYS
-            }
 

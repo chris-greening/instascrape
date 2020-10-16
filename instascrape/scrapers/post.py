@@ -1,20 +1,21 @@
 from __future__ import annotations
+# pylint: disable=no-member
 
 import datetime
 from typing import List, Any
 
 import requests
 
-from instascrape.scrapers import static_scraper
+from instascrape.scrapers._static_scraper import _StaticHtmlScraper
 
-class Post(static_scraper.StaticHTMLScraper):
+class Post(_StaticHtmlScraper):
+    def load(self):
+        super().load()
+        self.upload_date = datetime.datetime.fromtimestamp(self.taken_at_timestamp)
+
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
         url = f"https://www.instagram.com/p/{shortcode}/"
         return cls(url, name=shortcode)
 
 
-if __name__ == "__main__":
-    url = r"https://www.instagram.com/p/CFQNno8hSDX/"
-    post = Post(url)
-    post.static_load()
