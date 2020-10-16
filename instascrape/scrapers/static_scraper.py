@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from instascrape.scrapers.json_scraper import JsonScraper
-from instascrape.scrapers.mappings import MetaMapping
+from instascrape.scrapers._mappings import _MetaMapping
 
 class StaticHTMLScraper(ABC):
     def __init__(self, url, name=None):
@@ -24,7 +24,8 @@ class StaticHTMLScraper(ABC):
 
     def load(self):
         json_dict = self._json_scraper.json_from_url(self.url)
-        mapper = MetaMapping.get_mapper(json_dict)
+        map_type = self._json_scraper.determine_json_type(json_dict)
+        mapper = _MetaMapping.get_mapper(map_type)
         scraped_dict = self._json_scraper.parse_json(json_dict=json_dict, map_dict=mapper.return_mapping())
         self._load_into_namespace(scraped_dict=scraped_dict)
 

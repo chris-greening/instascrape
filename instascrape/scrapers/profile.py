@@ -3,8 +3,6 @@ from __future__ import annotations
 from typing import Any
 
 from instascrape.scrapers import static_scraper
-from instascrape.scrapers import json_scraper
-from instascrape.scrapers import PostJSON
 
 class Profile(static_scraper.StaticHTMLScraper):
     @classmethod
