@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 # pylint: disable=used-before-assignment
 
 import datetime
@@ -6,6 +7,7 @@ from typing import Any
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _HashtagMapping
+
 
 class Hashtag(_StaticHtmlScraper):
     """
@@ -22,6 +24,7 @@ class Hashtag(_StaticHtmlScraper):
     from_hashtag(shortcode: str) -> Post
         Factory method that returns a Hashtag object from a shortcode
     """
+
     _Mapping = _HashtagMapping
 
     @classmethod

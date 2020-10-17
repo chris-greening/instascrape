@@ -1,9 +1,11 @@
 from __future__ import annotations
+
 # pylint: disable=unused-wildcard-import
 
 from typing import Dict
 
 from instascrape.scrapers import *
+
 
 class InstaScrape:
     def load_profile(self, username: str) -> Dict[str, str]:

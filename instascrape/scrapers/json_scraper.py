@@ -10,13 +10,15 @@ from instascrape.core._json_engine import _JsonEngine
 
 JSONDict = Dict[str, Any]
 
-class JsonScraper:
 
+class JsonScraper:
     def parse_json(self, json_dict, map_dict):
         _json_engine = _JsonEngine(json_dict, map_dict)
         return _json_engine.__dict__
 
-    def json_from_html(self, source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
+    def json_from_html(
+        self, source: Union[str, BeautifulSoup], as_dict: bool = True
+    ) -> Union[JSONDict, str]:
         """
         Return JSON data parsed from Instagram source HTML
 
@@ -34,10 +36,12 @@ class JsonScraper:
             or just the string serialization
         """
         if type(source) is not BeautifulSoup:
-            source = BeautifulSoup(source, features='lxml')
+            source = BeautifulSoup(source, features="lxml")
 
         json_script = [
-            str(script) for script in source.find_all("script") if "config" in str(script)
+            str(script)
+            for script in source.find_all("script")
+            if "config" in str(script)
         ][0]
         left_index = json_script.find("{")
         right_index = json_script.rfind("}") + 1
@@ -63,7 +67,7 @@ class JsonScraper:
         """
         if type(json_data) is not dict:
             json_data = json.loads(json_data)
-        instagram_type = list(json_data['entry_data'])[0]
+        instagram_type = list(json_data["entry_data"])[0]
         return instagram_type
 
     def json_from_url(self, url: str, as_dict: bool = True) -> Union[JSONDict, str]:

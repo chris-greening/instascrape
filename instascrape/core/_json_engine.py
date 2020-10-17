@@ -5,13 +5,14 @@ from typing import Dict, Union, Any, List
 
 JSONDict = Dict[str, Any]
 
+
 class _JsonEngine:
     """
     Engine for crunching JSON dictionary's using a system of mapping directives
     to access the JSON with a key value for the end user
     """
 
-    DEFAULT_VAL = float('nan')
+    DEFAULT_VAL = float("nan")
 
     def __init__(self, json_data: JSONDict, map_dict: Dict[str, deque]) -> None:
         self.json_data = json_data
@@ -44,12 +45,9 @@ class _JsonEngine:
         becomes the value of that attribute
         """
 
-
         current_key = directive_queue.popleft()
         value = container[current_key]
         if len(directive_queue) == 0:
             setattr(self, orig_key, value)
         else:
             self._set_value(orig_key, value, directive_queue)
-
-

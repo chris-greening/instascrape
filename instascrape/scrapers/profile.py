@@ -5,6 +5,7 @@ from typing import Any
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _ProfileMapping
 
+
 class Profile(_StaticHtmlScraper):
     """
     Scraper for an Instagram profile page
@@ -20,6 +21,7 @@ class Profile(_StaticHtmlScraper):
     from_username(shortcode: str) -> Post
         Factory method that returns a Profile object from a shortcode
     """
+
     _Mapping = _ProfileMapping
 
     @classmethod

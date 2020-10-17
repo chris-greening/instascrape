@@ -72,7 +72,7 @@ class DynamicProfile(Profile):
     def _grab_useful_data(self):
         for i, post in enumerate(self.posts):
             if i % 10 == 0:
-                print('Read {} posts'.format(i))
+                print("Read {} posts".format(i))
             try:
                 post.load()
             except Exception as e:
@@ -82,7 +82,7 @@ class DynamicProfile(Profile):
 if __name__ == "__main__":
     chris = DynamicProfile.from_username("chris_greening")
     chris.load()
-    chris.dynamic_load(Chrome('/tmp/chromedriver'), max_posts=15)
+    chris.dynamic_load(Chrome("/tmp/chromedriver"), max_posts=15)
 
     data_arr = []
     for post in chris.posts:
@@ -92,4 +92,3 @@ if __name__ == "__main__":
         except AttributeError as e:
             print(e)
             pass
-
