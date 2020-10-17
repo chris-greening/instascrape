@@ -37,6 +37,7 @@ class _StaticHtmlScraper(ABC):
     to_json(self, fp: str, metadata: bool = False) -> None
         Writees the scraped data to a json file at the given filepath
     """
+
     _METADATA_KEYS = [
         "json_dict",
         "url",
