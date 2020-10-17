@@ -20,12 +20,6 @@ class _StaticHtmlScraper(ABC):
     Base class for all of the scrapers, handles general functionality that all
     scraper objects will have
 
-    Attributes
-    ----------
-    _METADATA_KEYS : List[str]
-        List of keys that match attributes that are more implementation based
-        than something the user has to worry about.
-
     Methods
     -------
     load(self, keys: List[str] = [], exclude: List[str] = []) -> None
@@ -35,9 +29,11 @@ class _StaticHtmlScraper(ABC):
     to_csv(self, fp: str, metadata: bool = False) -> None
         Writes the scraped data to a csv at the given filepath
     to_json(self, fp: str, metadata: bool = False) -> None
-        Writees the scraped data to a json file at the given filepath
+        Writes the scraped data to a json file at the given filepath
     """
 
+    #Keys that represent metadata attr that the user doesn't necessarily need
+    #to worry about
     _METADATA_KEYS = [
         "json_dict",
         "url",
@@ -53,11 +49,27 @@ class _StaticHtmlScraper(ABC):
         ----------
         url : str
             Full URL to an Instagram page
+        name : str
+            Optional name for the user to pass
         """
         self.url = url
+        if name is None:
+            self.name = self.url
         self._json_scraper = JsonScraper()
 
     def load(self, keys: List[str] = [], exclude: List[str] = []) -> None:
+        """
+        Scrape data at self.url and parse into attributes
+
+        Parameters
+        ----------
+        keys : List[str]
+            Specify what keys to exclusively load as strings in a list. If no
+            keys are specified then the scrape will default load all data points.
+        exclude : List[str]
+            Specify what keys to exclude from being loaded. If no keys are
+            specified, then no data points will be excluded.
+        """
         if type(keys) == str:
             keys = [keys]
         if type(exclude) == str:
@@ -71,6 +83,20 @@ class _StaticHtmlScraper(ABC):
         self.scrape_timestamp = datetime.datetime.now()
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
+        """
+        Return a dictionary containing all of the data that has been scraped
+
+        Parameters
+        ----------
+        metadata : bool
+            Boolean value that determines if metadata specified in self._METADATA_KEYS
+            will be included in the dictionary.
+
+        Returns
+        -------
+        data_dict : Dict[str, str]
+            Dictionary containing the scraped data
+        """
         data_dict = (
             {
                 key: val
@@ -82,13 +108,29 @@ class _StaticHtmlScraper(ABC):
         )
         return data_dict
 
-    def to_csv(self, fp) -> None:
+    def to_csv(self, fp: str) -> None:
+        """
+        Write scraped data to .csv at the given filepath
+
+        Parameters
+        ----------
+        fp : str
+            Filepath to write data to
+        """
         with open(fp, "w", newline="") as csv_file:
             writer = csv.writer(csv_file)
             for key, value in self.to_dict().items():
                 writer.writerow([key, value])
 
     def to_json(self, fp: str) -> None:
+        """
+        Write scraped data to .json file at the given filepath
+
+        Parameters
+        ----------
+        fp : str
+            Filepath to write data to
+        """
         with open(fp, "w") as outjson:
             json.dump(self.to_dict(), outjson)
 
