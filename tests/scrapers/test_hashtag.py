@@ -1,19 +1,57 @@
 import pytest
+import json
+import csv
 
 from instascrape import Hashtag
 
-@pytest.fixture
-def kotlin_hashtag():
-    kotlin_hashtag_name = "kotlin"
-    kotlin_hashtag_url = f"https://www.instagram.com/tags/{kotlin_hashtag_name}/"
+class TestHashtag:
+    @pytest.fixture
+    def page_instance(self):
+        kotlin_hashtag_name = "kotlin"
+        kotlin_hashtag_url = f"https://www.instagram.com/tags/{kotlin_hashtag_name}/"
 
-    kotlin_hashtag = Hashtag(url=kotlin_hashtag_url, name=kotlin_hashtag_name)
-    kotlin_hashtag.load()
+        kotlin_hashtag = Hashtag(url=kotlin_hashtag_url, name=kotlin_hashtag_name)
+        kotlin_hashtag.load()
 
-    return kotlin_hashtag
+        return kotlin_hashtag
+
+    def test_to_dict(self, page_instance):
+        assert type(page_instance.to_dict()) == dict
+
+    def test_to_json(self, page_instance, tmpdir):
+        file = tmpdir.join('data.json')
+        page_instance.to_json(fp=str(file))
+        with open(str(file), 'r') as injson:
+            json_dict = json.load(injson)
+        assert page_instance.to_dict() == json_dict
+
+    def test_to_csv(self, page_instance, tmpdir):
+
+        #write to CSV
+        file = tmpdir.join('data.csv')
+        page_instance.to_csv(fp=str(file))
+
+        #reread the csv
+        with open(str(file), mode='r') as infile:
+            reader = csv.reader(infile)
+            csv_dict = {row[0]:row[1] for row in reader}
+
+        #have to convert everything to str otherwise AssertionError will trip
+        # up comparing stuff like True == 'True'
+        str_dict = {}
+        for key, val in page_instance.to_dict().items():
+            if val is None:
+                val = ''
+            str_dict[key] = str(val)
+
+        assert str_dict == csv_dict
+
+    def test_from_hashtag(self, page_instance):
+        expected_hashtag = 'kotlin'
+        result_profile: Hashtag = Hashtag.from_hashtag(
+            hashtag=expected_hashtag)
+
+        assert result_profile.url == page_instance.url
 
 
-def test_from_hashtag(kotlin_hashtag):
-    result_hashtag: Hashtag = Hashtag.from_hashtag(hashtag=kotlin_hashtag.name)
 
-    assert result_hashtag.url == kotlin_hashtag.url
