@@ -8,10 +8,12 @@ from instascrape import JsonScraper
 class TestJsonScraper:
     @pytest.fixture
     def json_scraper(self):
+        """Return instance of JsonScraper"""
         return JsonScraper()
 
     @pytest.fixture
     def source_html(self):
+        """Return the source HTML from the given page"""
         url = "https://www.instagram.com/chris_greening/"
         source_html = requests.get(url).text
         return source_html
