@@ -12,6 +12,16 @@ JSONDict = Dict[str, Any]
 
 
 class JsonScraper:
+    """
+    Tool for handling and parsing Instagram JSON data from static HTML served
+    back from GET request.
+
+    Methods
+    -------
+    json_from_html
+    determine_json_type
+    json_from_url
+    """
     def parse_json(self, json_dict, map_dict):
         _json_engine = _JsonEngine(json_dict, map_dict)
         return _json_engine.__dict__
