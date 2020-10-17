@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, List
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
-from instascrape.core._mappings import _ProfileMapping
-
+from instascrape.core._mappings import _ProfileMapping, _PostMapping
+from instascrape.scrapers.post import Post
 
 class Profile(_StaticHtmlScraper):
     """
@@ -17,6 +17,25 @@ class Profile(_StaticHtmlScraper):
     """
 
     _Mapping = _ProfileMapping
+
+    def get_recent_posts(self) -> List[Post]:
+        """
+        Return a list of the profiles recent posts
+
+        Returns
+        -------
+        posts : List[Post]
+            List containing the recent 12 posts and their available data
+        """
+        posts = []
+        post_arr = self.json_dict['entry_data']['ProfilePage'][0][
+            'graphql']['user']['edge_owner_to_timeline_media']['edges']
+        for post in post_arr:
+            json_dict = post['node']
+            mapping = _PostMapping.post_from_profile_mapping()
+            post = Post.load_from_profile(json_dict, mapping)
+            posts.append(post)
+        return posts
 
     @classmethod
     def from_username(cls, username: str) -> Profile:
