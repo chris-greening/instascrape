@@ -69,7 +69,7 @@ class _StaticHtmlScraper(ABC):
         self._load_into_namespace(scraped_dict=scraped_dict)
         self.scrape_timestamp = datetime.datetime.now()
 
-    def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
+    def to_dict(self, metadata: bool = False, ) -> Dict[str, Any]:
         data_dict = (
             {
                 key: val
@@ -81,15 +81,15 @@ class _StaticHtmlScraper(ABC):
         )
         return data_dict
 
-    def to_csv(self, fp: str, metadata: bool = False) -> None:
+    def to_csv(self, fp) -> None:
         with open(fp, "w", newline="") as csv_file:
             writer = csv.writer(csv_file)
-            for key, value in self.to_dict(metadata=metadata).items():
+            for key, value in self.to_dict().items():
                 writer.writerow([key, value])
 
-    def to_json(self, fp: str, metadata: bool = False) -> None:
+    def to_json(self, fp: str) -> None:
         with open(fp, "w") as outjson:
-            json.dump(self.to_dict(metadata=metadata), outjson)
+            json.dump(self.to_dict(), outjson)
 
     def __getitem__(self, key):
         return getattr(self, key)
