@@ -69,7 +69,7 @@ class _StaticHtmlScraper(ABC):
         self._load_into_namespace(scraped_dict=scraped_dict)
         self.scrape_timestamp = datetime.datetime.now()
 
-    def to_dict(self, metadata: bool = False, ) -> Dict[str, Any]:
+    def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         data_dict = (
             {
                 key: val
