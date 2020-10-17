@@ -6,7 +6,6 @@ from typing import Dict
 
 from instascrape.scrapers import *
 
-
 class InstaScrape:
     def load_profile(self, username: str) -> Dict[str, str]:
         profile = Profile.from_username(username)
