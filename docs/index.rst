@@ -10,7 +10,6 @@ Welcome to instascrape's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   instascrape
    instascrape.scrapers
 
 Indices and tables
