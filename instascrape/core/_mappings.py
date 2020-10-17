@@ -119,6 +119,25 @@ class _PostMapping(_GeneralMapping):
         }
     )
 
+    @classmethod
+    def post_from_profile_mapping(self):
+        return {
+            "id": deque(['id']),
+            "shortcode": deque(['shortcode']),
+            "dimensions": deque(['dimensions']),
+            "display_url": deque(['display_url']),
+            "tagged_users": deque(['edge_media_to_tagged_user']),
+            "fact_check_overall_rating": deque(['fact_check_overall_rating']),
+            "fact_check_information": deque(['fact_check_information']),
+            "is_video": deque(['is_video']),
+            "accessibility_caption": deque(['accessibility_caption']),
+            "caption": deque(['edge_media_to_caption', 'edges', 0, 'node', 'text']),
+            "comments": deque(['edge_media_to_comment', 'count']),
+            "comments_disabled": deque(['comments_disabled']),
+            "upload_date": deque(['taken_at_timestamp']),
+            "likes": deque(['edge_media_preview_like', 'count']),
+            "location": deque(['location'])
+        }
 
 class _ProfileMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
