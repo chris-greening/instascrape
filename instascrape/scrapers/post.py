@@ -14,12 +14,6 @@ class Post(_StaticHtmlScraper):
     """
     Scraper for an Instagram post page
 
-    Attributes
-    ----------
-    _Mapping
-        Mapping class with directives specific to scraping JSON from an
-        Instagram post page
-
     Methods
     -------
     from_shortcode(shortcode: str) -> Post

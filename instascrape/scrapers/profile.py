@@ -10,12 +10,6 @@ class Profile(_StaticHtmlScraper):
     """
     Scraper for an Instagram profile page
 
-    Attributes
-    ----------
-    _Mapping
-        Mapping class with directives specific to scraping JSON from an
-        Instagram profile page
-
     Methods
     -------
     from_username(shortcode: str) -> Post
