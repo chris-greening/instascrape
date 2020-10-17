@@ -32,16 +32,16 @@ class Post(_StaticHtmlScraper):
         super().load(keys=keys)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
-    def to_json(self, fp: str, metadata: bool = False):
+    def to_json(self, fp: str):
         # have to convert to serializable format
         self.upload_date = datetime.datetime.timestamp(self.upload_date)
-        super().to_json(fp=fp, metadata=metadata)
+        super().to_json(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
-    def to_csv(self, fp: str, metadata: bool = False):
+    def to_csv(self, fp: str):
         # have to convert to serializable format
         self.upload_date = datetime.datetime.timestamp(self.upload_date)
-        super().to_csv(fp=fp, metadata=metadata)
+        super().to_csv(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
     @classmethod
