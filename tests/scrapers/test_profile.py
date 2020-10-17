@@ -3,7 +3,7 @@ import json
 import csv
 
 from instascrape import Profile
-
+from instascrape import Post
 
 class TestProfile:
     @pytest.fixture
@@ -51,3 +51,8 @@ class TestProfile:
         )
 
         assert result_profile.url == page_instance.url
+
+    def test_get_recent_posts(self, page_instance):
+        posts = page_instance.get_recent_posts(amt=6)
+        assert len(posts) == 6
+        assert all([type(post) is Post for post in posts])
