@@ -18,16 +18,7 @@ class _JsonEngine:
         self.json_data = json_data
         self.map_dict = map_dict
 
-        self._set_default_values()
         self._parse_mapping()
-
-    def _set_default_values(self):
-        """
-        Set default values prior to parsing as nan. If there is a failure
-        while parsing, the user will be able to drop the nan's
-        """
-        for key in self.map_dict:
-            setattr(self, key, self.DEFAULT_VAL)
 
     def _parse_mapping(self):
         """
@@ -46,7 +37,11 @@ class _JsonEngine:
         """
 
         current_key = directive_queue.popleft()
-        value = container[current_key]
+        try:
+            value = container[current_key]
+        except KeyError:
+            value = self.DEFAULT_VAL
+
         if len(directive_queue) == 0:
             setattr(self, orig_key, value)
         else:
