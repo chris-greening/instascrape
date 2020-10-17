@@ -1,45 +1,21 @@
 instascrape package
 ===================
 
+Subpackages
+-----------
+
+.. toctree::
+
+   instascrape.core
+   instascrape.scrapers
+
 Submodules
 ----------
 
-instascrape.hashtag module
---------------------------
+instascrape.instascrape module
+------------------------------
 
-.. automodule:: instascrape.hashtag
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-instascrape.insta\_scraper module
----------------------------------
-
-.. automodule:: instascrape.insta_scraper
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-instascrape.jsontools module
-----------------------------
-
-.. automodule:: instascrape.jsontools
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-instascrape.post module
------------------------
-
-.. automodule:: instascrape.post
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-instascrape.profile module
---------------------------
-
-.. automodule:: instascrape.profile
+.. automodule:: instascrape.instascrape
    :members:
    :undoc-members:
    :show-inheritance:
