@@ -16,6 +16,27 @@ from instascrape.scrapers.json_scraper import JsonScraper
 
 
 class _StaticHtmlScraper(ABC):
+    """
+    Base class for all of the scrapers, handles general functionality that all
+    scraper objects will have
+
+    Attributes
+    ----------
+    _METADATA_KEYS : List[str]
+        List of keys that match attributes that are more implementation based
+        than something the user has to worry about.
+
+    Methods
+    -------
+    load(self, keys: List[str] = [], exclude: List[str] = []) -> None
+        Load the static data from the page type
+    to_dict(self, metadata: bool = False) -> Dict[str, Any]
+        Returns a dictionary of the scraped data
+    to_csv(self, fp: str, metadata: bool = False) -> None
+        Writes the scraped data to a csv at the given filepath
+    to_json(self, fp: str, metadata: bool = False) -> None
+        Writees the scraped data to a json file at the given filepath
+    """
     _METADATA_KEYS = [
         "json_dict",
         "url",
@@ -35,7 +56,7 @@ class _StaticHtmlScraper(ABC):
         self.url = url
         self._json_scraper = JsonScraper()
 
-    def load(self, keys: List[str] = [], exclude: List[str] = []):
+    def load(self, keys: List[str] = [], exclude: List[str] = []) -> None:
         if type(keys) == str:
             keys = [keys]
         if type(exclude) == str:
@@ -60,13 +81,13 @@ class _StaticHtmlScraper(ABC):
         )
         return data_dict
 
-    def to_csv(self, fp: str, metadata: bool = False):
+    def to_csv(self, fp: str, metadata: bool = False) -> None:
         with open(fp, "w", newline="") as csv_file:
             writer = csv.writer(csv_file)
             for key, value in self.to_dict(metadata=metadata).items():
                 writer.writerow([key, value])
 
-    def to_json(self, fp: str, metadata: bool = False):
+    def to_json(self, fp: str, metadata: bool = False) -> None:
         with open(fp, "w") as outjson:
             json.dump(self.to_dict(metadata=metadata), outjson)
 
