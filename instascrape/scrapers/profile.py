@@ -18,19 +18,26 @@ class Profile(_StaticHtmlScraper):
 
     _Mapping = _ProfileMapping
 
-    def get_recent_posts(self) -> List[Post]:
+    def get_recent_posts(self, amt: int = 12) -> List[Post]:
         """
         Return a list of the profiles recent posts
+
+        Parameters
+        ----------
+        amt : int
+            Amount of recent posts to return
 
         Returns
         -------
         posts : List[Post]
             List containing the recent 12 posts and their available data
         """
+        if amt > 12:
+            raise IndexError(f'{amt} is too large, 12 is max available posts')
         posts = []
         post_arr = self.json_dict['entry_data']['ProfilePage'][0][
             'graphql']['user']['edge_owner_to_timeline_media']['edges']
-        for post in post_arr:
+        for post in post_arr[:amt]:
             json_dict = post['node']
             mapping = _PostMapping.post_from_profile_mapping()
             post = Post.load_from_profile(json_dict, mapping)
