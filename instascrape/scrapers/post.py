@@ -8,6 +8,7 @@ import abc
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _PostMapping
+from instascrape.scrapers.json_scraper import JsonScraper
 
 
 class Post(_StaticHtmlScraper):
@@ -37,6 +38,15 @@ class Post(_StaticHtmlScraper):
         self.upload_date = datetime.datetime.timestamp(self.upload_date)
         super().to_csv(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
+
+    @classmethod
+    def load_from_profile(self, json_dict, map_dict):
+        json_scraper = JsonScraper()
+        data_dict = json_scraper.parse_json(json_dict, map_dict)
+        post = Post.from_shortcode(data_dict['shortcode'])
+        for key, val in data_dict.items():
+            setattr(post, key, val)
+        return post
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
