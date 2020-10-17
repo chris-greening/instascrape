@@ -16,6 +16,7 @@ class TestProfile:
     def test_to_dict(self, page_instance):
         assert type(page_instance.to_dict()) == dict
 
+    @pytest.mark.file_io
     def test_to_json(self, page_instance, tmpdir):
         file = tmpdir.join("data.json")
         page_instance.to_json(fp=str(file))
@@ -23,6 +24,7 @@ class TestProfile:
             json_dict = json.load(injson)
         assert page_instance.to_dict() == json_dict
 
+    @pytest.mark.file_io
     def test_to_csv(self, page_instance, tmpdir):
 
         # write to CSV
@@ -56,3 +58,4 @@ class TestProfile:
         posts = page_instance.get_recent_posts(amt=6)
         assert len(posts) == 6
         assert all([type(post) is Post for post in posts])
+        assert all([hasattr(post, 'id') for post in posts])
