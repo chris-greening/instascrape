@@ -13,12 +13,6 @@ class Hashtag(_StaticHtmlScraper):
     """
     Scraper for an Instagram hashtag page
 
-    Attributes
-    ----------
-    _Mapping
-        Mapping class with directives specific to scraping JSON from an
-        Instagram hashtag page
-
     Methods
     -------
     from_hashtag(shortcode: str) -> Post
