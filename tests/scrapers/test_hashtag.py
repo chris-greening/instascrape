@@ -4,6 +4,7 @@ import csv
 
 from instascrape import Hashtag
 
+
 class TestHashtag:
     @pytest.fixture
     def page_instance(self):
@@ -19,39 +20,35 @@ class TestHashtag:
         assert type(page_instance.to_dict()) == dict
 
     def test_to_json(self, page_instance, tmpdir):
-        file = tmpdir.join('data.json')
+        file = tmpdir.join("data.json")
         page_instance.to_json(fp=str(file))
-        with open(str(file), 'r') as injson:
+        with open(str(file), "r") as injson:
             json_dict = json.load(injson)
         assert page_instance.to_dict() == json_dict
 
     def test_to_csv(self, page_instance, tmpdir):
 
-        #write to CSV
-        file = tmpdir.join('data.csv')
+        # write to CSV
+        file = tmpdir.join("data.csv")
         page_instance.to_csv(fp=str(file))
 
-        #reread the csv
-        with open(str(file), mode='r') as infile:
+        # reread the csv
+        with open(str(file), mode="r") as infile:
             reader = csv.reader(infile)
-            csv_dict = {row[0]:row[1] for row in reader}
+            csv_dict = {row[0]: row[1] for row in reader}
 
-        #have to convert everything to str otherwise AssertionError will trip
+        # have to convert everything to str otherwise AssertionError will trip
         # up comparing stuff like True == 'True'
         str_dict = {}
         for key, val in page_instance.to_dict().items():
             if val is None:
-                val = ''
+                val = ""
             str_dict[key] = str(val)
 
         assert str_dict == csv_dict
 
     def test_from_hashtag(self, page_instance):
-        expected_hashtag = 'kotlin'
-        result_profile: Hashtag = Hashtag.from_hashtag(
-            hashtag=expected_hashtag)
+        expected_hashtag = "kotlin"
+        result_profile: Hashtag = Hashtag.from_hashtag(hashtag=expected_hashtag)
 
         assert result_profile.url == page_instance.url
-
-
-
