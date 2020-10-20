@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from instascrape.scrapers.json_scraper import JsonScraper
-from instascrape.core._json_flattener import JsonFlattener
+from instascrape.core._json_flattener import FlatJSONDict
 
 class _StaticHtmlScraper(ABC):
     """
@@ -77,8 +77,7 @@ class _StaticHtmlScraper(ABC):
         if type(exclude) == str:
             exclude = [exclude]
         self.json_dict = self._json_scraper.json_from_url(self.url)
-        self.json_flattener = JsonFlattener(self.json_dict)
-        self.flat_json_dict = self.json_flattener.flat_json
+        self.flat_json_dict = FlatJSONDict(self.json_dict)
         scraped_dict = self._json_scraper.parse_json(
             json_dict=self.flat_json_dict,
             map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
