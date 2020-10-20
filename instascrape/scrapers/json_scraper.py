@@ -10,7 +10,6 @@ from instascrape.core._json_engine import _JsonEngine
 
 JSONDict = Dict[str, Any]
 
-
 class JsonScraper:
     """
     Tool for handling and parsing Instagram JSON data from static HTML served

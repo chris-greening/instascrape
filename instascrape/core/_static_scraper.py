@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 
 from instascrape.core._mappings import _MetaMapping
 from instascrape.scrapers.json_scraper import JsonScraper
-
+from instascrape.core._json_flattener import JsonFlattener
 
 class _StaticHtmlScraper(ABC):
     """
@@ -42,6 +42,8 @@ class _StaticHtmlScraper(ABC):
         "scrape_timestamp",
         "map_dict",
         "json_data",
+        "json_flattener",
+        "flat_json_dict"
     ]
 
     def __init__(self, url, name=None):
@@ -76,8 +78,10 @@ class _StaticHtmlScraper(ABC):
         if type(exclude) == str:
             exclude = [exclude]
         self.json_dict = self._json_scraper.json_from_url(self.url)
+        self.json_flattener = JsonFlattener(self.json_dict)
+        self.flat_json_dict = self.json_flattener.flat_json
         scraped_dict = self._json_scraper.parse_json(
-            json_dict=self.json_dict,
+            json_dict=self.flat_json_dict,
             map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
         )
         self._load_into_namespace(scraped_dict=scraped_dict)
