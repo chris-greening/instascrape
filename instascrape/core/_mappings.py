@@ -100,17 +100,13 @@ class _PostMapping(_GeneralMapping):
             "has_ranked_comments": deque(["has_ranked_comments"]),
             "comments": deque(["count"]),
             "comments_disabled": deque(["comments_disabled"]),
-            "commenting_disabled_for_viewer": deque(
-                ["commenting_disabled_for_viewer"]
-            ),
+            "commenting_disabled_for_viewer": deque(["commenting_disabled_for_viewer"]),
             "upload_date": deque(["taken_at_timestamp"]),
-            "likes": deque(["edge_media_preview_like", "count"]),
+            "likes": deque(["edge_media_preview_like_count"]),
             "location": deque(["location"]),
             "viewer_has_liked": deque(["viewer_has_liked"]),
             "viewer_has_saved": deque(["viewer_has_saved"]),
-            "viewer_has_saved_to_collection": deque(
-                ["viewer_has_saved_to_collection"]
-            ),
+            "viewer_has_saved_to_collection": deque(["viewer_has_saved_to_collection"]),
             "viewer_in_photo_of_you": deque(["viewer_in_photo_of_you"]),
             "viewer_can_reshare": deque(["viewer_can_reshare"]),
         }
