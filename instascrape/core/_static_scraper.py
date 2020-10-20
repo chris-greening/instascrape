@@ -12,6 +12,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
+from instascrape.core._mappings import _MetaMapping
 from instascrape.scrapers.json_scraper import JsonScraper
 from instascrape.core._json_flattener import FlatJSONDict
 
