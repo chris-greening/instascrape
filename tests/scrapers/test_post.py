@@ -28,7 +28,13 @@ class TestPost:
         json_dict["upload_date"] = datetime.datetime.fromtimestamp(
             int(json_dict["upload_date"])
         )
-        assert page_instance.to_dict() == json_dict
+
+        #NaN will fail on nan == nan so convert them to 'nan'
+        page_inst_dict = page_instance.to_dict()
+        page_inst_dict = {key: str(val) for key,val in page_inst_dict.items()}
+        json_dict = {key: str(val) for key,val in page_inst_dict.items()}
+
+        assert page_inst_dict == json_dict
 
     @pytest.mark.file_io
     def test_to_csv(self, page_instance, tmpdir):
