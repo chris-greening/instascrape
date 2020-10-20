@@ -8,7 +8,7 @@ import pytest
 from instascrape import Post
 
 
-class TestHashtag:
+class TestPost:
     @pytest.fixture
     def page_instance(self):
         google_post_url = f"https://www.instagram.com/p/CGX0G64hu4Q/"
