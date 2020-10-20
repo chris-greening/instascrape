@@ -79,44 +79,40 @@ class _PostMapping(_GeneralMapping):
     """Mapping specific to Instagram post pages"""
 
     mapping = _GeneralMapping.return_mapping().copy()
-    post_page = ["entry_data", "PostPage", 0]
-    post = post_page + ["graphql", "shortcode_media"]
     mapping.update(
         {
-            "id": deque(post + ["id"]),
-            "shortcode": deque(post + ["shortcode"]),
-            "dimensions": deque(post + ["dimensions"]),
-            "gating_info": deque(post + ["gating_info"]),
-            "fact_check_overall_rating": deque(post + ["fact_check_overall_rating"]),
-            "fact_check_information": deque(post + ["fact_check_information"]),
-            "sensitivity_friction_info": deque(post + ["sensitivity_friction_info"]),
-            "media_overlay_info": deque(post + ["media_overlay_info"]),
-            "media_preview": deque(post + ["media_preview"]),
-            "display_url": deque(post + ["display_url"]),
-            "accessibility_caption": deque(post + ["accessibility_caption"]),
-            "is_video": deque(post + ["is_video"]),
-            "tracking_token": deque(post + ["tracking_token"]),
-            "tagged_users": deque(post + ["edge_media_to_tagged_user"]),
-            "caption": deque(
-                post + ["edge_media_to_caption", "edges", 0, "node", "text"]
-            ),
-            "caption_is_edited": deque(post + ["caption_is_edited"]),
-            "has_ranked_comments": deque(post + ["has_ranked_comments"]),
-            "comments": deque(post + ["edge_media_to_parent_comment", "count"]),
-            "comments_disabled": deque(post + ["comments_disabled"]),
+            "id": deque(["id"]),
+            "shortcode": deque(["shortcode"]),
+            "dimensions": deque(["dimensions"]),
+            "gating_info": deque(["gating_info"]),
+            "fact_check_overall_rating": deque(["fact_check_overall_rating"]),
+            "fact_check_information": deque(["fact_check_information"]),
+            "sensitivity_friction_info": deque(["sensitivity_friction_info"]),
+            "media_overlay_info": deque(["media_overlay_info"]),
+            "media_preview": deque(["media_preview"]),
+            "display_url": deque(["display_url"]),
+            "accessibility_caption": deque(["accessibility_caption"]),
+            "is_video": deque(["is_video"]),
+            "tracking_token": deque(["tracking_token"]),
+            "tagged_users": deque(["edge_media_to_tagged_user"]),
+            "caption": deque(["text"]),
+            "caption_is_edited": deque(["caption_is_edited"]),
+            "has_ranked_comments": deque(["has_ranked_comments"]),
+            "comments": deque(["count"]),
+            "comments_disabled": deque(["comments_disabled"]),
             "commenting_disabled_for_viewer": deque(
-                post + ["commenting_disabled_for_viewer"]
+                ["commenting_disabled_for_viewer"]
             ),
-            "upload_date": deque(post + ["taken_at_timestamp"]),
-            "likes": deque(post + ["edge_media_preview_like", "count"]),
-            "location": deque(post + ["location"]),
-            "viewer_has_liked": deque(post + ["viewer_has_liked"]),
-            "viewer_has_saved": deque(post + ["viewer_has_saved"]),
+            "upload_date": deque(["taken_at_timestamp"]),
+            "likes": deque(["edge_media_preview_like", "count"]),
+            "location": deque(["location"]),
+            "viewer_has_liked": deque(["viewer_has_liked"]),
+            "viewer_has_saved": deque(["viewer_has_saved"]),
             "viewer_has_saved_to_collection": deque(
-                post + ["viewer_has_saved_to_collection"]
+                ["viewer_has_saved_to_collection"]
             ),
-            "viewer_in_photo_of_you": deque(post + ["viewer_in_photo_of_you"]),
-            "viewer_can_reshare": deque(post + ["viewer_can_reshare"]),
+            "viewer_in_photo_of_you": deque(["viewer_in_photo_of_you"]),
+            "viewer_can_reshare": deque(["viewer_can_reshare"]),
         }
     )
 
@@ -190,17 +186,15 @@ class _HashtagMapping(_GeneralMapping):
     """Mapping specific to Instagram hashtag pages"""
 
     mapping = _GeneralMapping.return_mapping().copy()
-    hashtag_page = ["entry_data", "TagPage", 0]
-    tag = hashtag_page + ["graphql", "hashtag"]
     mapping.update(
         {
-            "id": deque(tag + ["id"]),
-            "name": deque(tag + ["name"]),
-            "allow_following": deque(tag + ["allow_following"]),
-            "is_following": deque(tag + ["is_following"]),
-            "is_top_media_only": deque(tag + ["is_top_media_only"]),
-            "profile_pic_url": deque(tag + ["profile_pic_url"]),
-            "amount_of_posts": deque(tag + ["edge_hashtag_to_media", "count"]),
+            "id": deque(["id"]),
+            "name": deque(["name"]),
+            "allow_following": deque(["allow_following"]),
+            "is_following": deque(["is_following"]),
+            "is_top_media_only": deque(["is_top_media_only"]),
+            "profile_pic_url": deque(["profile_pic_url"]),
+            "amount_of_posts": deque(["count"]),
         }
     )
 
