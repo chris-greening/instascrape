@@ -119,7 +119,7 @@ class _PostMapping(_GeneralMapping):
             "shortcode": deque(['shortcode']),
             "dimensions": deque(['dimensions']),
             "display_url": deque(['display_url']),
-            "tagged_users": deque(['edge_media_to_tagged_user']),
+            "tagged_users": deque(['edge_media_to_tagged_user', 'edges']),
             "fact_check_overall_rating": deque(['fact_check_overall_rating']),
             "fact_check_information": deque(['fact_check_information']),
             "is_video": deque(['is_video']),
@@ -129,7 +129,7 @@ class _PostMapping(_GeneralMapping):
             "comments_disabled": deque(['comments_disabled']),
             "upload_date": deque(['taken_at_timestamp']),
             "likes": deque(['edge_media_preview_like', 'count']),
-            "location": deque(['location'])
+            "location": deque(['location', 'name'])
         }
 
     @classmethod
