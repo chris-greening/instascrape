@@ -25,9 +25,9 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
-  * [dependencies](#dependencies)
 * [:newspaper: Documentation](#documentation)
 * [:pray: Contributing](#contributing)
+* [:spider_web: Dependencies](#dependencies)
 * [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
 * [:grey_question: Support](#support)
@@ -67,6 +67,17 @@ The official documentation can be found on [Read The Docs](https://instascrape.r
 
 ---
 
+## Dependencies
+
+Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
+
+1. [Requests](https://requests.readthedocs.io/en/master/): HTTP requests
+2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): Scraping and parsing HTML data.
+
+The rest of its functionality is provided directly from Python 3's standard library for clear and concise code under the hood.
+
+---
+
 ## Contributing
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
 
@@ -91,4 +102,10 @@ Happy hacking!
 ## Support
 Reach out to me if you have questions or ideas!
 - chris@christophergreening.com
-:trollface:
+:trollface: :rage2:
+
+---
+
+## Background 
+
+The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. 
