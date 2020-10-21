@@ -39,21 +39,12 @@ class Post(_StaticHtmlScraper):
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
     @classmethod
-    def load_from_profile(self, json_dict, map_dict):
+    def load_from_mapping(self, json_dict, map_dict):
         data_dict = parse_json_from_mapping(json_dict, map_dict)
         post = Post.from_shortcode(data_dict['shortcode'])
         for key, val in data_dict.items():
             setattr(post, key, val)
         #TODO: Bad encapsulation, figure a better way of handling timestamp
-        post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
-        return post
-
-    @classmethod
-    def load_from_hashtag(self, json_dict, map_dict):
-        data_dict = parse_json_from_mapping(json_dict, map_dict)
-        post = Post.from_shortcode(data_dict['shortcode'])
-        for key, val in data_dict.items():
-            setattr(post, key, val)
         post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
         return post
 

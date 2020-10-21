@@ -40,7 +40,7 @@ class Hashtag(_StaticHtmlScraper):
         for post in post_arr[:amt]:
             json_dict = post['node']
             mapping = _PostMapping.post_from_hashtag_mapping()
-            post = Post.load_from_hashtag(json_dict, mapping)
+            post = Post.load_from_mapping(json_dict, mapping)
             posts.append(post)
         return posts
 
