@@ -39,7 +39,7 @@ class _JsonEngine:
         current_key = directive_queue.popleft()
         try:
             value = container[current_key]
-        except KeyError:
+        except (KeyError, IndexError):
             value = self.DEFAULT_VAL
 
         if len(directive_queue) == 0:
