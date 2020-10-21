@@ -113,7 +113,7 @@ class _PostMapping(_GeneralMapping):
     )
 
     @classmethod
-    def post_from_profile_mapping(self):
+    def post_from_profile_mapping(cls):
         return {
             "id": deque(['id']),
             "shortcode": deque(['shortcode']),
@@ -130,6 +130,23 @@ class _PostMapping(_GeneralMapping):
             "upload_date": deque(['taken_at_timestamp']),
             "likes": deque(['edge_media_preview_like', 'count']),
             "location": deque(['location'])
+        }
+
+    @classmethod
+    def post_from_hashtag_mapping(cls):
+        return {
+            "comments_disabled": deque(['comments_disabled']),
+            "id": deque(['id']),
+            "caption": deque(['edge_media_to_caption', 'edges', 0, 'node', 'text']),
+            "shortcode": deque(['shortcode']),
+            "comments": deque(['edge_media_to_comment', 'count']),
+            "upload_date": deque(['taken_at_timestamp']),
+            "dimensions": deque(['dimensions']),
+            "display_url": deque(['display_url']),
+            "likes": deque(['edge_media_preview_like', 'count']),
+            "owner": deque(['owner', 'id']),
+            "is_video": deque(['is_video']),
+            "accessibility_caption": deque(['accessibility_caption']),
         }
 
 class _ProfileMapping(_GeneralMapping):
