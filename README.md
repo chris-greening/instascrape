@@ -25,9 +25,9 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
-  * [dependencies](#dependencies)
 * [:newspaper: Documentation](#documentation)
 * [:pray: Contributing](#contributing)
+* [:spider_web: Dependencies](#dependencies)
 * [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
 * [:grey_question: Support](#support)
@@ -64,6 +64,17 @@ $ pip3 install -r requirements.txt
 
 ## Documentation
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:
+
+---
+
+## Dependencies
+
+On the outside, Instascrape may seem like a complicated tool for mining Instagram data. However, that's not the case. Under the hood, Instascrape ___only___ does basic HTML scraping. Instascrape relies on two key libraries specifically for making web requests and actually scraping the HTML content into a neat format:
+
+1. [Requests](https://requests.readthedocs.io/en/master/): The well-known library required for making web requests.
+2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): BeautifulSoup is another well-known library that is used for scraping and parsing HTML.
+
+Overall, while it may seem like Instascrape is a huge and complicated library, in reality, Instascrape is a lightweight library with a simple yet effective mechanism behind the hood.
 
 ---
 
