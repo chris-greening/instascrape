@@ -25,11 +25,12 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
-* [:newspaper: Documentation](#documentation)
+* [:books: Documentation](#documentation)
 * [:pray: Contributing](#contributing)
 * [:spider_web: Dependencies](#dependencies)
 * [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
+* [:newspaper: Articles](#articles)
 * [:grey_question: Support](#support)
 
 ![Graph of instagram data](/media/realpython.png?raw=true)
@@ -96,6 +97,12 @@ Happy hacking!
 
 ## License
 [MIT](LICENSE)
+
+---
+
+## Articles 
+- [Scrape data from Instagram with instascrape](https://dev.to/chrisgreening/scrape-data-from-instagram-with-instascrape-5e3e) 
+- [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
 
 ---
 
