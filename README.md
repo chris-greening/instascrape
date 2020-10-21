@@ -69,12 +69,12 @@ The official documentation can be found on [Read The Docs](https://instascrape.r
 
 ## Dependencies
 
-On the outside, Instascrape may seem like a complicated tool for mining Instagram data. However, that's not the case. Under the hood, Instascrape ___only___ does basic HTML scraping. Instascrape relies on two key libraries specifically for making web requests and actually scraping the HTML content into a neat format:
+Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
 
-1. [Requests](https://requests.readthedocs.io/en/master/): The well-known library required for making web requests.
-2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): BeautifulSoup is another well-known library that is used for scraping and parsing HTML.
+1. [Requests](https://requests.readthedocs.io/en/master/): HTTP requests
+2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): Scraping and parsing HTML data.
 
-Overall, while it may seem like Instascrape is a huge and complicated library, in reality, Instascrape is a lightweight library with a simple yet effective mechanism behind the hood.
+The rest of its functionality is provided directly from Python 3's standard library for clear and concise code under the hood.
 
 ---
 
@@ -102,10 +102,10 @@ Happy hacking!
 ## Support
 Reach out to me if you have questions or ideas!
 - chris@christophergreening.com
-:trollface:
+:trollface: :rage2:
 
 ---
 
 ## Background 
 
-The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself. 
+The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. 
