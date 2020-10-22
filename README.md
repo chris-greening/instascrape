@@ -26,11 +26,11 @@
   * [pip](#pip)
   * [clone](#clone)
 * [:books: Documentation](#documentation)
+* [:newspaper: Blog Posts](#blog-posts)
 * [:pray: Contributing](#contributing)
 * [:spider_web: Dependencies](#dependencies)
 * [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
-* [:newspaper: Articles](#articles)
 * [:grey_question: Support](#support)
 
 ![Graph of instagram data](/media/realpython.png?raw=true)
@@ -68,6 +68,13 @@ The official documentation can be found on [Read The Docs](https://instascrape.r
 
 ---
 
+## Blog Posts 
+- [Scrape data from Instagram with instascrape](https://dev.to/chrisgreening/scrape-data-from-instagram-with-instascrape-5e3e) 
+- [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
+- [Exploratory data analysis of Instagram using instascrape and Python](https://dev.to/chrisgreening/exploratory-data-analysis-of-instagram-using-python-1o5c)
+
+---
+
 ## Dependencies
 
 Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
@@ -97,12 +104,6 @@ Happy hacking!
 
 ## License
 [MIT](LICENSE)
-
----
-
-## Articles 
-- [Scrape data from Instagram with instascrape](https://dev.to/chrisgreening/scrape-data-from-instagram-with-instascrape-5e3e) 
-- [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
 
 ---
 
