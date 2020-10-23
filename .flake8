@@ -1,0 +1,4 @@
+[flake8]
+exclude = media,docs
+ignore=E402,F401,F403,F405,F821
+max-line-length=120

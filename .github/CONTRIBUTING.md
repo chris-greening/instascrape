@@ -39,7 +39,14 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
 ## Use a consistent coding style
-This project uses [black](https://pypi.org/project/black/) coding style to maintain consistency and readability. Please try to conform to this standard when possible
+This project uses [black](https://pypi.org/project/black/) coding style to maintain consistency and readability. Please install [pre-commit first](https://pre-commit.com/#quick-start) to first as discussed below.
+
+## Install pre-commit
+`pre-commit` is now used to check the codebase has been formatted across the entire project.
+
+But before installing pre-commit, you need to first have [isort](https://github.com/timothycrosley/isort), [black](https://github.com/ambv/black) & [flake8](https://gitlab.com/pycqa/flake8) installed into your local machine. This is so when you commit any changes pre-commit automatically runs first then, warns you of unformatted code or errors.
+
+You can just run these commands separately against your code (e.g. with black the command would look like `black path/to/your/python/code.py` ) before committing changes.
 
 
 ## License
