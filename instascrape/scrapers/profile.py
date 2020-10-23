@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import Any, List
+from typing import List
 
+from instascrape.core._mappings import _PostMapping, _ProfileMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
-from instascrape.core._mappings import _ProfileMapping, _PostMapping
 from instascrape.scrapers.post import Post
+
 
 class Profile(_StaticHtmlScraper):
     """
@@ -33,12 +34,13 @@ class Profile(_StaticHtmlScraper):
             List containing the recent 12 posts and their available data
         """
         if amt > 12:
-            raise IndexError(f'{amt} is too large, 12 is max available posts')
+            raise IndexError(f"{amt} is too large, 12 is max available posts")
         posts = []
-        post_arr = self.json_dict['entry_data']['ProfilePage'][0][
-            'graphql']['user']['edge_owner_to_timeline_media']['edges']
+        post_arr = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"][
+            "edges"
+        ]
         for post in post_arr[:amt]:
-            json_dict = post['node']
+            json_dict = post["node"]
             mapping = _PostMapping.post_from_profile_mapping()
             post = Post.load_from_mapping(json_dict, mapping)
             posts.append(post)
