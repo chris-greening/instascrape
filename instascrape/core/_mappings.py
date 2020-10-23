@@ -1,15 +1,14 @@
 from __future__ import annotations
 
-# pylint: disable=used-before-assignment
-
+from abc import ABC
 from collections import deque
 from copy import deepcopy
 from typing import Dict, List, Union
-from abc import ABC
 
-MappingObject = Union[
-    "_PostMapping", "_ProfileMapping", "_HashtagMapping", "_LoginMapping"
-]
+# pylint: disable=used-before-assignment
+
+
+MappingObject = Union["_PostMapping", "_ProfileMapping", "_HashtagMapping", "_LoginMapping"]
 
 
 class _GeneralMapping(ABC):
@@ -33,9 +32,9 @@ class _GeneralMapping(ABC):
     """
 
     mapping = {
-        "csrf_token": deque(['csrf_token']),
+        "csrf_token": deque(["csrf_token"]),
         "viewer": deque(["viewer"]),
-        "viewer_id": deque(['viewerId']),
+        "viewer_id": deque(["viewerId"]),
         "country_code": deque(["country_code"]),
         "language_code": deque(["language_code"]),
         "locale": deque(["locale"]),
@@ -51,9 +50,7 @@ class _GeneralMapping(ABC):
     }
 
     @classmethod
-    def return_mapping(
-        cls, keys: List[str] = [], exclude: List[str] = []
-    ) -> Dict[str, deque]:
+    def return_mapping(cls, keys: List[str] = [], exclude: List[str] = []) -> Dict[str, deque]:
         """
         Return key-directive pairs specified by key names. If no keys are
         specified, return all
@@ -74,6 +71,7 @@ class _GeneralMapping(ABC):
             keys = [key for key in keys if key not in exclude]
         directive_dict = {key: deepcopy(cls.mapping[key]) for key in keys}
         return directive_dict
+
 
 class _PostMapping(_GeneralMapping):
     """Mapping specific to Instagram post pages"""
@@ -115,39 +113,40 @@ class _PostMapping(_GeneralMapping):
     @classmethod
     def post_from_profile_mapping(cls):
         return {
-            "id": deque(['id']),
-            "shortcode": deque(['shortcode']),
-            "dimensions": deque(['dimensions']),
-            "display_url": deque(['display_url']),
-            "tagged_users": deque(['edge_media_to_tagged_user', 'edges']),
-            "fact_check_overall_rating": deque(['fact_check_overall_rating']),
-            "fact_check_information": deque(['fact_check_information']),
-            "is_video": deque(['is_video']),
-            "accessibility_caption": deque(['accessibility_caption']),
-            "caption": deque(['edge_media_to_caption', 'edges', 0, 'node', 'text']),
-            "comments": deque(['edge_media_to_comment', 'count']),
-            "comments_disabled": deque(['comments_disabled']),
-            "upload_date": deque(['taken_at_timestamp']),
-            "likes": deque(['edge_media_preview_like', 'count']),
-            "location": deque(['location', 'name'])
+            "id": deque(["id"]),
+            "shortcode": deque(["shortcode"]),
+            "dimensions": deque(["dimensions"]),
+            "display_url": deque(["display_url"]),
+            "tagged_users": deque(["edge_media_to_tagged_user", "edges"]),
+            "fact_check_overall_rating": deque(["fact_check_overall_rating"]),
+            "fact_check_information": deque(["fact_check_information"]),
+            "is_video": deque(["is_video"]),
+            "accessibility_caption": deque(["accessibility_caption"]),
+            "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
+            "comments": deque(["edge_media_to_comment", "count"]),
+            "comments_disabled": deque(["comments_disabled"]),
+            "upload_date": deque(["taken_at_timestamp"]),
+            "likes": deque(["edge_media_preview_like", "count"]),
+            "location": deque(["location", "name"]),
         }
 
     @classmethod
     def post_from_hashtag_mapping(cls):
         return {
-            "comments_disabled": deque(['comments_disabled']),
-            "id": deque(['id']),
-            "caption": deque(['edge_media_to_caption', 'edges', 0, 'node', 'text']),
-            "shortcode": deque(['shortcode']),
-            "comments": deque(['edge_media_to_comment', 'count']),
-            "upload_date": deque(['taken_at_timestamp']),
-            "dimensions": deque(['dimensions']),
-            "display_url": deque(['display_url']),
-            "likes": deque(['edge_media_preview_like', 'count']),
-            "owner": deque(['owner', 'id']),
-            "is_video": deque(['is_video']),
-            "accessibility_caption": deque(['accessibility_caption']),
+            "comments_disabled": deque(["comments_disabled"]),
+            "id": deque(["id"]),
+            "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
+            "shortcode": deque(["shortcode"]),
+            "comments": deque(["edge_media_to_comment", "count"]),
+            "upload_date": deque(["taken_at_timestamp"]),
+            "dimensions": deque(["dimensions"]),
+            "display_url": deque(["display_url"]),
+            "likes": deque(["edge_media_preview_like", "count"]),
+            "owner": deque(["owner", "id"]),
+            "is_video": deque(["is_video"]),
+            "accessibility_caption": deque(["accessibility_caption"]),
         }
+
 
 class _ProfileMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
@@ -195,6 +194,7 @@ class _ProfileMapping(_GeneralMapping):
         }
     )
 
+
 class _HashtagMapping(_GeneralMapping):
     """Mapping specific to Instagram hashtag pages"""
 
@@ -211,10 +211,12 @@ class _HashtagMapping(_GeneralMapping):
         }
     )
 
+
 class _LoginMapping(_GeneralMapping):
     """Mapping specific to Instagram login page"""
 
     mapping = _GeneralMapping.return_mapping().copy()
+
 
 class _MetaMapping:
     """

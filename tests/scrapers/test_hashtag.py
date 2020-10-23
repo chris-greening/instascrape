@@ -1,6 +1,7 @@
-import pytest
-import json
 import csv
+import json
+
+import pytest
 
 from instascrape import Hashtag
 

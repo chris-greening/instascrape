@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-# pylint: disable=no-member
-
 import json
 from abc import ABC
 from typing import Any, Dict, List
 
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping
-from instascrape.core._json_flattener import FlatJSONDict
+
+# pylint: disable=no-member
+
 
 class _StaticHtmlScraper(ABC):
     """
@@ -27,8 +27,8 @@ class _StaticHtmlScraper(ABC):
         Writes the scraped data to a json file at the given filepath
     """
 
-    #Keys that represent metadata attr that the user doesn't necessarily need
-    #to worry about
+    # Keys that represent metadata attr that the user doesn't necessarily need
+    # to worry about
     _METADATA_KEYS = [
         "json_dict",
         "url",
@@ -37,7 +37,7 @@ class _StaticHtmlScraper(ABC):
         "map_dict",
         "json_data",
         "json_flattener",
-        "flat_json_dict"
+        "flat_json_dict",
     ]
 
     def __init__(self, url, name=None):
@@ -95,11 +95,7 @@ class _StaticHtmlScraper(ABC):
             Dictionary containing the scraped data
         """
         data_dict = (
-            {
-                key: val
-                for key, val in self.__dict__.items()
-                if key not in self._METADATA_KEYS
-            }
+            {key: val for key, val in self.__dict__.items() if key not in self._METADATA_KEYS}
             if not metadata
             else self.__dict__
         )
