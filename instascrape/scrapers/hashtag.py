@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import datetime
-from typing import Any, List
+from typing import List
 
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper

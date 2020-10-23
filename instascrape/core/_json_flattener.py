@@ -1,6 +1,5 @@
 from collections import deque
 from collections.abc import MutableMapping
-from copy import deepcopy
 from typing import Any, Dict, List, Union
 
 JSONDict = Dict[str, Any]

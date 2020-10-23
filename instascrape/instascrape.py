@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Dict
-
 from instascrape.scrapers import *
 
 # pylint: disable=unused-wildcard-import

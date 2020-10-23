@@ -1,7 +1,7 @@
 import datetime
 import time
 from itertools import cycle
-from typing import Callable, List
+from typing import List
 
 
 class IntervalCollector:

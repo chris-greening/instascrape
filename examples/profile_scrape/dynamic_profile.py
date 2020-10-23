@@ -1,11 +1,8 @@
 import os
 import sys
 import time
-from pathlib import Path
-from sys import platform
 
 import numpy as np
-import pandas as pd
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome, ChromeOptions
 
