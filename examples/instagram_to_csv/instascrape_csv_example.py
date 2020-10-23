@@ -1,4 +1,4 @@
-import json  # import needed libraries / pip3 install json
+import pandas as pd  # pip3 install pandas
 
 from instascrape import Profile  # pip3 install insta-scrape
 

@@ -2,10 +2,9 @@ import os
 import sys
 from sys import platform
 import time
-from pathlib import Path
 
-import pandas as pd
 import numpy as np
+from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome, ChromeOptions
 from bs4 import BeautifulSoup
 

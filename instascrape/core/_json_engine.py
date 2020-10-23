@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import deque
-from typing import Dict, Union, Any, List
+from typing import Any, Dict
 
 JSONDict = Dict[str, Any]
 
