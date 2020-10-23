@@ -38,7 +38,7 @@ Example of Instagram likes per post data scraped using instascrape (this reposit
 
 ---
 
-## Installation
+## :computer: Installation <a name="installation"></a>
 
 ### Minimum Python version
 
