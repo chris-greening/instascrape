@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List
+from typing import List
 
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _ProfileMapping, _PostMapping

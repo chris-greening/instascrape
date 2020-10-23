@@ -1,7 +1,7 @@
 import re
-import json
 import csv
 import datetime
+import json
 
 import pytest
 
@@ -11,7 +11,7 @@ from instascrape import Post
 class TestPost:
     @pytest.fixture
     def page_instance(self):
-        google_post_url = f"https://www.instagram.com/p/CGX0G64hu4Q/"
+        google_post_url = "https://www.instagram.com/p/CGX0G64hu4Q/"
         random_google_post = Post(url=google_post_url)
         random_google_post.load()
         return random_google_post

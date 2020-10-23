@@ -3,16 +3,10 @@ from __future__ import annotations
 # pylint: disable=no-member
 
 import json
-import datetime
-from typing import Dict, Any, List
-from abc import ABC, abstractmethod
-import csv
-import json
+from abc import ABC
+from typing import Any, Dict, List
 
-import requests
-from bs4 import BeautifulSoup
-
-from instascrape.core._mappings import _MetaMapping
+from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping
 from instascrape.core._json_flattener import FlatJSONDict
 
