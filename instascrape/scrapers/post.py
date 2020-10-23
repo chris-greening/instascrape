@@ -1,14 +1,15 @@
 from __future__ import annotations
 
+import abc
+import datetime
+from typing import Any, List
+
+from instascrape.core._mappings import _PostMapping
+from instascrape.core._static_scraper import _StaticHtmlScraper
+from instascrape.scrapers.json_tools import parse_json_from_mapping
+
 # pylint: disable=no-member
 
-import datetime
-from typing import List, Any
-import abc
-
-from instascrape.core._static_scraper import _StaticHtmlScraper
-from instascrape.core._mappings import _PostMapping
-from instascrape.scrapers.json_tools import parse_json_from_mapping
 
 class Post(_StaticHtmlScraper):
     """
@@ -41,10 +42,10 @@ class Post(_StaticHtmlScraper):
     @classmethod
     def load_from_mapping(self, json_dict, map_dict):
         data_dict = parse_json_from_mapping(json_dict, map_dict)
-        post = Post.from_shortcode(data_dict['shortcode'])
+        post = Post.from_shortcode(data_dict["shortcode"])
         for key, val in data_dict.items():
             setattr(post, key, val)
-        #TODO: Bad encapsulation, figure a better way of handling timestamp
+        # TODO: Bad encapsulation, figure a better way of handling timestamp
         post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
         return post
 

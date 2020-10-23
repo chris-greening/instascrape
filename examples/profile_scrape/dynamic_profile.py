@@ -1,16 +1,16 @@
 import os
 import sys
-from sys import platform
 import time
 from pathlib import Path
+from sys import platform
 
-import pandas as pd
 import numpy as np
-from selenium.webdriver import Chrome, ChromeOptions
+import pandas as pd
 from bs4 import BeautifulSoup
+from selenium.webdriver import Chrome, ChromeOptions
 
 sys.path.insert(0, os.path.abspath(r"..\.."))
-from instascrape import Profile, Post
+from instascrape import Post, Profile
 
 chrome_options = ChromeOptions()
 prefs = {"profile.managed_default_content_settings.images": 2}
@@ -33,7 +33,9 @@ class DynamicProfile(Profile):
         browser.get(self.url)
 
         source_data = []
-        js_script = "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;"
+        js_script = (
+            "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;"
+        )
         lenOfPage = browser.execute_script(js_script)
         match = False
         while not match:

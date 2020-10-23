@@ -1,7 +1,7 @@
-import re
-import json
 import csv
 import datetime
+import json
+import re
 
 import pytest
 
@@ -25,14 +25,12 @@ class TestPost:
         page_instance.to_json(fp=str(file))
         with open(str(file), "r") as injson:
             json_dict = json.load(injson)
-        json_dict["upload_date"] = datetime.datetime.fromtimestamp(
-            int(json_dict["upload_date"])
-        )
+        json_dict["upload_date"] = datetime.datetime.fromtimestamp(int(json_dict["upload_date"]))
 
-        #NaN will fail on nan == nan so convert them to 'nan'
+        # NaN will fail on nan == nan so convert them to 'nan'
         page_inst_dict = page_instance.to_dict()
-        page_inst_dict = {key: str(val) for key,val in page_inst_dict.items()}
-        json_dict = {key: str(val) for key,val in page_inst_dict.items()}
+        page_inst_dict = {key: str(val) for key, val in page_inst_dict.items()}
+        json_dict = {key: str(val) for key, val in page_inst_dict.items()}
 
         assert page_inst_dict == json_dict
 
@@ -47,9 +45,7 @@ class TestPost:
         with open(str(file), mode="r") as infile:
             reader = csv.reader(infile)
             csv_dict = {row[0]: row[1] for row in reader}
-        csv_dict["upload_date"] = str(
-            datetime.datetime.fromtimestamp(float(csv_dict["upload_date"]))
-        )
+        csv_dict["upload_date"] = str(datetime.datetime.fromtimestamp(float(csv_dict["upload_date"])))
 
         # have to convert everything to str otherwise AssertionError will trip
         # up comparing stuff like True == 'True'

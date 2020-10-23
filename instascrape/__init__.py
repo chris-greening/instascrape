@@ -1,1 +1,1 @@
-from instascrape.scrapers import * 
+from instascrape.scrapers import *

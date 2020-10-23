@@ -1,8 +1,7 @@
 import datetime
-from itertools import cycle
 import time
-
-from typing import List, Callable
+from itertools import cycle
+from typing import Callable, List
 
 
 class IntervalCollector:
@@ -47,9 +46,7 @@ class IntervalCollector:
 
         # Wait during interval, scrape data, then check if current time has passed end time
         if not quiet:
-            print(
-                f"Starting scrape, {self._calculate_time_remaining(current_time, end_time)} seconds remaining"
-            )
+            print(f"Starting scrape, {self._calculate_time_remaining(current_time, end_time)} seconds remaining")
         for scraper in cycle(self.scrapers):
             time.sleep(min_interval)
             scraper.static_load()
@@ -118,14 +115,10 @@ class IntervalIterator(IntervalCollector):
         time.sleep(self.min_interval)
         self.current.static_load()
         self.current_time = datetime.datetime.now()
-        self.time_remaining = self._calculate_time_remaining(
-            self.current_time, self.end_time
-        )
+        self.time_remaining = self._calculate_time_remaining(self.current_time, self.end_time)
         if not self.quiet:
             if self.time_remaining > 0:
-                print(
-                    f"{self.current} scraped: {self.time_remaining} seconds remaining"
-                )
+                print(f"{self.current} scraped: {self.time_remaining} seconds remaining")
             else:
                 print(f"{self.current} scraped: No time remaining, exitting")
         self.current = next(self.scrapers)

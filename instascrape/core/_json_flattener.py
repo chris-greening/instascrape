@@ -1,9 +1,10 @@
 from collections import deque
 from collections.abc import MutableMapping
-from typing import List, Dict, Any, Union
 from copy import deepcopy
+from typing import Any, Dict, List, Union
 
 JSONDict = Dict[str, Any]
+
 
 class FlatJSONDict(MutableMapping):
     def __init__(self, json_dict):
@@ -34,7 +35,7 @@ class FlatJSONDict(MutableMapping):
 
     def _new_key(self, key: str, key_arr: deque) -> str:
         key_arr.appendleft(str(key))
-        return '_'.join(key_arr)
+        return "_".join(key_arr)
 
     def __setitem__(self, key, value):
         self.__dict__[key] = value
@@ -50,22 +51,23 @@ class FlatJSONDict(MutableMapping):
 
     def __len__(self):
         return len(self.__dict__)
+
     # The final two methods aren't required, but nice for demo purposes:
 
     def __str__(self):
-        '''returns simple dict representation of the mapping'''
+        """returns simple dict representation of the mapping"""
         return str(self.__dict__)
 
     def __repr__(self):
-        '''echoes class, id, & reproducible representation in the REPL'''
-        return '{}, D({})'.format(super(FlatJSONDict, self).__repr__(),
-                                  self.__dict__)
+        """echoes class, id, & reproducible representation in the REPL"""
+        return "{}, D({})".format(super(FlatJSONDict, self).__repr__(), self.__dict__)
 
 
 class JsonTree:
     """Tree of linked lists that map out the JSON data"""
+
     def __init__(self, json_dict: JSONDict):
-        self.json_dict = json_dict 
+        self.json_dict = json_dict
         self.map_tree(self.json_dict)
 
     def map_tree(self, json_dict):
@@ -73,11 +75,19 @@ class JsonTree:
         self.leaf_nodes = []
         self.root_node = Node(json_data=json_dict, tree=self)
 
+
 class Node:
     """
     Representation of one step into a JSON Tree
     """
-    def __init__(self, json_data: Any, tree: JsonTree, linked_list: deque=deque([]), prior_keys: List[Union[str, int]]=[]) -> None:
+
+    def __init__(
+        self,
+        json_data: Any,
+        tree: JsonTree,
+        linked_list: deque = deque([]),
+        prior_keys: List[Union[str, int]] = [],
+    ) -> None:
         self.json_data = json_data
         self.tree = tree
         self.linked_list = linked_list
@@ -87,7 +97,7 @@ class Node:
 
         self.nodes = []
 
-        #If the node is a leaf then it has no edges
+        # If the node is a leaf then it has no edges
         if self.is_leaf:
             self.json_data = {prior_keys[-1]: self.json_data}
             self.tree.leaf_nodes.append(self)
