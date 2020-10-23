@@ -1,9 +1,10 @@
-import pytest
-import json
 import csv
+import json
 
-from instascrape import Profile
-from instascrape import Post
+import pytest
+
+from instascrape import Post, Profile
+
 
 class TestProfile:
     @pytest.fixture
@@ -48,9 +49,7 @@ class TestProfile:
 
     def test_from_username(self, page_instance):
         expected_profile_username = "chris_greening"
-        result_profile: Profile = Profile.from_username(
-            username=expected_profile_username
-        )
+        result_profile: Profile = Profile.from_username(username=expected_profile_username)
 
         assert result_profile.url == page_instance.url
 
@@ -58,4 +57,4 @@ class TestProfile:
         posts = page_instance.get_recent_posts(amt=6)
         assert len(posts) == 6
         assert all([type(post) is Post for post in posts])
-        assert all([hasattr(post, 'id') for post in posts])
+        assert all([hasattr(post, "id") for post in posts])

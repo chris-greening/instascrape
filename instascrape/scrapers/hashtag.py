@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
-from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
+from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers import Post
 
 
@@ -29,13 +29,12 @@ class Hashtag(_StaticHtmlScraper):
             List containing the recent 12 posts and their available data
         """
         posts = []
-        post_arr = self.json_dict['entry_data']['TagPage'][0][
-            'graphql']['hashtag']['edge_hashtag_to_media']['edges']
+        post_arr = self.json_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"]
         amount_of_posts = len(post_arr)
         if amt > amount_of_posts:
             amt = amount_of_posts
         for post in post_arr[:amt]:
-            json_dict = post['node']
+            json_dict = post["node"]
             mapping = _PostMapping.post_from_hashtag_mapping()
             post = Post.load_from_mapping(json_dict, mapping)
             posts.append(post)
