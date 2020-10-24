@@ -23,6 +23,7 @@ class Post(_StaticHtmlScraper):
     def load(self, keys: List[str] = [], exclude: List[str] = []):
         super().load(keys=keys)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
+        self.tagged_users = self._parse_tagged_users(self.json_dict)
 
     def to_json(self, fp: str):
         # have to convert to serializable format
@@ -45,6 +46,12 @@ class Post(_StaticHtmlScraper):
         # TODO: Bad encapsulation, figure a better way of handling timestamp
         post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
         return post
+
+    def _parse_tagged_users(self, json_dict) -> List[str]:
+        """Parse the tagged users from JSON dict containing the tagged users"""
+        tagged_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_tagged_user']['edges']
+        return [node['node']['user']['username'] for node in tagged_arr]
+
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
