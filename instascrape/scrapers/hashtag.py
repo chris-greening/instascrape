@@ -4,7 +4,7 @@ from typing import List
 
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
-from instascrape.scrapers import Post
+from instascrape.scrapers.post import Post
 
 
 class Hashtag(_StaticHtmlScraper):
