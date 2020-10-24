@@ -38,7 +38,7 @@ Example of Instagram likes per post data scraped using instascrape (this reposit
 
 ---
 
-## Installation
+## :computer: Installation <a name="installation"></a>
 
 ### Minimum Python version
 
@@ -63,19 +63,30 @@ $ pip3 install -r requirements.txt
 ```
 ---
 
-## Documentation
+## :books: Documentation <a name="documentation"></a>
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:
 
 ---
 
-## Blog Posts 
+## :newspaper: Blog Posts <a name="blog-posts"></a>
+
+Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 - [Scrape data from Instagram with instascrape](https://dev.to/chrisgreening/scrape-data-from-instagram-with-instascrape-5e3e) 
 - [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
 - [Exploratory data analysis of Instagram using instascrape and Python](https://dev.to/chrisgreening/exploratory-data-analysis-of-instagram-using-python-1o5c)
 
+<img src="media/likes_heatmap.png" width="600"/>
+
 ---
 
-## Dependencies
+## :pray: Contributing <a name="contributing"></a>
+All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
+
+Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed!
+
+---
+
+## :spider_web: Dependencies <a name="dependencies"></a>
 
 Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
 
@@ -86,14 +97,9 @@ The rest of its functionality is provided directly from Python 3's standard libr
 
 ---
 
-## Contributing
-All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
 
-Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed!
 
----
-
-## Hacktoberfest 2020
+## :jack_o_lantern: Hacktoberfest 2020 <a name="hacktoberfest-2020"></a>
 <img src="https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg" width="350"/>
 
 This repo is participating in [Hacktoberfest 2020](https://hacktoberfest.digitalocean.com/)! I would love for this repo to be a resource to absolute beginners looking to make some of their first contributions. Check out [Issues](https://github.com/chris-greening/instascrape/issues) for some easy ideas or [open your own](https://github.com/chris-greening/instascrape/issues/new/choose) with something you want to work on! Please see the [official Hacktober FAQ](https://hacktoberfest.digitalocean.com/faq) for rules/questions.
@@ -102,12 +108,12 @@ Happy hacking!
 
 ---
 
-## License
+## :credit_card: License <a name="license"></a>
 [MIT](LICENSE)
 
 ---
 
-## Support
+## :grey_question: Support <a name="support"></a>
 Reach out to me if you have questions or ideas!
 - chris@christophergreening.com
 :trollface: :rage2:
