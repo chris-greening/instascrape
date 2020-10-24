@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 from typing import List
+import re
 
 from instascrape.core._mappings import _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
@@ -24,6 +25,7 @@ class Post(_StaticHtmlScraper):
         super().load(keys=keys)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
         self.tagged_users = self._parse_tagged_users(self.json_dict)
+        self.hashtags = self._parse_hashtags(self.caption)
 
     def to_json(self, fp: str):
         # have to convert to serializable format
@@ -52,6 +54,10 @@ class Post(_StaticHtmlScraper):
         tagged_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_tagged_user']['edges']
         return [node['node']['user']['username'] for node in tagged_arr]
 
+    def _parse_hashtags(self, caption) -> List[str]:
+        """Parse the hastags from the post's caption using regex"""
+        pattern = r"#(\w+)"
+        return re.findall(pattern, caption)
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
