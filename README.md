@@ -34,7 +34,7 @@
 * [:grey_question: Support](#support)
 
 ![Graph of instagram data](/media/realpython.png?raw=true)
-Example of Instagram likes per post data scraped using instascrape (this repository and its author(s) are not affiliated with Real Python)
+(this repository and its author(s) are not affiliated with Real Python)
 
 ---
 
@@ -75,7 +75,8 @@ Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 - [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
 - [Exploratory data analysis of Instagram using instascrape and Python](https://dev.to/chrisgreening/exploratory-data-analysis-of-instagram-using-python-1o5c)
 
-<img src="media/likes_heatmap.png" width="600"/>
+<img src="media/likes_heatmap.png" align="left" width="500"/>
+<img src="media/scatter_matrix.png" width="300"/>
 
 ---
 
