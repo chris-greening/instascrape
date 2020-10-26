@@ -51,7 +51,7 @@ class Post(_StaticHtmlScraper):
 
     def get_recent_comments(self):
         list_of_dicts = self.json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
-        comments_arr = [Comment(comment_dict['node']) for comment_dict in list_of_dicts]
+        comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
         return comments_arr
 
     def _parse_tagged_users(self, json_dict) -> List[str]:
