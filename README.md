@@ -49,6 +49,7 @@ This library currently requires [Python 3.7](https://www.python.org/downloads/re
 ```shell
 $ pip3 install insta-scrape
 ```
+WARNING: make sure you install _insta-scrape_ and not any other packages with similar names! 
 
 ### Clone
 > Clone right from Github to your local machine using
