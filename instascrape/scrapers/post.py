@@ -3,6 +3,9 @@ from __future__ import annotations
 import datetime
 from typing import List
 import re
+import shutil
+
+import requests
 
 from instascrape.core._mappings import _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
@@ -20,6 +23,12 @@ class Post(_StaticHtmlScraper):
     """
 
     _Mapping = _PostMapping
+
+    def download(self, fp: str) -> None:
+        """Download an image from a post to your local machine at the given fpath"""
+        img_data = requests.get(self.display_url, stream=True)
+        with open(fp, 'wb') as img_file:
+            shutil.copyfileobj(img_data.raw, img_file)
 
     def load(self, keys: List[str] = [], exclude: List[str] = []):
         super().load(keys=keys)
