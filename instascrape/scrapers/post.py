@@ -7,7 +7,7 @@ import re
 from instascrape.core._mappings import _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.json_tools import parse_json_from_mapping
-
+from instascrape.scrapers.comment import Comment
 
 class Post(_StaticHtmlScraper):
     """
@@ -26,7 +26,6 @@ class Post(_StaticHtmlScraper):
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
         self.tagged_users = self._parse_tagged_users(self.json_dict)
         self.hashtags = self._parse_hashtags(self.caption)
-        comments_arr = self._parse_comments(self.json_dict)
 
     def to_json(self, fp: str):
         # have to convert to serializable format
@@ -50,6 +49,11 @@ class Post(_StaticHtmlScraper):
         post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
         return post
 
+    def get_recent_comments(self):
+        list_of_dicts = self.json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
+        comments_arr = [Comment(comment_dict['node']) for comment_dict in list_of_dicts]
+        return comments_arr
+
     def _parse_tagged_users(self, json_dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
         tagged_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_tagged_user']['edges']
@@ -59,11 +63,6 @@ class Post(_StaticHtmlScraper):
         """Parse the hastags from the post's caption using regex"""
         pattern = r"#(\w+)"
         return re.findall(pattern, caption)
-
-    def _parse_comments(self, json_dict):
-        """Parse the comments from the post"""
-        comments_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
-        
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
