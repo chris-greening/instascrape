@@ -26,6 +26,7 @@ class Post(_StaticHtmlScraper):
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
         self.tagged_users = self._parse_tagged_users(self.json_dict)
         self.hashtags = self._parse_hashtags(self.caption)
+        comments_arr = self._parse_comments(self.json_dict)
 
     def to_json(self, fp: str):
         # have to convert to serializable format
@@ -58,6 +59,11 @@ class Post(_StaticHtmlScraper):
         """Parse the hastags from the post's caption using regex"""
         pattern = r"#(\w+)"
         return re.findall(pattern, caption)
+
+    def _parse_comments(self, json_dict):
+        """Parse the comments from the post"""
+        comments_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
+        
 
     @classmethod
     def from_shortcode(cls, shortcode: str) -> Post:
