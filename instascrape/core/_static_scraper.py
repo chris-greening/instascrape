@@ -135,3 +135,6 @@ class _StaticHtmlScraper(ABC):
     def _load_into_namespace(self, scraped_dict):
         for key, val in scraped_dict.items():
             setattr(self, key, val)
+
+    def __repr__(self):
+        return self.url
