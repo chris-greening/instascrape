@@ -25,10 +25,31 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
 
     def download(self, fp: str) -> None:
-        """Download an image from a post to your local machine at the given fpath"""
-        img_data = requests.get(self.display_url, stream=True)
-        with open(fp, 'wb') as img_file:
-            shutil.copyfileobj(img_data.raw, img_file)
+        """
+        Download an image from a post to your local machine at the given fpath
+
+        Parameters
+        ----------
+        fp : str
+            Filepath to download the image to
+        """
+        url = self.video_url if self.is_video else self.display_url
+        data = requests.get(url, stream=True)
+        if self.is_video:
+            self._download_video(fp=fp, data=data)
+        else:
+            self._download_photo(fp=fp, data=data)
+
+    def _download_photo(self, fp: str, data):
+        with open(fp, 'wb') as outfile:
+            shutil.copyfileobj(data.raw, outfile)
+
+    def _download_video(self, fp: str, data):
+        with open(fp, 'wb') as outfile:
+            for chunk in data.iter_content(chunk_size=1024):
+                    if chunk:
+                        outfile.write(chunk)
+                        outfile.flush()
 
     def load(self, keys: List[str] = [], exclude: List[str] = []):
         super().load(keys=keys)
