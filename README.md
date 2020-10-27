@@ -1,6 +1,6 @@
 ![instascrape logo](/media/logo.png?raw=true)
 
-# instascrape: super lightweight Instagram scraping toolkit
+# instascrape: Instagram scraping for humans
 
 ## What is it?
 > _instascrape_ is a powerful, lightweight library for scraping Instagram data quickly and efficiently. It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time collecting data and just start analyzing! 
@@ -19,13 +19,43 @@
 
 ![Example gif of instascrape](/media/instascrape.gif?raw=true)
 
+## Key features
+* :walking: Static HTML scrapers 
+  * `Profile`: scrapes 50 data points from a profile  
+    * follower count
+    * recent posts 
+    * verification status  
+    * etc.
+  * `Post`: scrapes almost 50 data points from a post  
+    * likes
+    * amount of comments
+    * hashtags
+    * etc. 
+  * `Hashtag`: scrapes over a dozen data points from a hashtag  
+    * amount of posts 
+    * recent posts
+    * featured picture URL 
+    * etc. 
+* :floppy_disk: Download post media locally as _png_, _jpg_, _mp4_, and _mp3_
+* :musical_score: Expressive and consistent API for concise and elegant code
+* :bar_chart: Designed for seamless integration with 
+  * [_Selenium_](https://selenium-python.readthedocs.io/) 
+  * [_Pandas_](https://pandas.pydata.org/)
+  * [_Scikit-learn_](https://scikit-learn.org/stable/)
+  
+  and other industry standard libraries for powerful data analysis 
+* :hammer: Lightweight: you don't have to build a hammer factory when all you need is a hammer 
+* :spider_web: The only hard dependencies are
+  * [Requests](https://requests.readthedocs.io/en/master/)
+  * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
 ---
 
 ## Table of Contents
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
-* [:mag_right: Features](#features)
+* [:mag_right: Sample Usage](#features)
 * [:books: Documentation](#documentation)
 * [:newspaper: Blog Posts](#blog-posts)
 * [:pray: Contributing](#contributing)
@@ -61,7 +91,7 @@ $ pip3 install -r requirements.txt
 ```
 ---
 
-## :mag_right: Features <a name="features"></a>
+## :mag_right: Sample Usage <a name="features"></a>
 All top-level, ready-to-use features can be imported using:
 ```python
 from instascrape import *
@@ -123,7 +153,7 @@ Instascrape primarily relies on two third-party libraries for requesting and scr
 1. [Requests](https://requests.readthedocs.io/en/master/): HTTP requests
 2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): Scraping and parsing HTML data.
 
-The rest of its functionality is provided directly from Python 3's standard library for clear and concise code under the hood.
+The rest of its functionality is provided directly from Python 3's standard library for unobtrusive code under the hood with little to no overhead.
 
 ---
 
@@ -144,9 +174,8 @@ Reach out to me if you have questions or ideas!
 
 ---
 
-## Background 
 
-The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. 
+<!-- The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. -->
 
 <p align="center">
   <img src="media/logopic.png">
