@@ -64,3 +64,9 @@ class InstaScrape:
         hashtag = Hashtag.from_hashtag(hashtag)
         hashtag.load()
         return hashtag
+
+    def download_post(self, url: str, fp: str) -> None:
+        """Download post at the given url to local machine at given fp"""
+        post = Post(url)
+        post.load()
+        post.download(fp)
