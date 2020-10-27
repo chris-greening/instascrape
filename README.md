@@ -3,7 +3,7 @@
 # instascrape: super lightweight Instagram scraping toolkit
 
 ## What is it?
-> **instascrape** is an incredibly lightweight set of tools geared towards scraping Instagram data. It makes *no* assumptions about your project and is instead designed for flexibility and developer productivity. It is excellent for the seasoned data scientist trying to quickly get an idea of a page's engagement as well as beginners looking to explore web scraping and the beauty of Python for the very first time.
+> _instascrape_ is an incredibly lightweight set of tools geared towards scraping Instagram data. It makes *no* assumptions about your project and is instead designed for flexibility and developer productivity. It is excellent for the seasoned data scientist trying to quickly get an idea of a page's engagement as well as beginners looking to explore web scraping and the beauty of Python for the very first time.
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
 [![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/)
@@ -25,6 +25,7 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
+* [:mag_right: Features](#features)
 * [:books: Documentation](#documentation)
 * [:newspaper: Blog Posts](#blog-posts)
 * [:pray: Contributing](#contributing)
@@ -59,6 +60,36 @@ $ git clone https://github.com/chris-greening/instascrape.git
 $ pip3 install -r requirements.txt
 ```
 ---
+
+## :mag_right: Features <a name="features"></a>
+All top-level, ready-to-use features can be imported using:
+```python
+from instascrape import *
+```
+
+_instascrape_ uses clean, consistent, and expressive syntax to make the developer experience as _painless_ as possible. 
+
+```python
+# Instantiate the scraper objects 
+google = Profile('https://www.instagram.com/google/')
+google_post = Post('https://www.instagram.com/p/CG0UU3ylXnv/')
+google_hashtag = Hashtag('https://www.instagram.com/explore/tags/google/')
+
+# Load their respective data 
+google.load()
+google_post.load()
+google_hashtag.load()
+```
+
+After being scraped, relevant attributes can be accessed with dot (.) or bracket (\[\]) notation
+```python
+print(google.followers)
+print(google_post['hashtags'])
+print(google_hashtag.amount_of_posts)
+>>> 12262794
+>>> ['growwithgoogle']
+>>> 9053408
+```
 
 ## :books: Documentation <a name="documentation"></a>
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:
