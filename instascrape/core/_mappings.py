@@ -99,7 +99,7 @@ class _PostMapping(_GeneralMapping):
             "comments": deque(["count"]),
             "comments_disabled": deque(["comments_disabled"]),
             "commenting_disabled_for_viewer": deque(["commenting_disabled_for_viewer"]),
-            "upload_date": deque(["taken_at_timestamp"]),
+            "timestamp": deque(["taken_at_timestamp"]),
             "likes": deque(["edge_media_preview_like_count"]),
             "location": deque(["name"]),
             "viewer_has_liked": deque(["viewer_has_liked"]),
