@@ -29,7 +29,6 @@
 * [:newspaper: Blog Posts](#blog-posts)
 * [:pray: Contributing](#contributing)
 * [:spider_web: Dependencies](#dependencies)
-* [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
 * [:grey_question: Support](#support)
 
