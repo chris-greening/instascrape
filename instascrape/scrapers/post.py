@@ -4,6 +4,7 @@ import datetime
 from typing import List
 import re
 import shutil
+import pathlib
 
 import requests
 
@@ -23,16 +24,22 @@ class Post(_StaticHtmlScraper):
     """
 
     _Mapping = _PostMapping
+    SUPPORTED_DOWNLOAD_EXTENSIONS = ['.mp3', '.mp4', '.png', 'jpg']
 
     def download(self, fp: str) -> None:
         """
-        Download an image from a post to your local machine at the given fpath
+        Download an image or video from a post to your local machine at the given fpath
 
         Parameters
         ----------
         fp : str
             Filepath to download the image to
         """
+        ext = pathlib.Path(fp).suffix
+        if ext not in self.SUPPORTED_DOWNLOAD_EXTENSIONS:
+            raise NameError(
+                f"{ext} is not a supported file extension. Please use {', '.join(self.SUPPORTED_DOWNLOAD_EXTENSIONS)}"
+            )
         url = self.video_url if self.is_video else self.display_url
         data = requests.get(url, stream=True)
         if self.is_video:
