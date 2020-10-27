@@ -17,8 +17,6 @@
 [![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
 [![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 
-![Example gif of instascrape](/media/instascrape.gif?raw=true)
-
 ## Key features
 * :walking: Static HTML scrapers 
   * `Profile`: scrapes 50 data points from a profile  
