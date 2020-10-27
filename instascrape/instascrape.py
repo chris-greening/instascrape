@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from instascrape.scrapers import *
 
-
 class InstaScrape:
     """
     Quick and clean interface for tying in much of instascrape's functionality
