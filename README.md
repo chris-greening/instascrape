@@ -3,7 +3,7 @@
 # instascrape: super lightweight Instagram scraping toolkit
 
 ## What is it?
-> **instascrape** is an incredibly lightweight set of tools geared towards scraping Instagram data. It makes *no* assumptions about your project and is instead designed for flexibility and developer productivity. It is excellent for the seasoned data scientist trying to quickly get an idea of a page's engagement as well as beginners looking to explore web scraping and the beauty of Python for the very first time.
+> _instascrape_ is an incredibly lightweight set of tools geared towards scraping Instagram data. It makes *no* assumptions about your project and is instead designed for flexibility and developer productivity. It is excellent for the seasoned data scientist trying to quickly get an idea of a page's engagement as well as beginners looking to explore web scraping and the beauty of Python for the very first time.
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
 [![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/)
@@ -25,15 +25,13 @@
 * [:computer: Installation](#installation)
   * [pip](#pip)
   * [clone](#clone)
+* [:mag_right: Features](#features)
 * [:books: Documentation](#documentation)
 * [:newspaper: Blog Posts](#blog-posts)
 * [:pray: Contributing](#contributing)
 * [:spider_web: Dependencies](#dependencies)
-* [:jack_o_lantern: Hacktoberfest 2020](#hacktoberfest-2020)
 * [:credit_card: License](#license)
 * [:grey_question: Support](#support)
-
-<img src="media/6x6scatter_matrix.png" width="700"/>
 
 ---
 
@@ -49,7 +47,7 @@ This library currently requires [Python 3.7](https://www.python.org/downloads/re
 ```shell
 $ pip3 install insta-scrape
 ```
-WARNING: make sure you install _insta-scrape_ and not any other packages with similar names! 
+WARNING: make sure you install _insta-scrape_ and not a package with a similar name! 
 
 ### Clone
 > Clone right from Github to your local machine using
@@ -62,6 +60,36 @@ $ git clone https://github.com/chris-greening/instascrape.git
 $ pip3 install -r requirements.txt
 ```
 ---
+
+## :mag_right: Features <a name="features"></a>
+All top-level, ready-to-use features can be imported using:
+```python
+from instascrape import *
+```
+
+_instascrape_ uses clean, consistent, and expressive syntax to make the developer experience as _painless_ as possible. 
+
+```python
+# Instantiate the scraper objects 
+google = Profile('https://www.instagram.com/google/')
+google_post = Post('https://www.instagram.com/p/CG0UU3ylXnv/')
+google_hashtag = Hashtag('https://www.instagram.com/explore/tags/google/')
+
+# Load their respective data 
+google.load()
+google_post.load()
+google_hashtag.load()
+```
+
+After being scraped, relevant attributes can be accessed with dot (.) or bracket (\[\]) notation
+```python
+print(google.followers)
+print(google_post['hashtags'])
+print(google_hashtag.amount_of_posts)
+>>> 12262794
+>>> ['growwithgoogle']
+>>> 9053408
+```
 
 ## :books: Documentation <a name="documentation"></a>
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:
@@ -77,17 +105,14 @@ Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 - [Creating a scatter matrix of Instagram data using Python](https://dev.to/chrisgreening/visualizing-the-relationship-between-instagram-variables-using-python-55gg)
 - [Downloading an Instagram profile's recent photos using Python](https://dev.to/chrisgreening/downloading-an-instagram-profile-s-recent-photos-using-python-25b2)
 
-![Heatmap](/media/likes_heatmap.png?raw=true)
-
-![Graph of instagram data](/media/realpython.png?raw=true)
-(this repository and its author(s) are not affiliated with Real Python)
-
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
 
-Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed!
+Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed.
+
+Beginners to open source are highly encouraged to participate and ask questions :heart:
 
 ---
 
@@ -103,16 +128,6 @@ The rest of its functionality is provided directly from Python 3's standard libr
 ---
 
 
-
-## :jack_o_lantern: Hacktoberfest 2020 <a name="hacktoberfest-2020"></a>
-<img src="https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg" width="350"/>
-
-This repo is participating in [Hacktoberfest 2020](https://hacktoberfest.digitalocean.com/)! I would love for this repo to be a resource to absolute beginners looking to make some of their first contributions. Check out [Issues](https://github.com/chris-greening/instascrape/issues) for some easy ideas or [open your own](https://github.com/chris-greening/instascrape/issues/new/choose) with something you want to work on! Please see the [official Hacktober FAQ](https://hacktoberfest.digitalocean.com/faq) for rules/questions.
-
-Happy hacking!
-
----
-
 ## :credit_card: License <a name="license"></a>
 [MIT](LICENSE)
 
@@ -120,8 +135,12 @@ Happy hacking!
 
 ## :grey_question: Support <a name="support"></a>
 Reach out to me if you have questions or ideas!
-- chris@christophergreening.com
-:trollface: :rage2:
+* Email:
+  * chris@christophergreening.com
+* Instagram: 
+  * [@chris_greening](https://www.instagram.com/chris_greening/)
+* Twitter:
+  * [@ChrisGreening2](https://twitter.com/ChrisGreening2)
 
 ---
 
