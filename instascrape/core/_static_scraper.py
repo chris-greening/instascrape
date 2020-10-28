@@ -11,7 +11,6 @@ from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mappi
 
 # pylint: disable=no-member
 
-
 class _StaticHtmlScraper(ABC):
     """
     Base class for all of the scrapers, handles general functionality that all
@@ -42,7 +41,7 @@ class _StaticHtmlScraper(ABC):
         "flat_json_dict",
     ]
 
-    def __init__(self, url, name=None):
+    def __init__(self, url=None, name=None):
         """
         Parameters
         ----------
