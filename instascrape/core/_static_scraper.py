@@ -59,7 +59,7 @@ class _StaticHtmlScraper(ABC):
         return getattr(self, key)
 
     def __repr__(self):
-        return self.url
+        return f"<{type(self).__name__}: {self.url}>"
 
     def load(self, keys: List[str] = [], exclude: List[str] = []) -> None:
         """
