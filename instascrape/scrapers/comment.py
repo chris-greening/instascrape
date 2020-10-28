@@ -6,6 +6,9 @@ class Comment:
 
         self._parse_data()
 
+    def __repr__(self):
+        return f'<Comment: {self.username}: {self.text}'
+
     def _parse_data(self):
         self.text = self.comment_dict['text']
         self.created_at = datetime.datetime.fromtimestamp(self.comment_dict['created_at'])
@@ -21,6 +24,3 @@ class Comment:
             self.replies = [Comment(comment_dict) for comment_dict in self.comment_dict['edge_threaded_comments']['edges']]
         except KeyError:
             self.replies = []
-
-    def __repr__(self):
-        return f'<Comment: {self.username}: {self.text}'

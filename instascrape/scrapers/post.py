@@ -26,6 +26,12 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = ['.mp3', '.mp4', '.png', 'jpg']
 
+    def load(self, keys: List[str] = [], exclude: List[str] = []):
+        super().load(keys=keys)
+        self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
+        self.tagged_users = self._parse_tagged_users(self.json_dict)
+        self.hashtags = self._parse_hashtags(self.caption)
+
     def download(self, fp: str) -> None:
         """
         Download an image or video from a post to your local machine at the given fpath
@@ -47,22 +53,10 @@ class Post(_StaticHtmlScraper):
         else:
             self._download_photo(fp=fp, data=data)
 
-    def _download_photo(self, fp: str, data):
-        with open(fp, 'wb') as outfile:
-            shutil.copyfileobj(data.raw, outfile)
-
-    def _download_video(self, fp: str, data):
-        with open(fp, 'wb') as outfile:
-            for chunk in data.iter_content(chunk_size=1024):
-                    if chunk:
-                        outfile.write(chunk)
-                        outfile.flush()
-
-    def load(self, keys: List[str] = [], exclude: List[str] = []):
-        super().load(keys=keys)
-        self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
-        self.tagged_users = self._parse_tagged_users(self.json_dict)
-        self.hashtags = self._parse_hashtags(self.caption)
+    def get_recent_comments(self):
+        list_of_dicts = self.json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
+        comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
+        return comments_arr
 
     def to_json(self, fp: str):
         # have to convert to serializable format
@@ -76,6 +70,17 @@ class Post(_StaticHtmlScraper):
         super().to_csv(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
+    def _download_photo(self, fp: str, data):
+        with open(fp, 'wb') as outfile:
+            shutil.copyfileobj(data.raw, outfile)
+
+    def _download_video(self, fp: str, data):
+        with open(fp, 'wb') as outfile:
+            for chunk in data.iter_content(chunk_size=1024):
+                if chunk:
+                    outfile.write(chunk)
+                    outfile.flush()
+
     @classmethod
     def load_from_mapping(self, json_dict, map_dict):
         data_dict = parse_json_from_mapping(json_dict, map_dict)
@@ -86,10 +91,10 @@ class Post(_StaticHtmlScraper):
         post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
         return post
 
-    def get_recent_comments(self):
-        list_of_dicts = self.json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
-        comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
-        return comments_arr
+    @classmethod
+    def from_shortcode(cls, shortcode: str) -> Post:
+        url = f"https://www.instagram.com/p/{shortcode}/"
+        return cls(url, name=shortcode)
 
     def _parse_tagged_users(self, json_dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
@@ -101,7 +106,3 @@ class Post(_StaticHtmlScraper):
         pattern = r"#(\w+)"
         return re.findall(pattern, caption)
 
-    @classmethod
-    def from_shortcode(cls, shortcode: str) -> Post:
-        url = f"https://www.instagram.com/p/{shortcode}/"
-        return cls(url, name=shortcode)
