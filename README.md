@@ -79,16 +79,6 @@ $ pip3 install insta-scrape
 ```
 WARNING: make sure you install _insta-scrape_ and not a package with a similar name! 
 
-### Clone
-> Clone right from Github to your local machine using
-```shell
-$ git clone https://github.com/chris-greening/instascrape.git
-```
-
-> Install required dependencies using
-```shell
-$ pip3 install -r requirements.txt
-```
 ---
 
 ## :mag_right: Sample Usage <a name="features"></a>
