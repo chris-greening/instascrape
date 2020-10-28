@@ -7,7 +7,7 @@ from abc import ABC
 from typing import Any, Dict, List
 
 from instascrape.core._json_flattener import FlatJSONDict
-from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping
+from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping, json_from_html
 
 # pylint: disable=no-member
 
@@ -73,18 +73,8 @@ class _StaticHtmlScraper(ABC):
             Specify what keys to exclude from being loaded. If no keys are
             specified, then no data points will be excluded.
         """
-        if type(keys) == str:
-            keys = [keys]
-        if type(exclude) == str:
-            exclude = [exclude]
         self.json_dict = json_from_url(self.url)
-        self.flat_json_dict = FlatJSONDict(self.json_dict)
-        scraped_dict = parse_json_from_mapping(
-            json_dict=self.flat_json_dict,
-            map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
-        )
-        self._load_into_namespace(scraped_dict=scraped_dict)
-        self.scrape_timestamp = datetime.datetime.now()
+        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         """
@@ -134,6 +124,20 @@ class _StaticHtmlScraper(ABC):
         with open(fp, "w") as outjson:
             json.dump(self.to_dict(), outjson)
 
-    def _load_into_namespace(self, scraped_dict):
+    def scrape_url(self, url, keys=[], exclude=[]):
+        self.url = url
+        self.load(keys=keys, exclude=exclude)
+
+    def scrape_html(self, html, keys=[], exclude=[]):
+        self.json_dict = json_from_html(html)
+        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
+
+    def _load_into_namespace(self, json_dict, keys, exclude):
+        self.flat_json_dict = FlatJSONDict(json_dict)
+        scraped_dict = parse_json_from_mapping(
+            json_dict=self.flat_json_dict,
+            map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
+        )
         for key, val in scraped_dict.items():
             setattr(self, key, val)
+        self.scrape_timestamp = datetime.datetime.now()
