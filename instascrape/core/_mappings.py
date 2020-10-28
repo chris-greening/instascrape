@@ -65,6 +65,11 @@ class _GeneralMapping(ABC):
         directive_dict : Dict[str, deque]
             Dictionary of keys and their directives
         """
+        if type(keys) == str:
+            keys = [keys]
+        if type(exclude) == str:
+            exclude = [exclude]
+            
         if not keys:
             keys = list(cls.mapping)
         if exclude:
