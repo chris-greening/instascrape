@@ -55,6 +55,12 @@ class _StaticHtmlScraper(ABC):
         if name is None:
             self.name = self.url
 
+    def __getitem__(self, key):
+        return getattr(self, key)
+
+    def __repr__(self):
+        return self.url
+
     def load(self, keys: List[str] = [], exclude: List[str] = []) -> None:
         """
         Scrape data at self.url and parse into attributes
@@ -129,12 +135,6 @@ class _StaticHtmlScraper(ABC):
         with open(fp, "w") as outjson:
             json.dump(self.to_dict(), outjson)
 
-    def __getitem__(self, key):
-        return getattr(self, key)
-
     def _load_into_namespace(self, scraped_dict):
         for key, val in scraped_dict.items():
             setattr(self, key, val)
-
-    def __repr__(self):
-        return self.url
