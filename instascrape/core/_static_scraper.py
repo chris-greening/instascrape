@@ -41,7 +41,7 @@ class _StaticHtmlScraper(ABC):
         "flat_json_dict",
     ]
 
-    def __init__(self, url=None, name=None):
+    def __init__(self, url="", name=None):
         """
         Parameters
         ----------
