@@ -140,8 +140,9 @@ class _StaticHtmlScraper(ABC):
         fp : str
             Filepath to write data to
         """
+        outdict = {key: str(val) for key, val in self.to_dict().items()}
         with open(fp, "w") as outjson:
-            json.dump(self.to_dict(), outjson)
+            json.dump(outdict, outjson)
 
     @abstractmethod
     def _url_from_suburl(self, suburl):
