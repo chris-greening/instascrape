@@ -81,12 +81,18 @@ class _StaticHtmlScraper(ABC):
         """
         if mapping is None:
             mapping = self._Mapping
-        self.json_dict = self._get_json_from_source(self.source)
-        self.flat_json_dict = FlatJSONDict(self.json_dict)
-        scraped_dict = parse_json_from_mapping(
-            json_dict=self.flat_json_dict,
-            map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
-        )
+
+        #If the passed source was already an object, construct data from
+        # source else parse it
+        if type(self.source) is type(self):
+            scraped_dict = self.source.to_dict()
+        else:
+            self.json_dict = self._get_json_from_source(self.source)
+            self.flat_json_dict = FlatJSONDict(self.json_dict)
+            scraped_dict = parse_json_from_mapping(
+                json_dict=self.flat_json_dict,
+                map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
+            )
         self._load_into_namespace(scraped_dict)
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
@@ -120,10 +126,10 @@ class _StaticHtmlScraper(ABC):
         fp : str
             Filepath to write data to
         """
-        with open(fp, "w", newline="") as csv_file:
+        with open(fp, "w", newline="", encoding='utf-8') as csv_file:
             writer = csv.writer(csv_file)
             for key, value in self.to_dict().items():
-                writer.writerow([key, value])
+                writer.writerow([key, str(value)])
 
     def to_json(self, fp: str) -> None:
         """
