@@ -12,7 +12,7 @@ class TestHashtag:
         kotlin_hashtag_name = "kotlin"
         kotlin_hashtag_url = f"https://www.instagram.com/tags/{kotlin_hashtag_name}/"
 
-        kotlin_hashtag = Hashtag(url=kotlin_hashtag_url, name=kotlin_hashtag_name)
+        kotlin_hashtag = Hashtag(kotlin_hashtag_url)
         kotlin_hashtag.load()
 
         return kotlin_hashtag
@@ -49,9 +49,3 @@ class TestHashtag:
             str_dict[key] = str(val)
 
         assert str_dict == csv_dict
-
-    def test_from_hashtag(self, page_instance):
-        expected_hashtag = "kotlin"
-        result_profile: Hashtag = Hashtag.from_hashtag(hashtag=expected_hashtag)
-
-        assert result_profile.url == page_instance.url
