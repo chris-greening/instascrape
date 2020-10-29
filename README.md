@@ -32,8 +32,6 @@
 
 ## Table of Contents
 * [:computer: Installation](#installation)
-  * [pip](#pip)
-  * [clone](#clone)
 * [:mag_right: Sample Usage](#features)
 * [:books: Documentation](#documentation)
 * [:newspaper: Blog Posts](#blog-posts)
