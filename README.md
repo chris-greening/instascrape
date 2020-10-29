@@ -21,7 +21,7 @@
 
 ## Key features  
 * :muscle: Powerful, object-oriented scraping tools as well as a variety of useful functions
-* :dancer: Flexibily determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
+* :dancer: Flexibly determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
 * :floppy_disk: Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
 * :musical_score: Expressive and consistent API for concise and elegant code
 * :bar_chart: Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
