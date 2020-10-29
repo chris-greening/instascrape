@@ -4,7 +4,7 @@ import datetime
 import json
 import csv
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Union, Dict, List, Any
 
 import requests
 from bs4 import BeautifulSoup
@@ -13,6 +13,8 @@ from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping, json_from_html
 
 # pylint: disable=no-member
+
+JSONDict = Dict[str, Any]
 
 class _StaticHtmlScraper(ABC):
     """
@@ -47,7 +49,7 @@ class _StaticHtmlScraper(ABC):
         "source"
     ]
 
-    def __init__(self, source: Any):
+    def __init__(self, source: Union[str, BeautifulSoup, JSONDict]):
         """
         Parameters
         ----------
