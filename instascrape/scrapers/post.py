@@ -66,12 +66,6 @@ class Post(_StaticHtmlScraper):
         super().to_json(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
-    def to_csv(self, fp: str):
-        # have to convert to serializable format
-        self.upload_date = datetime.datetime.timestamp(self.upload_date)
-        super().to_csv(fp=fp)
-        self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
-
     def _url_from_suburl(self, suburl):
         return f"https://www.instagram.com/p/{suburl}/"
 
