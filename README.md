@@ -19,8 +19,8 @@
 
 ![Example showing tech profile scrapes](/media/techprofiles.gif)
 
-## Key features
-* :walking: Static HTML scrapers 
+## Key features  
+* :walking: Powerful scraping tools 
   * `Profile`: scrapes 50 data points from a profile  
     * follower count
     * recent posts 
@@ -36,6 +36,14 @@
     * recent posts
     * featured picture URL 
     * etc. 
+* :dancer: Flexibile: sources for scraping include
+  * hashtag/username/shortcode
+  * URL
+  * HTML
+  * JSON 
+  * BeautifulSoup
+  
+  giving you flexibility and easy integration into your scraping projects
 * :floppy_disk: Download content media locally as _png_, _jpg_, _mp4_, and _mp3_
 * :musical_score: Expressive and consistent API for concise and elegant code
 * :bar_chart: Designed for seamless integration with 
