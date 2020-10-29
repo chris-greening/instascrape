@@ -48,7 +48,7 @@ class Profile(_StaticHtmlScraper):
             posts.append(post)
         return posts
 
-    def _construct_url(self, suburl):
+    def _url_from_suburl(self, suburl):
         return f"https://www.instagram.com/{suburl}/"
 
     @classmethod
