@@ -3,8 +3,11 @@ from __future__ import annotations
 import datetime
 import json
 import csv
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Any, Dict, List
+
+import requests
+from bs4 import BeautifulSoup
 
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping, json_from_html
@@ -39,9 +42,12 @@ class _StaticHtmlScraper(ABC):
         "json_data",
         "json_flattener",
         "flat_json_dict",
+        "soup",
+        "html",
+        "source"
     ]
 
-    def __init__(self, url="", name=None):
+    def __init__(self, source: Any):
         """
         Parameters
         ----------
@@ -50,17 +56,97 @@ class _StaticHtmlScraper(ABC):
         name : str
             Optional name for the user to pass
         """
-        self.url = url
-        if name is None:
-            self.name = self.url
+        self.source = source
 
     def __getitem__(self, key):
         return getattr(self, key)
 
     def __repr__(self):
-        return f"<{type(self).__name__}: {self.url}>"
+        return f"<{type(self).__name__}>"
 
-    def load(self, keys: List[str] = [], exclude: List[str] = []) -> None:
+    @abstractmethod
+    def _construct_url(self, suburl):
+        pass
+
+    def _request_html(self, url) -> str:
+        """Requests page at given URL to get given HTML"""
+        response = requests.get(url)
+        return response.text
+
+    def _create_soup(self, html):
+        """Instantiates BeautifulSoup from the given source"""
+        return BeautifulSoup(html, features='lxml')
+
+    def _get_json_str(self, soup):
+        """Instantiates a JSON dictionary from BeautifulSoup"""
+        json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
+        left_index = json_script.find("{")
+        right_index = json_script.rfind("}") + 1
+        json_str = json_script[left_index:right_index]
+
+        return json_str
+
+    def _load_json(self, json_str):
+        return json.loads(json_str)
+
+    def _determine_string_type(self, string_data):
+        string_type_map = [
+            ('https://', 'url'),
+            ('window._sharedData', 'html'),
+            ('{"config"', 'JSON dict str')
+        ]
+        for substr, str_type in string_type_map:
+            if substr in string_data:
+                break
+        else:
+            str_type = 'suburl'
+        return str_type
+
+    def _get_json_from_source(self, source):
+        source_type = type(source)
+        initial_type = True
+        if source_type is str:
+            source_type = self._determine_string_type(source)
+        elif source_type is dict:
+            json_dict = source
+            return json_dict
+        elif source_type is BeautifulSoup:
+            source_type = 'soup'
+
+        if source_type == 'suburl':
+            self.url = self._construct_url(suburl=self.source).strip()
+            source_type = 'url'
+            initial_type = False
+
+        if source_type == 'url':
+            if initial_type:
+                self.url = self.source
+            self.html = self._request_html(url=self.url)
+            source_type = 'html'
+            initial_type = False
+
+        if source_type == 'html':
+            if initial_type:
+                self.html = self.source
+            self.soup = self._create_soup(self.html)
+            source_type = 'soup'
+            initial_type = False
+
+        if source_type == 'soup':
+            if initial_type:
+                self.soup = self.source
+            json_dict_str = self._get_json_str(self.soup)
+            source_type = 'JSON dict str'
+            initial_type = False
+
+        if source_type == 'JSON dict str':
+            if initial_type:
+                json_dict_str = self.source
+            json_dict = self._load_json(json_dict_str)
+
+        return json_dict
+
+    def load(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
         """
         Scrape data at self.url and parse into attributes
 
@@ -73,7 +159,9 @@ class _StaticHtmlScraper(ABC):
             Specify what keys to exclude from being loaded. If no keys are
             specified, then no data points will be excluded.
         """
-        self.json_dict = json_from_url(self.url)
+        if mapping is None:
+            mapping = self._Mapping
+        self.json_dict = self._get_json_from_source(self.source)
         self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
@@ -123,14 +211,6 @@ class _StaticHtmlScraper(ABC):
         """
         with open(fp, "w") as outjson:
             json.dump(self.to_dict(), outjson)
-
-    def scrape_url(self, url, keys=[], exclude=[]):
-        self.url = url
-        self.load(keys=keys, exclude=exclude)
-
-    def scrape_html(self, html, keys=[], exclude=[]):
-        self.json_dict = json_from_html(html)
-        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
 
     def _load_into_namespace(self, json_dict, keys, exclude):
         self.flat_json_dict = FlatJSONDict(json_dict)

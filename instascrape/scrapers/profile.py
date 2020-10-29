@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import List
+import warnings
 
 from instascrape.core._mappings import _PostMapping, _ProfileMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
@@ -18,6 +19,9 @@ class Profile(_StaticHtmlScraper):
     """
 
     _Mapping = _ProfileMapping
+
+    def _construct_url(self, suburl):
+        return f"https://www.instagram.com/{suburl}/"
 
     def get_recent_posts(self, amt: int = 12) -> List[Post]:
         """
@@ -42,31 +46,14 @@ class Profile(_StaticHtmlScraper):
         for post in post_arr[:amt]:
             json_dict = post["node"]
             mapping = _PostMapping.post_from_profile_mapping()
-            post = Post.load_from_mapping(json_dict, mapping)
+            post = Post(json_dict)
+            post.load(mapping=mapping)
             posts.append(post)
         return posts
 
     @classmethod
-    def from_username(cls, username: str) -> Profile:
-        """
-        Factory method for convenience to create Profile instance given
-        just a username instead of a full URL.
-
-        Parameters
-        ----------
-        username : str
-            Username of the Profile for scraping
-
-        Returns
-        -------
-        Profile(url)
-            Instance of Profile with URL at the given username
-
-        Example
-        -------
-        >>>Profile.from_username('gvanrossum')
-        <https://www.instagram.com/gvanrossum/: Profile>
-        """
-
-        url = f"https://www.instagram.com/{username}/"
-        return cls(url, name=username)
+    def from_username(self, username):
+        warnings.simplefilter('always', DeprecationWarning)
+        warnings.warn(
+            'This will be deprecated in the near future. You no longer need to use from_username, simply pass username as argument to Profile', DeprecationWarning)
+        return Profile(username)

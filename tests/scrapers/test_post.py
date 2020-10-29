@@ -12,7 +12,7 @@ class TestPost:
     @pytest.fixture
     def page_instance(self):
         google_post_url = "https://www.instagram.com/p/CGX0G64hu4Q/"
-        random_google_post = Post(url=google_post_url)
+        random_google_post = Post(google_post_url)
         random_google_post.load()
         return random_google_post
 
@@ -56,9 +56,3 @@ class TestPost:
             str_dict[key] = str(val)
 
         assert str_dict == csv_dict
-
-    def test_from_shortcode(self, page_instance):
-        expected_post = "CGX0G64hu4Q"
-        result_profile: Post = Post.from_shortcode(shortcode=expected_post)
-
-        assert result_profile.url == page_instance.url
