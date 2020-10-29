@@ -114,7 +114,9 @@ class _StaticHtmlScraper(ABC):
             source_type = 'soup'
 
         if source_type == 'suburl':
-            self.url = self._construct_url(suburl=self.source).strip()
+            if initial_type:
+                suburl = self.source
+            self.url = self._construct_url(suburl=suburl)
             source_type = 'url'
             initial_type = False
 
