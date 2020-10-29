@@ -3,7 +3,7 @@
 # instascrape: Instagram scraping for humans
 
 ## What is it?
-> _instascrape_ is a powerful, lightweight library for scraping Instagram data without using their API. It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time collecting data and just start analyzing! 
+> _instascrape_ is a powerful, lightweight library for scraping Instagram data with no configurations necessary! It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time collecting data and just start analyzing :muscle:
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
 [![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/)
@@ -20,42 +20,13 @@
 ![Example showing tech profile scrapes](/media/techprofiles.gif)
 
 ## Key features  
-* :walking: Powerful scraping tools 
-  * `Profile`: scrapes 50 data points from a profile  
-    * follower count
-    * recent posts 
-    * verification status  
-    * etc.
-  * `Post`: scrapes almost 50 data points from a post  
-    * likes
-    * amount of comments
-    * hashtags
-    * etc. 
-  * `Hashtag`: scrapes over a dozen data points from a hashtag  
-    * amount of posts 
-    * recent posts
-    * featured picture URL 
-    * etc. 
-* :dancer: Flexibile: sources for scraping include
-  * hashtag/username/shortcode
-  * URL
-  * HTML
-  * JSON 
-  * BeautifulSoup
-  
-  giving you flexibility and easy integration into your scraping projects
+* :muscle: Powerful, object-oriented scraping tools as well as a variety of useful functions
+* :dancer: Flexibily determines whether you want to scrape HTML, JSON, or request and scrape the URL itself
 * :floppy_disk: Download content media locally as _png_, _jpg_, _mp4_, and _mp3_
 * :musical_score: Expressive and consistent API for concise and elegant code
-* :bar_chart: Designed for seamless integration with 
-  * [_Selenium_](https://selenium-python.readthedocs.io/) 
-  * [_Pandas_](https://pandas.pydata.org/)
-  * [_Scikit-learn_](https://scikit-learn.org/stable/)
-  
-  and other industry standard libraries for powerful data analysis 
-* :hammer: Lightweight: you don't have to build a hammer factory when all you need is a hammer 
-* :spider_web: The only hard dependencies are
-  * [_Requests_](https://requests.readthedocs.io/en/master/)
-  * [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+* :bar_chart: Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
+* :hammer: Lightweight: you don't have to build a hammer factory when all you need is the hammer 
+* :spider_web: The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/); no more worrying about configurations or webdrivers
 
 ---
 
