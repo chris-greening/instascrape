@@ -36,7 +36,7 @@
     * recent posts
     * featured picture URL 
     * etc. 
-* :floppy_disk: Download post media locally as _png_, _jpg_, _mp4_, and _mp3_
+* :floppy_disk: Download content media locally as _png_, _jpg_, _mp4_, and _mp3_
 * :musical_score: Expressive and consistent API for concise and elegant code
 * :bar_chart: Designed for seamless integration with 
   * [_Selenium_](https://selenium-python.readthedocs.io/) 
