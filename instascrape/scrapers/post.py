@@ -36,7 +36,7 @@ class Post(_StaticHtmlScraper):
             self.tagged_users = self._parse_tagged_users(self.json_dict)
             self.hashtags = self._parse_hashtags(self.caption)
 
-    def _construct_url(self, suburl):
+    def _url_from_suburl(self, suburl):
         return f"https://www.instagram.com/p/{suburl}/"
 
     def download(self, fp: str) -> None:
