@@ -64,6 +64,72 @@ class _StaticHtmlScraper(ABC):
     def __repr__(self):
         return f"<{type(self).__name__}>"
 
+    def load(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
+        """
+        Scrape data at self.url and parse into attributes
+
+        Parameters
+        ----------
+        keys : List[str]
+            Specify what keys to exclusively load as strings in a list. If no
+            keys are specified then the scrape will default load all data points.
+        exclude : List[str]
+            Specify what keys to exclude from being loaded. If no keys are
+            specified, then no data points will be excluded.
+        """
+        if mapping is None:
+            mapping = self._Mapping
+        self.json_dict = self._get_json_from_source(self.source)
+        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
+
+    def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
+        """
+        Return a dictionary containing all of the data that has been scraped
+
+        Parameters
+        ----------
+        metadata : bool
+            Boolean value that determines if metadata specified in self._METADATA_KEYS
+            will be included in the dictionary.
+
+        Returns
+        -------
+        data_dict : Dict[str, str]
+            Dictionary containing the scraped data
+        """
+        data_dict = (
+            {key: val for key, val in self.__dict__.items() if key not in self._METADATA_KEYS}
+            if not metadata
+            else self.__dict__
+        )
+        return data_dict
+
+    def to_csv(self, fp: str) -> None:
+        """
+        Write scraped data to .csv at the given filepath
+
+        Parameters
+        ----------
+        fp : str
+            Filepath to write data to
+        """
+        with open(fp, "w", newline="") as csv_file:
+            writer = csv.writer(csv_file)
+            for key, value in self.to_dict().items():
+                writer.writerow([key, value])
+
+    def to_json(self, fp: str) -> None:
+        """
+        Write scraped data to .json file at the given filepath
+
+        Parameters
+        ----------
+        fp : str
+            Filepath to write data to
+        """
+        with open(fp, "w") as outjson:
+            json.dump(self.to_dict(), outjson)
+
     @abstractmethod
     def _construct_url(self, suburl):
         pass
@@ -148,71 +214,6 @@ class _StaticHtmlScraper(ABC):
 
         return json_dict
 
-    def load(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
-        """
-        Scrape data at self.url and parse into attributes
-
-        Parameters
-        ----------
-        keys : List[str]
-            Specify what keys to exclusively load as strings in a list. If no
-            keys are specified then the scrape will default load all data points.
-        exclude : List[str]
-            Specify what keys to exclude from being loaded. If no keys are
-            specified, then no data points will be excluded.
-        """
-        if mapping is None:
-            mapping = self._Mapping
-        self.json_dict = self._get_json_from_source(self.source)
-        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
-
-    def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
-        """
-        Return a dictionary containing all of the data that has been scraped
-
-        Parameters
-        ----------
-        metadata : bool
-            Boolean value that determines if metadata specified in self._METADATA_KEYS
-            will be included in the dictionary.
-
-        Returns
-        -------
-        data_dict : Dict[str, str]
-            Dictionary containing the scraped data
-        """
-        data_dict = (
-            {key: val for key, val in self.__dict__.items() if key not in self._METADATA_KEYS}
-            if not metadata
-            else self.__dict__
-        )
-        return data_dict
-
-    def to_csv(self, fp: str) -> None:
-        """
-        Write scraped data to .csv at the given filepath
-
-        Parameters
-        ----------
-        fp : str
-            Filepath to write data to
-        """
-        with open(fp, "w", newline="") as csv_file:
-            writer = csv.writer(csv_file)
-            for key, value in self.to_dict().items():
-                writer.writerow([key, value])
-
-    def to_json(self, fp: str) -> None:
-        """
-        Write scraped data to .json file at the given filepath
-
-        Parameters
-        ----------
-        fp : str
-            Filepath to write data to
-        """
-        with open(fp, "w") as outjson:
-            json.dump(self.to_dict(), outjson)
 
     def _load_into_namespace(self, json_dict, keys, exclude):
         self.flat_json_dict = FlatJSONDict(json_dict)
