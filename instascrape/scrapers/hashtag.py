@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import List
+import warnings
 
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
@@ -36,9 +37,17 @@ class Hashtag(_StaticHtmlScraper):
         for post in post_arr[:amt]:
             json_dict = post["node"]
             mapping = _PostMapping.post_from_hashtag_mapping()
-            post = Post.load_from_mapping(json_dict, mapping)
+            post = Post(json_dict)
+            post.load(mapping=mapping)
             posts.append(post)
         return posts
 
     def _construct_url(self, suburl):
         return f"https://www.instagram.com/tags/{suburl}/"
+
+    @classmethod
+    def from_hashtag(self, hashtag):
+        warnings.simplefilter('always', DeprecationWarning)
+        warnings.warn(
+            'This will be deprecated in the near future. You no longer need to use from_hashtag, simply pass hashtag as argument to Hashtag', DeprecationWarning)
+        return Hashtag(hashtag)
