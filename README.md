@@ -46,8 +46,8 @@
   and other industry standard libraries for powerful data analysis 
 * :hammer: Lightweight: you don't have to build a hammer factory when all you need is a hammer 
 * :spider_web: The only hard dependencies are
-  * [Requests](https://requests.readthedocs.io/en/master/)
-  * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+  * [_Requests_](https://requests.readthedocs.io/en/master/)
+  * [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 ---
 
