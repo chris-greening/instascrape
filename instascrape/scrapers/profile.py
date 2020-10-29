@@ -19,6 +19,9 @@ class Profile(_StaticHtmlScraper):
 
     _Mapping = _ProfileMapping
 
+    def _construct_url(self, suburl):
+        return f"https://www.instagram.com/{suburl}/"
+
     def get_recent_posts(self, amt: int = 12) -> List[Post]:
         """
         Return a list of the profiles recent posts
@@ -42,31 +45,7 @@ class Profile(_StaticHtmlScraper):
         for post in post_arr[:amt]:
             json_dict = post["node"]
             mapping = _PostMapping.post_from_profile_mapping()
-            post = Post.load_from_mapping(json_dict, mapping)
+            post = Post(json_dict)
+            post.load(mapping=mapping)
             posts.append(post)
         return posts
-
-    @classmethod
-    def from_username(cls, username: str) -> Profile:
-        """
-        Factory method for convenience to create Profile instance given
-        just a username instead of a full URL.
-
-        Parameters
-        ----------
-        username : str
-            Username of the Profile for scraping
-
-        Returns
-        -------
-        Profile(url)
-            Instance of Profile with URL at the given username
-
-        Example
-        -------
-        >>>Profile.from_username('gvanrossum')
-        <https://www.instagram.com/gvanrossum/: Profile>
-        """
-
-        url = f"https://www.instagram.com/{username}/"
-        return cls(url, name=username)
