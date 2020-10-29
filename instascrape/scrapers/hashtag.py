@@ -40,7 +40,5 @@ class Hashtag(_StaticHtmlScraper):
             posts.append(post)
         return posts
 
-    @classmethod
-    def from_hashtag(cls, hashtag: str) -> Hashtag:
-        url = f"https://www.instagram.com/tags/{hashtag}/"
-        return cls(url, name=hashtag)
+    def _construct_url(self, suburl):
+        return f"https://www.instagram.com/tags/{suburl}/"

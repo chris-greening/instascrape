@@ -26,11 +26,16 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = ['.mp3', '.mp4', '.png', 'jpg']
 
-    def load(self, keys: List[str] = [], exclude: List[str] = []):
-        super().load(keys=keys)
-        self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
-        self.tagged_users = self._parse_tagged_users(self.json_dict)
-        self.hashtags = self._parse_hashtags(self.caption)
+    def load(self, mapping=None, keys: List[str] = [], exclude: List[str] = []):
+        super().load(mapping=mapping, keys=keys, exclude=exclude)
+
+        if mapping == self._Mapping:
+            self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
+            self.tagged_users = self._parse_tagged_users(self.json_dict)
+            self.hashtags = self._parse_hashtags(self.caption)
+
+    def _construct_url(self, suburl):
+        return f"https://www.instagram.com/p/{suburl}/"
 
     def download(self, fp: str) -> None:
         """
@@ -81,20 +86,15 @@ class Post(_StaticHtmlScraper):
                     outfile.write(chunk)
                     outfile.flush()
 
-    @classmethod
-    def load_from_mapping(self, json_dict, map_dict):
-        data_dict = parse_json_from_mapping(json_dict, map_dict)
-        post = Post.from_shortcode(data_dict["shortcode"])
-        for key, val in data_dict.items():
-            setattr(post, key, val)
-        # TODO: Bad encapsulation, figure a better way of handling timestamp
-        post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
-        return post
-
-    @classmethod
-    def from_shortcode(cls, shortcode: str) -> Post:
-        url = f"https://www.instagram.com/p/{shortcode}/"
-        return cls(url, name=shortcode)
+    # @classmethod
+    # def load_from_mapping(self, json_dict, map_dict):
+    #     data_dict = parse_json_from_mapping(json_dict, map_dict)
+    #     post = Post.from_shortcode(data_dict["shortcode"])
+    #     for key, val in data_dict.items():
+    #         setattr(post, key, val)
+    #     # TODO: Bad encapsulation, figure a better way of handling timestamp
+    #     post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
+    #     return post
 
     def _parse_tagged_users(self, json_dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
