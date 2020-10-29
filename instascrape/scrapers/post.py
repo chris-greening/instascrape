@@ -88,16 +88,6 @@ class Post(_StaticHtmlScraper):
                     outfile.write(chunk)
                     outfile.flush()
 
-    # @classmethod
-    # def load_from_mapping(self, json_dict, map_dict):
-    #     data_dict = parse_json_from_mapping(json_dict, map_dict)
-    #     post = Post.from_shortcode(data_dict["shortcode"])
-    #     for key, val in data_dict.items():
-    #         setattr(post, key, val)
-    #     # TODO: Bad encapsulation, figure a better way of handling timestamp
-    #     post.upload_date = datetime.datetime.fromtimestamp(post.upload_date)
-    #     return post
-
     def _parse_tagged_users(self, json_dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
         tagged_arr = json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_tagged_user']['edges']

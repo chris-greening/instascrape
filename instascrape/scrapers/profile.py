@@ -20,9 +20,6 @@ class Profile(_StaticHtmlScraper):
 
     _Mapping = _ProfileMapping
 
-    def _construct_url(self, suburl):
-        return f"https://www.instagram.com/{suburl}/"
-
     def get_recent_posts(self, amt: int = 12) -> List[Post]:
         """
         Return a list of the profiles recent posts
@@ -50,6 +47,9 @@ class Profile(_StaticHtmlScraper):
             post.load(mapping=mapping)
             posts.append(post)
         return posts
+
+    def _construct_url(self, suburl):
+        return f"https://www.instagram.com/{suburl}/"
 
     @classmethod
     def from_username(self, username):
