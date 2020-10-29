@@ -82,7 +82,12 @@ class _StaticHtmlScraper(ABC):
         if mapping is None:
             mapping = self._Mapping
         self.json_dict = self._get_json_from_source(self.source)
-        self._load_into_namespace(json_dict=self.json_dict, keys=keys, exclude=exclude)
+        self.flat_json_dict = FlatJSONDict(self.json_dict)
+        scraped_dict = parse_json_from_mapping(
+            json_dict=self.flat_json_dict,
+            map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
+        )
+        self._load_into_namespace(scraped_dict)
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         """
@@ -216,12 +221,7 @@ class _StaticHtmlScraper(ABC):
 
         return json_dict
 
-    def _load_into_namespace(self, json_dict, keys, exclude):
-        self.flat_json_dict = FlatJSONDict(json_dict)
-        scraped_dict = parse_json_from_mapping(
-            json_dict=self.flat_json_dict,
-            map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
-        )
+    def _load_into_namespace(self, scraped_dict):
         for key, val in scraped_dict.items():
             setattr(self, key, val)
         self.scrape_timestamp = datetime.datetime.now()
