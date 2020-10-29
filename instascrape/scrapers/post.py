@@ -29,7 +29,7 @@ class Post(_StaticHtmlScraper):
     def load(self, mapping=None, keys: List[str] = [], exclude: List[str] = []):
         super().load(mapping=mapping, keys=keys, exclude=exclude)
 
-        if mapping == self._Mapping:
+        if mapping is None:
             self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
             self.tagged_users = self._parse_tagged_users(self.json_dict)
             self.hashtags = self._parse_hashtags(self.caption)
