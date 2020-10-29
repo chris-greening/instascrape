@@ -60,12 +60,6 @@ class Post(_StaticHtmlScraper):
         comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
         return comments_arr
 
-    def to_json(self, fp: str):
-        # have to convert to serializable format
-        self.upload_date = datetime.datetime.timestamp(self.upload_date)
-        super().to_json(fp=fp)
-        self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
-
     def _url_from_suburl(self, suburl):
         return f"https://www.instagram.com/p/{suburl}/"
 
