@@ -214,7 +214,6 @@ class _StaticHtmlScraper(ABC):
 
         return json_dict
 
-
     def _load_into_namespace(self, json_dict, keys, exclude):
         self.flat_json_dict = FlatJSONDict(json_dict)
         scraped_dict = parse_json_from_mapping(
