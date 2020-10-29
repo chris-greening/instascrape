@@ -36,9 +36,6 @@ class Post(_StaticHtmlScraper):
             self.tagged_users = self._parse_tagged_users(self.json_dict)
             self.hashtags = self._parse_hashtags(self.caption)
 
-    def _url_from_suburl(self, suburl):
-        return f"https://www.instagram.com/p/{suburl}/"
-
     def download(self, fp: str) -> None:
         """
         Download an image or video from a post to your local machine at the given fpath
@@ -54,11 +51,9 @@ class Post(_StaticHtmlScraper):
                 f"{ext} is not a supported file extension. Please use {', '.join(self.SUPPORTED_DOWNLOAD_EXTENSIONS)}"
             )
         url = self.video_url if self.is_video else self.display_url
+
         data = requests.get(url, stream=True)
-        if self.is_video:
-            self._download_video(fp=fp, data=data)
-        else:
-            self._download_photo(fp=fp, data=data)
+        self._download_media(fp, data)
 
     def get_recent_comments(self):
         list_of_dicts = self.json_dict['entry_data']['PostPage'][0]['graphql']['shortcode_media']['edge_media_to_parent_comment']['edges']
@@ -77,11 +72,11 @@ class Post(_StaticHtmlScraper):
         super().to_csv(fp=fp)
         self.upload_date = datetime.datetime.fromtimestamp(self.upload_date)
 
-    def _download_photo(self, fp: str, data):
-        with open(fp, 'wb') as outfile:
-            shutil.copyfileobj(data.raw, outfile)
+    def _url_from_suburl(self, suburl):
+        return f"https://www.instagram.com/p/{suburl}/"
 
-    def _download_video(self, fp: str, data):
+    def _download_media(self, fp: str, data):
+        """Write the media to file at given fp from the response"""
         with open(fp, 'wb') as outfile:
             for chunk in data.iter_content(chunk_size=1024):
                 if chunk:
