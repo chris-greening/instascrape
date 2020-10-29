@@ -47,12 +47,6 @@ class TestProfile:
 
         assert str_dict == csv_dict
 
-    def test_from_username(self, page_instance):
-        expected_profile_username = "chris_greening"
-        result_profile: Profile = Profile.from_username(username=expected_profile_username)
-
-        assert result_profile.url == page_instance.url
-
     def test_get_recent_posts(self, page_instance):
         posts = page_instance.get_recent_posts(amt=6)
         assert len(posts) == 6
