@@ -1,5 +1,6 @@
 """
-
+_JsonEngine handles crunching the data from JSON data based on mapping from
+_mappings into a dictionary.
 """
 
 from __future__ import annotations
@@ -24,8 +25,8 @@ class _JsonEngine:
 
     def parse_mapping(self):
         """
-        Loop through each key in map_dict and set value given queue of
-        directives that tell the engine how to parse the value from JSONDict
+        Loop through each key in map_dict and set dictionary value given queue
+        of directives that tell the engine how to parse the value from JSONDict
         """
         return_data = {}
         for key in self.map_dict:
