@@ -7,6 +7,7 @@ from instascrape.core._mappings import _PostMapping, _ProfileMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.post import Post
 
+warnings.simplefilter('always', DeprecationWarning)
 
 class Profile(_StaticHtmlScraper):
     """
@@ -53,7 +54,6 @@ class Profile(_StaticHtmlScraper):
 
     @classmethod
     def from_username(self, username):
-        warnings.simplefilter('always', DeprecationWarning)
         warnings.warn(
             'This will be deprecated in the near future. You no longer need to use from_username, simply pass username as argument to Profile', DeprecationWarning)
         return Profile(username)

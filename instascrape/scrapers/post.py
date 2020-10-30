@@ -14,6 +14,7 @@ from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.json_tools import parse_json_from_mapping
 from instascrape.scrapers.comment import Comment
 
+warnings.simplefilter('always', DeprecationWarning)
 
 class Post(_StaticHtmlScraper):
     """
@@ -83,6 +84,5 @@ class Post(_StaticHtmlScraper):
 
     @classmethod
     def from_shortcode(self, shortcode):
-        warnings.simplefilter('always', DeprecationWarning)
         warnings.warn('This will be deprecated in the near future. You no longer need to use from_shortcode, simply pass shortcode as argument to Post', DeprecationWarning)
         return Post(shortcode)

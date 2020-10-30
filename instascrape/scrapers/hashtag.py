@@ -7,6 +7,7 @@ from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.post import Post
 
+warnings.simplefilter('always', DeprecationWarning)
 
 class Hashtag(_StaticHtmlScraper):
     """
@@ -47,7 +48,6 @@ class Hashtag(_StaticHtmlScraper):
 
     @classmethod
     def from_hashtag(self, hashtag):
-        warnings.simplefilter('always', DeprecationWarning)
         warnings.warn(
             'This will be deprecated in the near future. You no longer need to use from_hashtag, simply pass hashtag as argument to Hashtag', DeprecationWarning)
         return Hashtag(hashtag)
