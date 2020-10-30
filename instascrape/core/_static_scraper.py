@@ -74,7 +74,7 @@ class _StaticHtmlScraper(ABC):
             msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
 
-    def scrape(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
+    def scrape(self, mapping = None, keys: List[str] = None, exclude: List[str] = None) -> None:
         """
         Scrape data at self.url and parse into attributes
 
@@ -89,6 +89,10 @@ class _StaticHtmlScraper(ABC):
         """
         if mapping is None:
             mapping = self._Mapping
+        if keys is None:
+            keys = []
+        if exclude is None:
+            exclude = []
 
         #If the passed source was already an object, construct data from
         # source else parse it

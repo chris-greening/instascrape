@@ -50,7 +50,7 @@ class _GeneralMapping(ABC):
     }
 
     @classmethod
-    def return_mapping(cls, keys: List[str] = [], exclude: List[str] = []) -> Dict[str, deque]:
+    def return_mapping(cls, keys: List[str] = None, exclude: List[str] = None) -> Dict[str, deque]:
         """
         Return key-directive pairs specified by key names. If no keys are
         specified, return all
@@ -65,6 +65,10 @@ class _GeneralMapping(ABC):
         directive_dict : Dict[str, deque]
             Dictionary of keys and their directives
         """
+        if keys is None:
+            keys = []
+        if exclude is None:
+            exclude = []
         if type(keys) == str:
             keys = [keys]
         if type(exclude) == str:
