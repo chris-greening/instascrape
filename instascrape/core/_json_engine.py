@@ -1,3 +1,7 @@
+"""
+
+"""
+
 from __future__ import annotations
 
 from collections import deque
@@ -18,17 +22,17 @@ class _JsonEngine:
         self.json_data = json_data
         self.map_dict = map_dict
 
-        self._parse_mapping()
-
-    def _parse_mapping(self):
+    def parse_mapping(self):
         """
         Loop through each key in map_dict and set value given queue of
         directives that tell the engine how to parse the value from JSONDict
         """
+        return_data = {}
         for key in self.map_dict:
-            self._set_value(key, self.json_data, self.map_dict[key])
+            self._set_value(return_data, key, self.json_data, self.map_dict[key])
+        return return_data
 
-    def _set_value(self, orig_key: str, container: dict, directive_queue: deque):
+    def _set_value(self, data_dict, orig_key: str, container: dict, directive_queue: deque):
         """
         Recursively step through a queue of directives until the queue is
         empty. When there are no more directives left in queue, we have arrived
@@ -43,6 +47,6 @@ class _JsonEngine:
             value = self.DEFAULT_VAL
 
         if len(directive_queue) == 0:
-            setattr(self, orig_key, value)
+            data_dict[orig_key] = value
         else:
-            self._set_value(orig_key, value, directive_queue)
+            self._set_value(data_dict, orig_key, value, directive_queue)

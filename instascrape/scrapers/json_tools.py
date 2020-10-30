@@ -13,7 +13,8 @@ JSONDict = Dict[str, Any]
 
 def parse_json_from_mapping(json_dict, map_dict):
     _json_engine = _JsonEngine(json_dict, map_dict)
-    return _json_engine.__dict__
+    return_data = _json_engine.parse_mapping()
+    return return_data
 
 
 def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
