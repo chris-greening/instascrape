@@ -5,6 +5,7 @@ import json
 import csv
 from abc import ABC, abstractmethod
 from typing import Union, Dict, List, Any
+import warnings
 
 import requests
 from bs4 import BeautifulSoup
@@ -15,6 +16,7 @@ from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mappi
 # pylint: disable=no-member
 
 JSONDict = Dict[str, Any]
+warnings.simplefilter('always', DeprecationWarning)
 
 class _StaticHtmlScraper(ABC):
     """
@@ -66,7 +68,13 @@ class _StaticHtmlScraper(ABC):
     def __repr__(self):
         return f"<{type(self).__name__}>"
 
-    def load(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
+    def load(self, mapping=None, keys: List[str] = [], exclude: List[str] = []):
+        msg = f'{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility'
+        warnings.warn(
+            msg, DeprecationWarning)
+        self.scrape(mapping, keys, exclude)
+
+    def scrape(self, mapping = None, keys: List[str] = [], exclude: List[str] = []) -> None:
         """
         Scrape data at self.url and parse into attributes
 
@@ -157,7 +165,7 @@ class _StaticHtmlScraper(ABC):
         """Instantiates BeautifulSoup from the given source"""
         return BeautifulSoup(html, features='lxml')
 
-    def json_str_from_soup(self, soup):
+    def _json_str_from_soup(self, soup):
         """Instantiates a JSON dictionary from BeautifulSoup"""
         json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
         left_index = json_script.find("{")
@@ -220,7 +228,7 @@ class _StaticHtmlScraper(ABC):
         if source_type == 'soup':
             if initial_type:
                 self.soup = self.source
-            json_dict_str = self.json_str_from_soup(self.soup)
+            json_dict_str = self._json_str_from_soup(self.soup)
             source_type = 'JSON dict str'
             initial_type = False
 
