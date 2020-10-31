@@ -1,6 +1,14 @@
+"""
+Parse data related to comments, including comments in a thread
+"""
+
 import datetime
 
 class Comment:
+    """A single comment and its respective data"""
+
+    #pylint: disable=too-many-instance-attributes, too-few-public-methods
+
     def __init__(self, comment_dict):
         self.comment_dict = comment_dict['node']
 
@@ -21,6 +29,8 @@ class Comment:
         self.is_restricted_pending = self.comment_dict['is_restricted_pending']
 
         try:
-            self.replies = [Comment(comment_dict) for comment_dict in self.comment_dict['edge_threaded_comments']['edges']]
+            comments = self.comment_dict['edge_threaded_comments']['edges']
+            self.replies = [Comment(comment_dict)
+                            for comment_dict in comments]
         except KeyError:
             self.replies = []
