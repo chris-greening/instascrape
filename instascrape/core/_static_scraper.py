@@ -62,7 +62,7 @@ class _StaticHtmlScraper(ABC):
         """
         self.source = source
 
-        #Instance variables that get defined elsewhere
+        #Instance variables that are given values elsewhere
         self.url = None
         self.html = None
         self.soup = None
