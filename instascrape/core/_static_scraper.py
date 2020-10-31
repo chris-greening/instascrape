@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from instascrape.core._json_flattener import FlatJSONDict
-from instascrape.scrapers.json_tools import json_from_url, parse_json_from_mapping, json_from_html
+from instascrape.scrapers.json_tools import parse_json_from_mapping
 
 # pylint: disable=no-member
 
