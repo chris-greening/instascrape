@@ -61,7 +61,7 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     instagram_type : str
         Name of the type of page the program is currently parsing or looking at
     """
-    if type(json_data) is not dict:
+    if not isinstance(json_data, dict):
         json_data = json.loads(json_data)
     instagram_type = list(json_data["entry_data"])[0]
     return instagram_type
