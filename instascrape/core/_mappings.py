@@ -122,7 +122,7 @@ class _PostMapping(_GeneralMapping):
             "viewer_in_photo_of_you": deque(["viewer_in_photo_of_you"]),
             "viewer_can_reshare": deque(["viewer_can_reshare"]),
             "video_url": deque(["video_url"]),
-            "has_audio": deque(["has_audio"])
+            "has_audio": deque(["has_audio"]),
         }
     )
 

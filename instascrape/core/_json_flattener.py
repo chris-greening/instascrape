@@ -13,6 +13,7 @@ JSONDict = Dict[str, Any]
 class FlatJSONDict(MutableMapping):
     """Takes a dictionary with JSON-like data and creates an instance that
     behaves exactly like a dict but with the flattened data"""
+
     def __init__(self, json_dict):
 
         self.json_dict = json_dict
@@ -88,12 +89,8 @@ class Node:
     """
 
     def __init__(
-            self,
-            json_data: Any,
-            tree: JsonTree,
-            linked_list: deque = None,
-            prior_keys: List[Union[str, int]] = None
-        ) -> None:
+        self, json_data: Any, tree: JsonTree, linked_list: deque = None, prior_keys: List[Union[str, int]] = None
+    ) -> None:
         self.json_data = json_data
         self.tree = tree
 

@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from instascrape.scrapers import *
 
+
 class InstaScrape:
     """
     Quick and clean interface for tying in much of instascrape's functionality
     in easy and clean syntax
     """
+
     def load_profile(self, username: str) -> Profile:
         """
         Load, scrape, and return a Profile object that contains all of the
