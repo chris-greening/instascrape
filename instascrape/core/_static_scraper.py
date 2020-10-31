@@ -16,7 +16,8 @@ from instascrape.scrapers.json_tools import parse_json_from_mapping
 # pylint: disable=no-member
 
 JSONDict = Dict[str, Any]
-warnings.simplefilter('always', DeprecationWarning)
+warnings.simplefilter("always", DeprecationWarning)
+
 
 class _StaticHtmlScraper(ABC):
     """
@@ -48,7 +49,7 @@ class _StaticHtmlScraper(ABC):
         "flat_json_dict",
         "soup",
         "html",
-        "source"
+        "source",
     ]
 
     def __init__(self, source: Union[str, BeautifulSoup, JSONDict]):
@@ -62,7 +63,7 @@ class _StaticHtmlScraper(ABC):
         """
         self.source = source
 
-        #Instance variables that are given values elsewhere
+        # Instance variables that are given values elsewhere
         self.url = None
         self.html = None
         self.soup = None
@@ -78,8 +79,7 @@ class _StaticHtmlScraper(ABC):
 
     def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
         msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
-        warnings.warn(
-            msg, DeprecationWarning)
+        warnings.warn(msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
 
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
@@ -102,7 +102,7 @@ class _StaticHtmlScraper(ABC):
         if exclude is None:
             exclude = []
 
-        #If the passed source was already an object, construct data from
+        # If the passed source was already an object, construct data from
         # source else parse it
         if type(self.source) is type(self):
             scraped_dict = self.source.to_dict()
@@ -146,7 +146,7 @@ class _StaticHtmlScraper(ABC):
         fp : str
             Filepath to write data to
         """
-        with open(fp, "w", newline="", encoding='utf-8') as csv_file:
+        with open(fp, "w", newline="", encoding="utf-8") as csv_file:
             writer = csv.writer(csv_file)
             for key, value in self.to_dict().items():
                 writer.writerow([key, str(value)])
@@ -178,37 +178,37 @@ class _StaticHtmlScraper(ABC):
             json_dict = source
             return json_dict
         elif source_type is BeautifulSoup:
-            source_type = 'soup'
+            source_type = "soup"
 
-        if source_type == 'suburl':
+        if source_type == "suburl":
             if initial_type:
                 suburl = self.source
             self.url = self._url_from_suburl(suburl=suburl)
-            source_type = 'url'
+            source_type = "url"
             initial_type = False
 
-        if source_type == 'url':
+        if source_type == "url":
             if initial_type:
                 self.url = self.source
             self.html = self._html_from_url(url=self.url)
-            source_type = 'html'
+            source_type = "html"
             initial_type = False
 
-        if source_type == 'html':
+        if source_type == "html":
             if initial_type:
                 self.html = self.source
             self.soup = self._soup_from_html(self.html)
-            source_type = 'soup'
+            source_type = "soup"
             initial_type = False
 
-        if source_type == 'soup':
+        if source_type == "soup":
             if initial_type:
                 self.soup = self.source
             json_dict_str = self._json_str_from_soup(self.soup)
-            source_type = 'JSON dict str'
+            source_type = "JSON dict str"
             initial_type = False
 
-        if source_type == 'JSON dict str':
+        if source_type == "JSON dict str":
             if initial_type:
                 json_dict_str = self.source
             json_dict = self._dict_from_json_str(json_dict_str)
@@ -221,7 +221,6 @@ class _StaticHtmlScraper(ABC):
             setattr(self, key, val)
         self.scrape_timestamp = datetime.datetime.now()
 
-
     @staticmethod
     def _html_from_url(url) -> str:
         """Requests page at given URL to get given HTML"""
@@ -231,13 +230,12 @@ class _StaticHtmlScraper(ABC):
     @staticmethod
     def _soup_from_html(html):
         """Instantiates BeautifulSoup from the given source"""
-        return BeautifulSoup(html, features='lxml')
+        return BeautifulSoup(html, features="lxml")
 
     @staticmethod
     def _json_str_from_soup(soup):
         """Instantiates a JSON dictionary from BeautifulSoup"""
-        json_script = [str(script) for script in soup.find_all("script")
-                       if "config" in str(script)][0]
+        json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
         left_index = json_script.find("{")
         right_index = json_script.rfind("}") + 1
         json_str = json_script[left_index:right_index]
@@ -252,14 +250,10 @@ class _StaticHtmlScraper(ABC):
     @staticmethod
     def _determine_string_type(string_data):
         """Determine's what type of source the string is"""
-        string_type_map = [
-            ('https://', 'url'),
-            ('window._sharedData', 'html'),
-            ('{"config"', 'JSON dict str')
-        ]
+        string_type_map = [("https://", "url"), ("window._sharedData", "html"), ('{"config"', "JSON dict str")]
         for substr, str_type in string_type_map:
             if substr in string_data:
                 break
         else:
-            str_type = 'suburl'
+            str_type = "suburl"
         return str_type
