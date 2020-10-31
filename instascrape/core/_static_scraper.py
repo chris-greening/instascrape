@@ -62,19 +62,27 @@ class _StaticHtmlScraper(ABC):
         """
         self.source = source
 
+        #Instance variables that get defined elsewhere
+        self.url = None
+        self.html = None
+        self.soup = None
+        self.json_dict = None
+        self.flat_json_dict = None
+        self.scrape_timestamp = None
+
     def __getitem__(self, key):
         return getattr(self, key)
 
     def __repr__(self):
         return f"<{type(self).__name__}>"
 
-    def load(self, mapping=None, keys: List[str] = [], exclude: List[str] = []):
-        msg = f'{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility'
+    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
         warnings.warn(
             msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
 
-    def scrape(self, mapping = None, keys: List[str] = None, exclude: List[str] = None) -> None:
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
         """
         Scrape data at self.url and parse into attributes
 
@@ -160,42 +168,6 @@ class _StaticHtmlScraper(ABC):
     def _url_from_suburl(self, suburl):
         pass
 
-    def _html_from_url(self, url) -> str:
-        """Requests page at given URL to get given HTML"""
-        response = requests.get(url)
-        return response.text
-
-    def _soup_from_html(self, html):
-        """Instantiates BeautifulSoup from the given source"""
-        return BeautifulSoup(html, features='lxml')
-
-    def _json_str_from_soup(self, soup):
-        """Instantiates a JSON dictionary from BeautifulSoup"""
-        json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
-        left_index = json_script.find("{")
-        right_index = json_script.rfind("}") + 1
-        json_str = json_script[left_index:right_index]
-
-        return json_str
-
-    def _dict_from_json_str(self, json_str):
-        """Load JSON data from a string"""
-        return json.loads(json_str)
-
-    def _determine_string_type(self, string_data):
-        """Determine's what type of source the string is"""
-        string_type_map = [
-            ('https://', 'url'),
-            ('window._sharedData', 'html'),
-            ('{"config"', 'JSON dict str')
-        ]
-        for substr, str_type in string_type_map:
-            if substr in string_data:
-                break
-        else:
-            str_type = 'suburl'
-        return str_type
-
     def _get_json_from_source(self, source):
         """Parses the JSON data out from the source based on what type the source is"""
         source_type = type(source)
@@ -248,3 +220,46 @@ class _StaticHtmlScraper(ABC):
         for key, val in scraped_dict.items():
             setattr(self, key, val)
         self.scrape_timestamp = datetime.datetime.now()
+
+
+    @staticmethod
+    def _html_from_url(url) -> str:
+        """Requests page at given URL to get given HTML"""
+        response = requests.get(url)
+        return response.text
+
+    @staticmethod
+    def _soup_from_html(html):
+        """Instantiates BeautifulSoup from the given source"""
+        return BeautifulSoup(html, features='lxml')
+
+    @staticmethod
+    def _json_str_from_soup(soup):
+        """Instantiates a JSON dictionary from BeautifulSoup"""
+        json_script = [str(script) for script in soup.find_all("script")
+                       if "config" in str(script)][0]
+        left_index = json_script.find("{")
+        right_index = json_script.rfind("}") + 1
+        json_str = json_script[left_index:right_index]
+
+        return json_str
+
+    @staticmethod
+    def _dict_from_json_str(json_str):
+        """Load JSON data from a string"""
+        return json.loads(json_str)
+
+    @staticmethod
+    def _determine_string_type(string_data):
+        """Determine's what type of source the string is"""
+        string_type_map = [
+            ('https://', 'url'),
+            ('window._sharedData', 'html'),
+            ('{"config"', 'JSON dict str')
+        ]
+        for substr, str_type in string_type_map:
+            if substr in string_data:
+                break
+        else:
+            str_type = 'suburl'
+        return str_type

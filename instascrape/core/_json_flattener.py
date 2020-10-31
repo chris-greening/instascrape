@@ -1,3 +1,8 @@
+"""
+Algorithm for flattening a JSON dictionary of variable depths into a
+flat dictionary that contains the deepest key: value pairs
+"""
+
 from collections import deque
 from collections.abc import MutableMapping
 from typing import Any, Dict, List, Union
@@ -6,9 +11,10 @@ JSONDict = Dict[str, Any]
 
 
 class FlatJSONDict(MutableMapping):
+    """Takes a dictionary with JSON-like data and creates an instance that
+    behaves exactly like a dict but with the flattened data"""
     def __init__(self, json_dict):
-        """Takes a dictionary with JSON-like data and creates an instance that
-        behaves exactly like a dict but with the flattened data"""
+
         self.json_dict = json_dict
 
         self.json_tree = JsonTree(self.json_dict)
@@ -32,7 +38,8 @@ class FlatJSONDict(MutableMapping):
             flattened_dict[new_key] = list(leaf_node.json_data.values())[0]
         return flattened_dict
 
-    def _new_key(self, key: str, key_arr: deque) -> str:
+    @staticmethod
+    def _new_key(key: str, key_arr: deque) -> str:
         key_arr.appendleft(str(key))
         return "_".join(key_arr)
 
@@ -81,12 +88,17 @@ class Node:
     """
 
     def __init__(
-        self, json_data: Any, tree: JsonTree, linked_list: deque = deque([]), prior_keys: List[Union[str, int]] = []
-    ) -> None:
+            self,
+            json_data: Any,
+            tree: JsonTree,
+            linked_list: deque = None,
+            prior_keys: List[Union[str, int]] = None
+        ) -> None:
         self.json_data = json_data
         self.tree = tree
-        self.linked_list = linked_list
-        self.prior_keys = prior_keys
+
+        self.linked_list = linked_list if linked_list is not None else deque([])
+        self.prior_keys = prior_keys if prior_keys is not None else []
 
         self.dtype = type(self.json_data)
 
@@ -112,7 +124,10 @@ class Node:
         """
         Get all edges connected to current Node
         """
-        iter_arr = zip(range(len(self.json_data)), self.json_data) if self.dtype is list else self.json_data.items()
+        if self.dtype is list:
+            iter_arr = zip(range(len(self.json_data)), self.json_data)
+        else:
+            iter_arr = self.json_data.items()
 
         for key, value in iter_arr:
             next_linked_list = self.linked_list + deque([self])
