@@ -1,3 +1,8 @@
+"""
+Mappings that tell the _JsonEngine the user facing attribute names and the
+steps needed to get there in a JSON dictionary
+"""
+
 from __future__ import annotations
 
 from abc import ABC
@@ -69,11 +74,11 @@ class _GeneralMapping(ABC):
             keys = []
         if exclude is None:
             exclude = []
-        if type(keys) == str:
+        if isinstance(keys, str):
             keys = [keys]
-        if type(exclude) == str:
+        if isinstance(exclude, str):
             exclude = [exclude]
-            
+
         if not keys:
             keys = list(cls.mapping)
         if exclude:
@@ -123,6 +128,10 @@ class _PostMapping(_GeneralMapping):
 
     @classmethod
     def post_from_profile_mapping(cls):
+        """
+        Return the mapping needed for parsing a post's JSON data from the JSON
+        served back after requesting a Profile page.
+        """
         return {
             "id": deque(["id"]),
             "shortcode": deque(["shortcode"]),
@@ -143,6 +152,10 @@ class _PostMapping(_GeneralMapping):
 
     @classmethod
     def post_from_hashtag_mapping(cls):
+        """
+        Return the mapping needed for parsing a post's JSON data from the JSON
+        served back after requesting a Hashtag page.
+        """
         return {
             "comments_disabled": deque(["comments_disabled"]),
             "id": deque(["id"]),
@@ -255,4 +268,8 @@ class _MetaMapping:
 
     @classmethod
     def get_mapper(cls, page_type: str) -> MappingObject:
+        """
+        Return the appropriate mapper that corresponds to the page_type as
+        given in the requested Instagram JSON data
+        """
         return cls.str_to_mapper_obj[page_type]
