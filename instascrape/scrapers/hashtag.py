@@ -1,3 +1,8 @@
+"""
+Hashtag
+-------
+    Scrape data from a Hashtag page
+"""
 from __future__ import annotations
 
 from typing import List
@@ -32,7 +37,8 @@ class Hashtag(_StaticHtmlScraper):
             List containing the recent 12 posts and their available data
         """
         posts = []
-        post_arr = self.json_dict["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"]
+        post_arr = self.json_dict["entry_data"]["TagPage"][0]["graphql"][
+            "hashtag"]["edge_hashtag_to_media"]["edges"]
         amount_of_posts = len(post_arr)
         if amt > amount_of_posts:
             amt = amount_of_posts
@@ -48,7 +54,8 @@ class Hashtag(_StaticHtmlScraper):
         return f"https://www.instagram.com/tags/{suburl}/"
 
     @classmethod
-    def from_hashtag(self, hashtag):
+    def from_hashtag(cls, hashtag):
+        """Load Hashtag object given it's hashtag name"""
         warnings.warn(
             "This will be deprecated in the near future. You no longer need to use from_hashtag, simply pass hashtag as argument to Hashtag",
             DeprecationWarning,
