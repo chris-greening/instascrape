@@ -29,8 +29,14 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = ['.mp3', '.mp4', '.png', 'jpg']
 
-    def load(self, mapping=None, keys: List[str] = [], exclude: List[str] = []):
-        super().load(mapping=mapping, keys=keys, exclude=exclude)
+    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
+        warnings.warn(
+            msg, DeprecationWarning)
+        self.scrape(mapping, keys, exclude)
+
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        super().scrape(mapping=mapping, keys=keys, exclude=exclude)
 
         if mapping is None:
             self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
