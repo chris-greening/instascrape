@@ -1,3 +1,8 @@
+"""
+Post
+----
+    Scrape data from a Post page
+"""
 from __future__ import annotations
 
 import datetime
@@ -28,7 +33,7 @@ class Post(_StaticHtmlScraper):
     """
 
     _Mapping = _PostMapping
-    SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", "jpg"]
+    SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
 
     def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
         msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
@@ -60,7 +65,10 @@ class Post(_StaticHtmlScraper):
         url = self.video_url if self.is_video else self.display_url
 
         data = requests.get(url, stream=True)
-        self._download_media(fp, data)
+        if not self.is_video:
+            self._download_photo(fp, data)
+        else:
+            self._download_media(fp, data)
 
     def get_recent_comments(self):
         list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
@@ -69,8 +77,14 @@ class Post(_StaticHtmlScraper):
         comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
         return comments_arr
 
-    def _url_from_suburl(self, suburl):
+    @staticmethod
+    def _url_from_suburl(suburl):
         return f"https://www.instagram.com/p/{suburl}/"
+
+    def _download_photo(self, fp: str, data):
+        with open(fp, 'wb') as outfile:
+            data.raw.decode_content = True
+            shutil.copyfileobj(data.raw, outfile)
 
     def _download_media(self, fp: str, data):
         """Write the media to file at given fp from the response"""
