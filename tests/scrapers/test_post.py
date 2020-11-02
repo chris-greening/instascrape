@@ -4,6 +4,7 @@ import json
 import re
 
 import pytest
+from bs4 import BeautifulSoup
 
 from instascrape import Post
 
@@ -15,6 +16,19 @@ class TestPost:
         random_google_post = Post(google_post_url)
         random_google_post.load()
         return random_google_post
+
+    def test_from_html(self, page_instance):
+        post_html = page_instance.html
+        post_obj = Post(post_html)
+        post_obj.scrape()
+        assert hasattr(post_obj, 'likes')
+
+    def test_from_soup(self, page_instance):
+        post_html = page_instance.html
+        post_soup = BeautifulSoup(post_html, features='lxml')
+        post_obj = Post(post_soup)
+        post_obj.scrape()
+        assert hasattr(post_obj, 'likes')
 
     def test_to_dict(self, page_instance):
         assert type(page_instance.to_dict()) == dict
