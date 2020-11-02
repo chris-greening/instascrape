@@ -72,10 +72,10 @@ google = Profile('https://www.instagram.com/google/')
 google_post = Post('https://www.instagram.com/p/CG0UU3ylXnv/')
 google_hashtag = Hashtag('https://www.instagram.com/explore/tags/google/')
 
-# Load their respective data 
-google.load()
-google_post.load()
-google_hashtag.load()
+# Scrape their respective data 
+google.scrape()
+google_post.scrape()
+google_hashtag.scrape()
 ```
 
 After being scraped, relevant attributes can be accessed with dot (.) or bracket (\[\]) notation
