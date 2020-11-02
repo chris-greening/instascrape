@@ -2,6 +2,8 @@ import csv
 import json
 
 import pytest
+from bs4 import BeautifulSoup
+import requests
 
 from instascrape import Post, Profile
 
@@ -14,11 +16,18 @@ class TestProfile:
         profile_obj.scrape()
         return profile_obj
 
-    def test_from_html(self, page_instance, capsys):
+    def test_from_html(self, page_instance):
         profile_html = page_instance.html
         profile_obj = Profile(profile_html)
         profile_obj.scrape()
-        assert isinstance(profile_obj.to_dict(), dict)
+        assert hasattr(profile_obj, 'followers')
+
+    def test_from_soup(self, page_instance):
+        profile_html = page_instance.html
+        profile_soup = BeautifulSoup(profile_html, features='lxml')
+        profile_obj = Profile(profile_soup)
+        profile_obj.scrape()
+        assert hasattr(profile_obj, 'followers')
 
     def test_to_dict(self, page_instance):
         assert type(page_instance.to_dict()) == dict
