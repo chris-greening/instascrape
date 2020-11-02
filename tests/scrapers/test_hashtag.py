@@ -32,7 +32,7 @@ class TestHashtag:
         assert hasattr(hashtag_obj, 'amount_of_posts')
 
     def test_to_dict(self, page_instance):
-        assert type(page_instance.to_dict()) == dict
+        assert isinstance(page_instance.to_dict(), dict)
 
     # @pytest.mark.file_io
     # def test_to_json(self, page_instance, tmpdir):
