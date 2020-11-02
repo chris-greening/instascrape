@@ -253,6 +253,8 @@ class _StaticHtmlScraper(ABC):
         string_type_map = [("https://", "url"), ("window._sharedData", "html"), ('{"config"', "JSON dict str")]
         for substr, str_type in string_type_map:
             if substr in string_data:
+                if substr == "https://" and "!DOCTYPE" in string_data:
+                    continue
                 break
         else:
             str_type = "suburl"
