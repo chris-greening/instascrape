@@ -1,6 +1,7 @@
 import csv
 import json
 
+from bs4 import BeautifulSoup
 import pytest
 
 from instascrape import Hashtag
@@ -16,6 +17,19 @@ class TestHashtag:
         kotlin_hashtag.load()
 
         return kotlin_hashtag
+
+    def test_from_html(self, page_instance):
+        hashtag_html = page_instance.html
+        hashtag_obj = Hashtag(hashtag_html)
+        hashtag_obj.scrape()
+        assert hasattr(hashtag_obj, 'amount_of_posts')
+
+    def test_from_soup(self, page_instance):
+        hashtag_html = page_instance.html
+        hashtag_soup = BeautifulSoup(hashtag_html, features='lxml')
+        hashtag_obj = Hashtag(hashtag_soup)
+        hashtag_obj.scrape()
+        assert hasattr(hashtag_obj, 'amount_of_posts')
 
     def test_to_dict(self, page_instance):
         assert type(page_instance.to_dict()) == dict
