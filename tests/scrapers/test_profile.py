@@ -11,8 +11,14 @@ class TestProfile:
     def page_instance(self):
         profile_url = "https://www.instagram.com/chris_greening/"
         profile_obj = Profile(profile_url)
-        profile_obj.load()
+        profile_obj.scrape()
         return profile_obj
+
+    def test_from_html(self, page_instance, capsys):
+        profile_html = page_instance.html
+        profile_obj = Profile(profile_html)
+        profile_obj.scrape()
+        assert isinstance(profile_obj.to_dict(), dict)
 
     def test_to_dict(self, page_instance):
         assert type(page_instance.to_dict()) == dict
