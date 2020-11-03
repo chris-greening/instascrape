@@ -5,30 +5,38 @@ import re
 
 import pytest
 from bs4 import BeautifulSoup
+import requests
 
 from instascrape import Post
 
 
 class TestPost:
     @pytest.fixture
-    def page_instance(self):
-        google_post_url = "https://www.instagram.com/p/CGX0G64hu4Q/"
-        random_google_post = Post(google_post_url)
+    def url(self):
+        return "https://www.instagram.com/p/CGX0G64hu4Q/"
+
+    @pytest.fixture
+    def get_request(self, url):
+        return requests.get(url)
+
+    @pytest.fixture
+    def page_instance(self, url):
+        random_google_post = Post(url)
         random_google_post.load()
         return random_google_post
 
-    def test_from_html(self, page_instance):
-        post_html = page_instance.html
+    def test_from_html(self, get_request, page_instance):
+        post_html = get_request.text
         post_obj = Post(post_html)
         post_obj.scrape()
-        assert hasattr(post_obj, 'likes')
+        assert post_obj.likes == page_instance.likes
 
-    def test_from_soup(self, page_instance):
-        post_html = page_instance.html
+    def test_from_soup(self, get_request, page_instance):
+        post_html = get_request.text
         post_soup = BeautifulSoup(post_html, features='lxml')
         post_obj = Post(post_soup)
         post_obj.scrape()
-        assert hasattr(post_obj, 'likes')
+        assert post_obj.likes == page_instance.likes
 
     def test_to_dict(self, page_instance):
         assert isinstance(page_instance.to_dict(), dict)
