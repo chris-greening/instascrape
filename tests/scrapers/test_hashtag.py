@@ -3,33 +3,39 @@ import json
 
 from bs4 import BeautifulSoup
 import pytest
+import requests
 
 from instascrape import Hashtag
 
 
 class TestHashtag:
+
     @pytest.fixture
-    def page_instance(self):
-        kotlin_hashtag_name = "kotlin"
-        kotlin_hashtag_url = f"https://www.instagram.com/tags/{kotlin_hashtag_name}/"
+    def url(self):
+        return "https://www.instagram.com/tags/kotlin/"
 
-        kotlin_hashtag = Hashtag(kotlin_hashtag_url)
-        kotlin_hashtag.load()
+    @pytest.fixture
+    def get_request(self, url):
+        return requests.get(url)
 
-        return kotlin_hashtag
+    @pytest.fixture
+    def page_instance(self, url):
+        random_hashtag = Hashtag(url)
+        random_hashtag.load()
+        return random_hashtag
 
-    def test_from_html(self, page_instance):
-        hashtag_html = page_instance.html
+    def test_from_html(self, get_request, page_instance):
+        hashtag_html = get_request.text
         hashtag_obj = Hashtag(hashtag_html)
         hashtag_obj.scrape()
-        assert hasattr(hashtag_obj, 'amount_of_posts')
+        assert hashtag_obj.amount_of_posts == page_instance.amount_of_posts
 
-    def test_from_soup(self, page_instance):
-        hashtag_html = page_instance.html
+    def test_from_soup(self, get_request, page_instance):
+        hashtag_html = get_request.text
         hashtag_soup = BeautifulSoup(hashtag_html, features='lxml')
         hashtag_obj = Hashtag(hashtag_soup)
         hashtag_obj.scrape()
-        assert hasattr(hashtag_obj, 'amount_of_posts')
+        assert hashtag_obj.amount_of_posts == page_instance.amount_of_posts
 
     def test_to_dict(self, page_instance):
         assert isinstance(page_instance.to_dict(), dict)
