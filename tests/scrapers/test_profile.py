@@ -9,25 +9,33 @@ from instascrape import Post, Profile
 
 
 class TestProfile:
-    @pytest.fixture
-    def page_instance(self):
-        profile_url = "https://www.instagram.com/chris_greening/"
-        profile_obj = Profile(profile_url)
-        profile_obj.scrape()
-        return profile_obj
 
-    def test_from_html(self, page_instance):
-        profile_html = page_instance.html
+    @pytest.fixture
+    def url(self):
+        return "https://www.instagram.com/chris_greening/"
+
+    @pytest.fixture
+    def get_request(self, url):
+        return requests.get(url)
+
+    @pytest.fixture
+    def page_instance(self, url):
+        random_profile = Profile(url)
+        random_profile.load()
+        return random_profile
+
+    def test_from_html(self, get_request, page_instance):
+        profile_html = get_request.text
         profile_obj = Profile(profile_html)
         profile_obj.scrape()
-        assert hasattr(profile_obj, 'followers')
+        assert profile_obj.followers == page_instance.followers
 
-    def test_from_soup(self, page_instance):
-        profile_html = page_instance.html
+    def test_from_soup(self, get_request, page_instance):
+        profile_html = get_request.text
         profile_soup = BeautifulSoup(profile_html, features='lxml')
         profile_obj = Profile(profile_soup)
         profile_obj.scrape()
-        assert hasattr(profile_obj, 'followers')
+        assert profile_obj.followers == page_instance.followers
 
     def test_to_dict(self, page_instance):
         assert isinstance(page_instance.to_dict(), dict)
