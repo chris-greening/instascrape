@@ -46,7 +46,7 @@ class Profile(_StaticHtmlScraper):
             json_dict = post["node"]
             mapping = _PostMapping.post_from_profile_mapping()
             post = Post(json_dict)
-            post.load(mapping=mapping)
+            post.scrape(mapping=mapping)
             posts.append(post)
         return posts
 
