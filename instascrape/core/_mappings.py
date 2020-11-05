@@ -95,7 +95,8 @@ class _PostMapping(_GeneralMapping):
         {
             "id": deque(["id"]),
             "shortcode": deque(["shortcode"]),
-            "dimensions": deque(["dimensions"]),
+            "height": deque(["height"]),
+            "width": deque(["width"]),
             "gating_info": deque(["gating_info"]),
             "fact_check_overall_rating": deque(["fact_check_overall_rating"]),
             "fact_check_information": deque(["fact_check_information"]),
