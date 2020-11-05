@@ -68,7 +68,7 @@ class Post(_StaticHtmlScraper):
         if not self.is_video:
             self._download_photo(fp, data)
         else:
-            self._download_media(fp, data)
+            self._download_video(fp, data)
 
     def get_recent_comments(self):
         list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
@@ -86,7 +86,7 @@ class Post(_StaticHtmlScraper):
             data.raw.decode_content = True
             shutil.copyfileobj(data.raw, outfile)
 
-    def _download_media(self, fp: str, data):
+    def _download_video(self, fp: str, data):
         """Write the media to file at given fp from the response"""
         with open(fp, "wb") as outfile:
             for chunk in data.iter_content(chunk_size=1024):
