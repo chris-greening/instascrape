@@ -124,7 +124,7 @@ class _PostMapping(_GeneralMapping):
             "viewer_can_reshare": deque(["viewer_can_reshare"]),
             "video_url": deque(["video_url"]),
             "has_audio": deque(["has_audio"]),
-            "video_view_count": deque(["video_view_count"])
+            "video_view_count": deque(["video_view_count"]),
         }
     )
 
