@@ -74,6 +74,10 @@ class Post(_StaticHtmlScraper):
             self._download_video(fp, data)
 
     def get_recent_comments(self):
+        """
+        Returns a list of Comment objects that contain data regarding
+        some of the posts comments
+        """
         list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
             "edge_media_to_parent_comment"
         ]["edges"]
