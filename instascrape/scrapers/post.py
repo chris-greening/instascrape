@@ -31,7 +31,6 @@ class Post(_StaticHtmlScraper):
     from_shortcode(shortcode: str) -> Post
         Factory method that returns a Post object from a shortcode
     """
-
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
 
@@ -41,6 +40,8 @@ class Post(_StaticHtmlScraper):
         self.scrape(mapping, keys, exclude)
 
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        #pylint: disable=no-member
+
         super().scrape(mapping=mapping, keys=keys, exclude=exclude)
 
         if mapping is None:
@@ -57,6 +58,8 @@ class Post(_StaticHtmlScraper):
         fp : str
             Filepath to download the image to
         """
+        #pylint: disable=no-member
+
         ext = pathlib.Path(fp).suffix
         if ext not in self.SUPPORTED_DOWNLOAD_EXTENSIONS:
             raise NameError(
