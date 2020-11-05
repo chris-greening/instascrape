@@ -110,7 +110,7 @@ class Post(_StaticHtmlScraper):
         return re.findall(pattern, caption)
 
     @classmethod
-    def from_shortcode(self, shortcode):
+    def from_shortcode(cls, shortcode):
         warnings.warn(
             "This will be deprecated in the near future. You no longer need to use from_shortcode, simply pass shortcode as argument to Post",
             DeprecationWarning,
