@@ -9,7 +9,7 @@ class InstaScrape:
     in easy and clean syntax
     """
 
-    def load_profile(self, username: str) -> Profile:
+    def scrape_profile(self, username: str) -> Profile:
         """
         Load, scrape, and return a Profile object that contains all of the
         availably scraped data from a given profile
@@ -24,11 +24,11 @@ class InstaScrape:
         profile : Profile
             Profile object with the scraped data
         """
-        profile = Profile.from_username(username)
-        profile.load()
+        profile = Profile(username)
+        profile.scrape()
         return profile
 
-    def load_post(self, url: str) -> Post:
+    def scrape_post(self, url: str) -> Post:
         """
         Load, scrape, and return a Post object that contains all of the
         availably scraped data from a given post
@@ -44,10 +44,10 @@ class InstaScrape:
             Post object with the scraped data
         """
         post = Post(url)
-        post.load()
+        post.scrape()
         return post
 
-    def load_hashtag(self, hashtag: str) -> Hashtag:
+    def scrape_hashtag(self, hashtag: str) -> Hashtag:
         """
         Load, scrape, and return a Hashtag object that contains all of the
         availably scraped data from a given hashtag
@@ -62,12 +62,12 @@ class InstaScrape:
         hashtag : Hashtag
             Hashtag object with the scraped data
         """
-        hashtag = Hashtag.from_hashtag(hashtag)
-        hashtag.load()
+        hashtag = Hashtag(hashtag)
+        hashtag.scrape()
         return hashtag
 
     def download_post(self, url: str, fp: str) -> None:
         """Download post at the given url to local machine at given fp"""
         post = Post(url)
-        post.load()
+        post.scrape()
         post.download(fp)
