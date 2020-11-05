@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from instascrape.scrapers import *
+from instascrape.scrapers import Profile, Post, Hashtag
 
 
 class InstaScrape:
