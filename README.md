@@ -27,7 +27,7 @@
 * :bar_chart: Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
 * :hammer: Lightweight: you don't have to build a hammer factory when all you need is the hammer 
 * :spider_web: The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/); no more worrying about configurations or webdrivers
-* :watch: Proven to work as of October 29, 2020
+* :watch: Proven to work as of November, 2020
 ---
 
 ## Table of Contents
@@ -101,7 +101,7 @@ Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 - [Exploratory data analysis of Instagram using instascrape and Python](https://dev.to/chrisgreening/exploratory-data-analysis-of-instagram-using-python-1o5c)
 - [Creating a scatter matrix of Instagram data using Python](https://dev.to/chrisgreening/visualizing-the-relationship-between-instagram-variables-using-python-55gg)
 - [Downloading an Instagram profile's recent photos using Python](https://dev.to/chrisgreening/downloading-an-instagram-profile-s-recent-photos-using-python-25b2)
-
+- [Scraping 25,000 data points from Joe Biden's Instagram using instascrape](https://dev.to/chrisgreening/scraping-25-000-data-points-from-joe-biden-s-instagram-using-instascrape-1026)
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
