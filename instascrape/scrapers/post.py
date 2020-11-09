@@ -21,7 +21,6 @@ from instascrape.scrapers.comment import Comment
 
 warnings.simplefilter("always", DeprecationWarning)
 
-
 class Post(_StaticHtmlScraper):
     """
     Scraper for an Instagram post page
