@@ -170,14 +170,13 @@ class _StaticHtmlScraper(ABC):
 
     def _get_json_from_source(self, source):
         """Parses the JSON data out from the source based on what type the source is"""
-        source_type = type(source)
         initial_type = True
-        if source_type is str:
+        if isinstance(source, str):
             source_type = self._determine_string_type(source)
-        elif source_type is dict:
+        elif isinstance(source, dict):
             json_dict = source
             return json_dict
-        elif source_type is BeautifulSoup:
+        elif isinstance(source, BeautifulSoup):
             source_type = "soup"
 
         if source_type == "suburl":
