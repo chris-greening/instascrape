@@ -19,7 +19,6 @@ from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 JSONDict = Dict[str, Any]
 warnings.simplefilter("always", DeprecationWarning)
 
-
 class _StaticHtmlScraper(ABC):
     """
     Base class for all of the scrapers, handles general functionality that all
