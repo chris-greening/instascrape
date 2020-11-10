@@ -43,7 +43,7 @@ instascrape.scrapers.profile module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :inherited-members:
 
 Module contents
 ---------------
