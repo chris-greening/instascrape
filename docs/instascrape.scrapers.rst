@@ -11,6 +11,7 @@ instascrape.scrapers.hashtag module
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 instascrape.scrapers.json\_scraper module
 -----------------------------------------
@@ -19,6 +20,7 @@ instascrape.scrapers.json\_scraper module
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 instascrape.scrapers.login module
 ---------------------------------
@@ -27,6 +29,7 @@ instascrape.scrapers.login module
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 instascrape.scrapers.post module
 --------------------------------
@@ -35,6 +38,7 @@ instascrape.scrapers.post module
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 instascrape.scrapers.profile module
 -----------------------------------
@@ -52,3 +56,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
