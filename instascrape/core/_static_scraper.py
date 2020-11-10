@@ -248,7 +248,7 @@ class _StaticHtmlScraper(ABC):
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
         if json_type == 'LoginAndSignupPage' and not type(self).__name__ == 'LoginAndSignupPage':
-            raise InstagramLoginRedirect
+            raise InstagramLoginRedirectError
         return json_dict
 
     @staticmethod
