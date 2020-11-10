@@ -11,6 +11,7 @@ Welcome to instascrape's documentation!
    :caption: Contents:
 
    instascrape.scrapers
+   instascrape.exceptions
 
 Indices and tables
 ==================
