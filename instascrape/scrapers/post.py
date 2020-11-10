@@ -40,6 +40,20 @@ class Post(_StaticHtmlScraper):
         self.scrape(mapping, keys, exclude)
 
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        """
+        Scrape the Post data from the given source and load as instance attributes
+
+        Parameters
+        ----------
+        mapping : Dict[str, deque]
+            Dictionary of parsing queue's that tell the JSON engine how to
+            process the JSON data
+        keys : List[str]
+            List of strings that correspond to desired attributes for scraping
+        exclude : List[str]
+            List of strings that correspond to which attributes to exclude from
+            being scraped
+        """
         # pylint: disable=no-member, attribute-defined-outside-init
 
         super().scrape(mapping=mapping, keys=keys, exclude=exclude)
@@ -51,7 +65,7 @@ class Post(_StaticHtmlScraper):
 
     def download(self, fp: str) -> None:
         """
-        Download an image or video from a post to your local machine at the given fpath
+        Download an image or video from a post to your local machine at the given filepath
 
         Parameters
         ----------
@@ -77,6 +91,11 @@ class Post(_StaticHtmlScraper):
         """
         Returns a list of Comment objects that contain data regarding
         some of the posts comments
+
+        Returns
+        -------
+        comments_arr : List[Comment]
+            List of Comment objects
         """
         list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
             "edge_media_to_parent_comment"
@@ -115,6 +134,20 @@ class Post(_StaticHtmlScraper):
 
     @classmethod
     def from_shortcode(cls, shortcode):
+        """
+        Return a Post object given a shortcode.
+
+        Parameters
+        ----------
+        shortcode : str
+            Unique shortcode of an Instagram post
+
+        Returns
+        -------
+        Post(shortcode) : Post
+            Instance of a Post object from the given shortcode
+        """
+
         warnings.warn(
             "This will be deprecated in the near future. You no longer need to use from_shortcode, simply pass shortcode as argument to Post",
             DeprecationWarning,
