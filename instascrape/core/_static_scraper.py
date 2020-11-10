@@ -26,8 +26,8 @@ class _StaticHtmlScraper(ABC):
 
     Methods
     -------
-    load(self, keys: List[str] = [], exclude: List[str] = []) -> None
-        Load the static data from the page type
+    scrape(self, keys: List[str] = [], exclude: List[str] = []) -> None
+        Scrape the static data from the page
     to_dict(self, metadata: bool = False) -> Dict[str, Any]
         Returns a dictionary of the scraped data
     to_csv(self, fp: str, metadata: bool = False) -> None
@@ -53,14 +53,13 @@ class _StaticHtmlScraper(ABC):
     ]
     _ASSOCIATED_JSON_TYPE = None
 
-    def __init__(self, source: Union[str, BeautifulSoup, JSONDict]):
+    def __init__(self, source: Union[str, BeautifulSoup, JSONDict]) -> None:
         """
         Parameters
         ----------
-        url : str
-            Full URL to an Instagram page
-        name : str
-            Optional name for the user to pass
+        source : Union[str, BeautifulSoup, JSONDict]
+            The given source for scraping the data from. Available sources are
+            a URL, HTML, JSON dictionary, BeautifulSoup, etc.
         """
         self.source = source
 
