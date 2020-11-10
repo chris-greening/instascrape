@@ -84,16 +84,18 @@ class _StaticHtmlScraper(ABC):
 
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
         """
-        Scrape data at self.url and parse into attributes
+        Scrape data from self.source and load as instance attributes
 
         Parameters
         ----------
+        mapping : Dict[str, deque]
+            Dictionary of parsing queue's that tell the JSON engine how to
+            process the JSON data
         keys : List[str]
-            Specify what keys to exclusively load as strings in a list. If no
-            keys are specified then the scrape will default load all data points.
+            List of strings that correspond to desired attributes for scraping
         exclude : List[str]
-            Specify what keys to exclude from being loaded. If no keys are
-            specified, then no data points will be excluded.
+            List of strings that correspond to which attributes to exclude from
+            being scraped
         """
         if mapping is None:
             mapping = self._Mapping
