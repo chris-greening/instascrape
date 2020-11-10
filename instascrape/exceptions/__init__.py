@@ -1,1 +1,1 @@
-from exceptions import * 
+from instascrape.exceptions import *
