@@ -51,6 +51,7 @@ class _StaticHtmlScraper(ABC):
         "html",
         "source",
     ]
+    _ASSOCIATED_JSON_TYPE = None
 
     def __init__(self, source: Union[str, BeautifulSoup, JSONDict]):
         """
@@ -167,6 +168,10 @@ class _StaticHtmlScraper(ABC):
     @abstractmethod
     def _url_from_suburl(self, suburl):
         pass
+
+    # @abstractmethod
+    # def _verify_correct_json_type(self, json_dict):
+    #     pass
 
     def _get_json_from_source(self, source):
         """Parses the JSON data out from the source based on what type the source is"""
