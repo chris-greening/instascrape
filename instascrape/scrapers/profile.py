@@ -54,7 +54,7 @@ class Profile(_StaticHtmlScraper):
         return f"https://www.instagram.com/{suburl}/"
 
     @classmethod
-    def from_username(self, username):
+    def from_username(cls, username):
         warnings.warn(
             "This will be deprecated in the near future. You no longer need to use from_username, simply pass username as argument to Profile",
             DeprecationWarning,

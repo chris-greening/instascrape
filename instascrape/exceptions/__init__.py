@@ -1,0 +1,1 @@
+from instascrape.exceptions import *
