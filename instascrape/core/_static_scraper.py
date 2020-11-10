@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import parse_json_from_mapping, determine_json_type
-from instascrape.exceptions.exceptions import InstagramLoginRedirect
+from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 # pylint: disable=no-member
 
