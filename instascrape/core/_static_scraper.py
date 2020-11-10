@@ -127,7 +127,7 @@ class _StaticHtmlScraper(ABC):
 
         Returns
         -------
-        data_dict : Dict[str, str]
+        data_dict : Dict[str, Any]
             Dictionary containing the scraped data
         """
         data_dict = (
