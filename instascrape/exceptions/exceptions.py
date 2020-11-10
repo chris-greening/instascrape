@@ -9,7 +9,7 @@ class InstagramLoginRedirectError(Exception):
 class WrongSourceError(Exception):
     """
     Exception that indicates user passed the wrong source type to the scraper.
-    An example is passing a URL of a hashtag to a Profile object
+    An example is passing a URL for a hashtag page to a Profile.
     """
     def __init__(self, message="Wrong input source, use the correct class"):
         super().__init__(message)
