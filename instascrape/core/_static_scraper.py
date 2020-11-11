@@ -237,7 +237,7 @@ class _StaticHtmlScraper(ABC):
     @staticmethod
     def _soup_from_html(html):
         """Instantiates BeautifulSoup from the given source"""
-        return BeautifulSoup(html, features="lxml")
+        return BeautifulSoup(html, features="html.parser")
 
     @staticmethod
     def _json_str_from_soup(soup):

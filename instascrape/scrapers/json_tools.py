@@ -35,7 +35,7 @@ def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True) -> U
         or just the string serialization
     """
     if type(source) is not BeautifulSoup:
-        source = BeautifulSoup(source, features="lxml")
+        source = BeautifulSoup(source, features="html.parser")
 
     json_script = [str(script) for script in source.find_all("script") if "config" in str(script)][0]
     left_index = json_script.find("{")
