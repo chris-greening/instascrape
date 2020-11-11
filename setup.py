@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="insta-scrape",
-    version="1.2.7",
+    version="1.2.8",
     author="Chris Greening",
     author_email="chris@christophergreening.com",
     description="Super lightweight Instagram web scraper for data analysis",
