@@ -5,14 +5,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="insta-scrape",
-    version="1.2.6",
+    version="1.2.7",
     author="Chris Greening",
     author_email="chris@christophergreening.com",
     description="Super lightweight Instagram web scraper for data analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/chris-greening/instascrape",
-    packages=["instascrape", "instascrape.core", "instascrape.scrapers"],
+    packages=["instascrape", "instascrape.core", "instascrape.scrapers", "instascrape.exceptions"],
     install_requires=["requests", "beautifulsoup4"],
     classifiers=[
         "Programming Language :: Python :: 3",
