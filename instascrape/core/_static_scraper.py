@@ -80,7 +80,7 @@ class _StaticHtmlScraper(ABC):
         return f"<{type(self).__name__}>"
 
     def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
-        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
+        msg = f"{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
         warnings.warn(msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
 
