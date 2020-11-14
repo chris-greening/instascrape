@@ -79,11 +79,6 @@ class _StaticHtmlScraper(ABC):
     def __repr__(self):
         return f"<{type(self).__name__}>"
 
-    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
-        msg = f"{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
-        warnings.warn(msg, DeprecationWarning)
-        self.scrape(mapping, keys, exclude)
-
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
         """
         Scrape data from self.source and load as instance attributes
@@ -269,3 +264,8 @@ class _StaticHtmlScraper(ABC):
         else:
             str_type = "suburl"
         return str_type
+
+    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        msg = f"{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
+        warnings.warn(msg, DeprecationWarning)
+        self.scrape(mapping, keys, exclude)
