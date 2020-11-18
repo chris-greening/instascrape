@@ -8,6 +8,9 @@ from bs4 import BeautifulSoup
 
 from instascrape.scrapers import Profile, Post
 
+#TODO: this script is admittedly pretty hacky, will legitimize and clean this
+# up at a later date
+
 class DynamicProfile(Profile):
     """Subclass of Profile to provide some dynamic functionality using Selenium"""
     CHROMEDRIVER = r"/path/to/chromedriver.exe"
