@@ -135,8 +135,6 @@ The rest of its functionality is provided directly from Python 3's standard libr
 Reach out to me if you have questions or ideas!
 * Email:
   * chris@christophergreening.com
-* Instagram: 
-  * [@chris_greening](https://www.instagram.com/chris_greening/)
 * Twitter:
   * [@ChrisGreening2](https://twitter.com/ChrisGreening2)
 
