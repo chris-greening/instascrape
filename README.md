@@ -103,6 +103,7 @@ Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 - [Downloading an Instagram profile's recent photos using Python](https://dev.to/chrisgreening/downloading-an-instagram-profile-s-recent-photos-using-python-25b2)
 - [Scraping 25,000 data points from Joe Biden's Instagram using instascrape](https://dev.to/chrisgreening/scraping-25-000-data-points-from-joe-biden-s-instagram-using-instascrape-1026)
 - [Compare major tech Instagram page's with instascrape](https://dev.to/chrisgreening/compare-major-tech-instagram-page-s-with-instascrape-2419)
+- [Tracking an Instagram posts engagement in real time with instascrape](https://dev.to/chrisgreening/tracking-an-instagram-posts-engagement-in-real-time-with-instascrape-1m1j)
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
