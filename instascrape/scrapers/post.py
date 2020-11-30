@@ -27,8 +27,13 @@ class Post(_StaticHtmlScraper):
 
     Methods
     -------
-    from_shortcode(shortcode: str) -> Post
-        Factory method that returns a Post object from a shortcode
+    scrape(mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None
+        Scrape data from the given instance input
+    download(fp: str) -> None
+        Download media from the post at the given filepath. Supported download
+        formats are mp3, mp4, png, and jpg
+    get_recent_comments() -> List[Comment]
+        Get top level comments from the given post
     """
 
     _Mapping = _PostMapping
@@ -39,7 +44,7 @@ class Post(_StaticHtmlScraper):
         warnings.warn(msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
 
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
         """
         Scrape the Post data from the given source and load as instance attributes
 
@@ -88,7 +93,7 @@ class Post(_StaticHtmlScraper):
         else:
             self._download_video(fp, data)
 
-    def get_recent_comments(self):
+    def get_recent_comments(self) -> List[Comment]:
         """
         Returns a list of Comment objects that contain data regarding
         some of the posts comments

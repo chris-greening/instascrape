@@ -2,6 +2,7 @@ import csv
 import datetime
 import json
 import re
+import os
 
 import pytest
 from bs4 import BeautifulSoup
@@ -62,3 +63,11 @@ class TestPost:
             csv_dict = {row[0]: row[1] for row in reader}
 
         assert page_instance['shortcode'] == csv_dict['shortcode']
+
+    @pytest.mark.file_io
+    def test_download_photo(self, page_instance, tmpdir):
+
+        # donwload photo
+        file = tmpdir.join("image.jpg")
+        page_instance.download(fp=str(file))
+        assert os.path.exists(file)
