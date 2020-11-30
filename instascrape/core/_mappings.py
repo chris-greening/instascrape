@@ -125,6 +125,9 @@ class _PostMapping(_GeneralMapping):
             "video_url": deque(["video_url"]),
             "has_audio": deque(["has_audio"]),
             "video_view_count": deque(["video_view_count"]),
+            "username": deque(["shortcode_media_owner_username"]),
+            "full_name": deque(["owner_full_name"])
+
         }
     )
 
