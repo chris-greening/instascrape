@@ -23,11 +23,12 @@
 * :muscle: Powerful, object-oriented scraping tools as well as a variety of useful functions
 * :dancer: Flexibly determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
 * :floppy_disk: Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
+* :art: Dynamically retrieve HTML embed code for posts
 * :musical_score: Expressive and consistent API for concise and elegant code
 * :bar_chart: Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
 * :hammer: Lightweight: you don't have to build a hammer factory when all you need is the hammer 
 * :spider_web: The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/); no more worrying about configurations or webdrivers
-* :watch: Proven to work as of November, 2020
+* :watch: Proven to work as of November 30, 2020
 ---
 
 ## Table of Contents
