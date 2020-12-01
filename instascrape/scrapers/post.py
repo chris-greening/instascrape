@@ -93,11 +93,11 @@ class Post(_StaticHtmlScraper):
             )
         url = self.video_url if self.is_video else self.display_url
 
-        data = requests.get(url, stream=True)
+        resp = requests.get(url, stream=True)
         if not self.is_video:
-            self._download_photo(fp, data)
+            self._download_photo(fp, resp)
         else:
-            self._download_video(fp, data)
+            self._download_video(fp, resp)
 
     def get_recent_comments(self) -> List[Comment]:
         """
@@ -128,36 +128,36 @@ class Post(_StaticHtmlScraper):
         return html_template
 
     @staticmethod
-    def _url_from_suburl(suburl):
+    def _url_from_suburl(suburl: str) -> str:
         return f"https://www.instagram.com/p/{suburl}/"
 
-    def _download_photo(self, fp: str, data):
+    def _download_photo(self, fp: str, resp: requests.models.Response) -> None:
         with open(fp, "wb") as outfile:
-            data.raw.decode_content = True
-            shutil.copyfileobj(data.raw, outfile)
+            resp.raw.decode_content = True
+            shutil.copyfileobj(resp.raw, outfile)
 
-    def _download_video(self, fp: str, data):
+    def _download_video(self, fp: str, resp: requests.models.Response) -> None:
         """Write the media to file at given fp from the response"""
         with open(fp, "wb") as outfile:
-            for chunk in data.iter_content(chunk_size=1024):
+            for chunk in resp.iter_content(chunk_size=1024):
                 if chunk:
                     outfile.write(chunk)
                     outfile.flush()
 
-    def _parse_tagged_users(self, json_dict) -> List[str]:
+    def _parse_tagged_users(self, json_dict: dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
         tagged_arr = json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]["edge_media_to_tagged_user"][
             "edges"
         ]
         return [node["node"]["user"]["username"] for node in tagged_arr]
 
-    def _parse_hashtags(self, caption) -> List[str]:
+    def _parse_hashtags(self, caption: str) -> List[str]:
         """Parse the hastags from the post's caption using regex"""
         pattern = r"#(\w+)"
         return re.findall(pattern, caption)
 
     @classmethod
-    def from_shortcode(cls, shortcode):
+    def from_shortcode(cls, shortcode: str) -> Post:
         """
         Return a Post object given a shortcode.
 
