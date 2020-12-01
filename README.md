@@ -135,11 +135,16 @@ The rest of its functionality is provided directly from Python 3's standard libr
 ---
 
 ## :grey_question: Support <a name="support"></a>
+
+Check out the [FAQ](https://github.com/chris-greening/instascrape/wiki/Frequently-Asked-Questions)
+
 Reach out to me if you have questions or ideas!
 * Email:
   * chris@christophergreening.com
 * Twitter:
   * [@ChrisGreening2](https://twitter.com/ChrisGreening2)
+* LinkedIn
+  * [Chris Greening](https://www.linkedin.com/in/chris-greening-646411139/)
 
 ---
 
