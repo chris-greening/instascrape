@@ -79,7 +79,7 @@ google_post.scrape()
 google_hashtag.scrape()
 ```
 
-After being scraped, relevant attributes can be accessed with dot (.) or bracket (\[\]) notation
+After being scraped, relevant attributes can be accessed with dot or bracket notation
 ```python
 print(google.followers)
 print(google_post['hashtags'])
