@@ -69,9 +69,11 @@ class Post(_StaticHtmlScraper):
             self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
             self.tagged_users = self._parse_tagged_users(self.json_dict)
             self.hashtags = self._parse_hashtags(self.caption)
-            if math.isnan(self.full_name):
-                self.full_name = self.flat_json_dict['full_name']
-
+            try:
+                if math.isnan(self.full_name):
+                    self.full_name = self.flat_json_dict['full_name']
+            except TypeError:
+                pass
 
     def download(self, fp: str) -> None:
         """
