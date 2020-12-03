@@ -1,6 +1,6 @@
 ![instascrape logo](/media/logo.png?raw=true)
 
-# Instagram scraping for humans
+# _instascrape_: Instagram scraping for humans
 
 ## What is it?
 > _instascrape_ is a powerful, lightweight Python library for scraping Instagram data with no configurations necessary! It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time preparing Instagram data and just start analyzing it :muscle:
