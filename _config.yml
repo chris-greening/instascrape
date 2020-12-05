@@ -13,16 +13,17 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Your awesome title
-email: your-email@example.com
+title: instascrape
+email: chris@christophergreening.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+ instascrape is a powerful, lightweight Python library for scraping Instagram data
+ with no configurations necessary! It is designed with flexibility and developer
+ productivity in mind so you can stop wasting valuable time preparing Instagram
+ data and just start analyzing it.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: ChrisGreening2
+github_username:  chris-greening
 
 # Build settings
 markdown: kramdown
