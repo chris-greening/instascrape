@@ -34,6 +34,10 @@ github:
 
 {% include feature_row %}
 
+<!-- <p align="center">
+    <img src="images/techprofiles.gif" width="900 px">
+</p> -->
+
 <h2> Recent Blog Posts </h2>
 
 {% for post in site.posts limit:3 %}
