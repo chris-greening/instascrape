@@ -6,7 +6,7 @@ excerpt: "instascrape is a powerful and lightweight Python library for scraping 
 
 instascrape is a powerful, lightweight Python library for scraping Instagram data with no configurations necessary!
 It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time collecting
-data and just start analyzing it
+data and just start analyzing it.
 
 ## Key features
 * Powerful and flexible object-oriented scraping tools
