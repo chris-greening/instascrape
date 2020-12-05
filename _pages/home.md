@@ -3,7 +3,7 @@ layout: splash
 permalink: /
 header: 
   overlay_image: images/instagram_gradient.jpeg
-  cta_label: "<i class='fa fa-download'></i> Install Now"
+  cta_label: "<i class='fa fa-download'></i> pip install insta-scrape"
   cta_url: "https://pypi.org/project/insta-scrape/"
 excerpt: Powerful and lightweight Instagram scraping with Python
 ---
