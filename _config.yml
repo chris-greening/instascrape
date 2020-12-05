@@ -15,6 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: instascrape
 subtitle: Instagram scraping for humans
+logo: "/assets/images/logo.png"
 email: chris@christophergreening.com
 name: Chris Greening 
 description: >- # this means to ignore newlines until "baseurl:"
@@ -26,6 +27,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChrisGreening2
 github_username:  chris-greening
+repository: "chris-greening/instascrape"
 
 # Build settings
 markdown: kramdown
@@ -34,7 +36,7 @@ remote_theme: "mmistakes/minimal-mistakes@4.21.0"
 minimal_mistakes_skin: "dark"
 plugins:
   - jekyll-feed
-
+  - jekyll-include-cache
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
