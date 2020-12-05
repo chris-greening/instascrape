@@ -29,7 +29,6 @@ url: "https://chris-greening.github.io/instascrape/" # the base hostname & proto
 twitter_username: ChrisGreening2
 github_username:  chris-greening
 repository: "chris-greening/instascrape"
-
 # Build settings
 markdown: kramdown
 # theme: minima
@@ -49,3 +48,15 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+defaults: 
+  # _posts
+  - scope: 
+      path: ""
+      type: posts
+    values:
+      layout: single 
+      read_time: true 
+      comments: true 
+      share: true 
+      related: true 
