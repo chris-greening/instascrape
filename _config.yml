@@ -27,7 +27,9 @@ github_username:  chris-greening
 
 # Build settings
 markdown: kramdown
-theme: minima
+# theme: minima
+remote_theme: "mmistakes/minimal-mistakes@4.21.0"
+minimal_mistakes_skin: "dark"
 plugins:
   - jekyll-feed
 
