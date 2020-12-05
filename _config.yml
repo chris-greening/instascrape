@@ -18,7 +18,7 @@ subtitle: Instagram scraping for humans
 logo: "/images/logo.png"
 teaser: /images/fulllogo.png
 email: chris@christophergreening.com
-name: Chris Greening 
+name: &name Chris Greening
 description: >- # this means to ignore newlines until "baseurl:"
  instascrape is a powerful, lightweight Python library for scraping Instagram data
  with no configurations necessary! It is designed with flexibility and developer
@@ -38,16 +38,22 @@ plugins:
   - jekyll-feed
   - jekyll-include-cache
 
+# Social Sharing
+twitter:
+  username         : &twitter "ChrisGreening2"
+facebook:
+  username         : &facebook "chris.greening.12"
+
 author: 
-  name             : "Chris Greening"
+  name             : *name
   avatar           : "images/chris-greening.jpg"
   bio              : "Always a dev, sometimes a photographer"
   location         : "New York"
   email            : "chris@christophergreening.com"
-  facebook         : "chris.greening.12"
+  facebook         : *facebook
   github           : "chris-greening"
   linkedin         : "chris-greening-646411139"
-  twitter          : "ChrisGreening2"
+  twitter          : *twitter
 
 
 # Exclude from processing.
@@ -83,3 +89,15 @@ defaults:
       author_profile: true
 
 include: ["_pages"]
+
+footer:
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/ChrisGreening2"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/chris-greening"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/chris-greening-646411139/"
