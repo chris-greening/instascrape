@@ -18,7 +18,7 @@
 ![Example showing tech profile scrapes](/media/techprofiles.gif)
 
 ## Key features  
-* :muscle: Powerful, object-oriented scraping tools as well as a variety of useful functions
+* :muscle: Powerful, object-oriented scraping tools
 * :dancer: Flexibly determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
 * :floppy_disk: Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
 * :art: Dynamically retrieve HTML embed code for posts
