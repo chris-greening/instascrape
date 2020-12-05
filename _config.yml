@@ -15,8 +15,8 @@
 # in the templates via {{ site.myvariable }}.
 title: instascrape
 subtitle: Instagram scraping for humans
-logo: "/assets/images/logo.png"
-teaser: /assets/images/logo.png
+logo: "/images/logo.png"
+teaser: /images/logo.png
 email: chris@christophergreening.com
 name: Chris Greening 
 description: >- # this means to ignore newlines until "baseurl:"
@@ -37,6 +37,19 @@ minimal_mistakes_skin: "dark"
 plugins:
   - jekyll-feed
   - jekyll-include-cache
+
+author: 
+  name             : "Chris Greening"
+  avatar           : "images/chris-greening.jpg"
+  bio              : "Always a dev, sometimes a photographer"
+  location         : "New York"
+  email            : "chris@christophergreening.com"
+  facebook         : "chris.greening.12"
+  github           : "chris-greening"
+  linkedin         : "chris-greening-646411139"
+  twitter          : "ChrisGreening2"
+
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -56,6 +69,7 @@ defaults:
       type: posts
     values:
       layout: single 
+      author_profile: true 
       read_time: true 
       comments: true 
       share: true 
