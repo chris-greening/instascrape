@@ -41,8 +41,6 @@ plugins:
 # Social Sharing
 twitter:
   username         : &twitter "ChrisGreening2"
-facebook:
-  username         : &facebook "chris.greening.12"
 
 author: 
   name             : *name
@@ -50,7 +48,6 @@ author:
   bio              : "Always a dev, sometimes a photographer"
   location         : "New York"
   email            : "chris@christophergreening.com"
-  facebook         : *facebook
   github           : "chris-greening"
   linkedin         : "chris-greening-646411139"
   twitter          : *twitter
