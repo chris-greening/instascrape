@@ -16,6 +16,7 @@
 title: instascrape
 subtitle: Instagram scraping for humans
 logo: "/assets/images/logo.png"
+teaser: /assets/images/logo.png
 email: chris@christophergreening.com
 name: Chris Greening 
 description: >- # this means to ignore newlines until "baseurl:"
