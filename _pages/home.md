@@ -38,6 +38,9 @@ github:
     <img src="images/techprofiles.gif" width="900 px">
 </p> -->
 
+<!-- {{ site.author.name }} -->
+<!-- {{ site.analytics.google.google_id }} -->
+
 <h2> Recent Blog Posts </h2>
 
 {% for post in site.posts limit:3 %}
