@@ -15,7 +15,7 @@ google = Profile("Google")
 google.scrape()
 print(f"Google has {google.followers:,} followers.")
 >>> Google has 12,283,945 followers.
-{% end highlight %}
+{% endhighlight %}
 
 ## Key features
 
