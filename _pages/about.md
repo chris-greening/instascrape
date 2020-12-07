@@ -51,4 +51,4 @@ import this
 from chris_greening import bio
 {% endhighlight %}
 
-Chris Greening is a Python developer passionate about science, data, and computers. When he isn't programming he's probably playing video games or working on his photography.
+Chris Greening is a Python developer from New York. He's passionate about science, data, and computers and when he isn't programming, he's probably playing video games or working on his photography.
