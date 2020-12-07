@@ -3,7 +3,7 @@ title:  "Welcome to instascrape!"
 modified: 2020-12-05T03:34:00-04:00
 ---
 
-![instascrape logo]({{ site.url }}images/fulllogo.png)
+![instascrape logo]({{ site.url }}{{ site.base_url }}/images/fulllogo.png)
 
 Hello! My name is Chris Greening and I'd like to welcome you to the official _instascrape_ website. Check back regularly for blog posts and version updates regarding the library.
 
