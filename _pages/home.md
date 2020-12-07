@@ -46,3 +46,5 @@ github:
 {% for post in site.posts limit:3 %}
   {% include archive-single.html %}
 {% endfor %}
+
+[See all blog posts...](https://github.com/chris-greening/instascrape){: .btn .btn--info}
