@@ -104,4 +104,6 @@ footer:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/chris-greening-646411139/"
+
 future: true
+timezone: America/New_York
