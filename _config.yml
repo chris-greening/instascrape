@@ -16,7 +16,7 @@
 title: instascrape
 subtitle: Instagram scraping for humans
 logo: "/images/logo.png"
-teaser: /images/fulllogo.png
+teaser: /images/logo.png
 email: chris@christophergreening.com
 name: &name Chris Greening
 description: >- # this means to ignore newlines until "baseurl:"
@@ -108,3 +108,4 @@ footer:
 
 future: true
 timezone: America/New_York
+og_image: /images/logo.png
