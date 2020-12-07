@@ -21,6 +21,9 @@ print(f"Google has {google.followers:,} followers.")
 >>> Google has 12,283,945 followers.
 {% endhighlight %} -->
 
+[pip install insta-scrape](https://pypi.org/project/insta-scrape/){: .btn .btn--success .btn--large}
+[Official GitHub repo](https://github.com/chris-greening/instascrape){: .btn .btn--success .btn--large}
+
 ## Key features
 
 {% highlight python %}
