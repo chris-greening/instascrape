@@ -91,6 +91,8 @@ defaults:
 
 include: ["_pages"]
 
+search: true
+
 footer:
   links:
     - label: "Twitter"
