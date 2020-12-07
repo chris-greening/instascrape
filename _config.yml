@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
  with no configurations necessary! It is designed with flexibility and developer
  productivity in mind so you can stop wasting valuable time preparing Instagram
  data and just start analyzing it.
-baseurl: "/instascrape" # the subpath of your site, e.g. /blog
+base_url: "/instascrape" # the subpath of your site, e.g. /blog
 url: "https://chris-greening.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChrisGreening2
 github_username:  chris-greening
