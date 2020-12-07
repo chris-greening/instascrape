@@ -52,10 +52,10 @@ author:
   linkedin         : "chris-greening-646411139"
   twitter          : *twitter
 
-  analytics:
-   provider               : "google" # false (default), "google", "google-universal", "custom"
-   google:
-    tracking_id          : "G-G8RSVVTGW2"
+analytics:
+  provider               : "google" # false (default), "google", "google-universal", "custom"
+  google:
+    tracking_id           : "G-G8RSVVTGW2"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
