@@ -13,13 +13,13 @@ import instascrape
 `instascrape` is a powerful, lightweight Python library for scraping Instagram data and content with no configurations necessary!
 It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time collecting data and just start analyzing it.
 
-{% highlight python %}
+<!-- {% highlight python %}
 from instascrape import Profile
 google = Profile("Google")
 google.scrape()
 print(f"Google has {google.followers:,} followers.")
 >>> Google has 12,283,945 followers.
-{% endhighlight %}
+{% endhighlight %} -->
 
 ## Key features
 
