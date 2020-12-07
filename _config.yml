@@ -31,6 +31,7 @@ github_username:  chris-greening
 repository: "chris-greening/instascrape"
 # Build settings
 markdown: kramdown
+highlighter: rouge
 # theme: minima
 remote_theme: "mmistakes/minimal-mistakes@4.21.0"
 minimal_mistakes_skin: "dark"
