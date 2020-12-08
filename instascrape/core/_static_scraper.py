@@ -73,10 +73,10 @@ class _StaticHtmlScraper(ABC):
         self.flat_json_dict = None
         self.scrape_timestamp = None
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> Any:
         return getattr(self, key)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
 
     def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
@@ -164,14 +164,10 @@ class _StaticHtmlScraper(ABC):
             json.dump(outdict, outjson)
 
     @abstractmethod
-    def _url_from_suburl(self, suburl):
+    def _url_from_suburl(self, suburl: str) -> str:
         pass
 
-    # @abstractmethod
-    # def _verify_correct_json_type(self, json_dict):
-    #     pass
-
-    def _get_json_from_source(self, source):
+    def _get_json_from_source(self, source: Any) -> JSONDict:
         """Parses the JSON data out from the source based on what type the source is"""
         initial_type = True
         if isinstance(source, str):
