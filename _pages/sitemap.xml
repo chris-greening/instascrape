@@ -1,0 +1,52 @@
+---
+permalink: /sitemap.xml/
+layout: none
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://chris-greening.github.io/instascrape/</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/about/</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/blog/</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/license/</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/2020/12/06/master-list-of-instascrape-tutorials-from-dev-to.html</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/2020/12/05/the-next-few-weeks-for-instascrape.html</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://chris-greening.github.io/instascrape/2020/12/04/welcome-to-instascrape.html</loc>
+  <lastmod>2020-12-07T20:16:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
