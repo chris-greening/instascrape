@@ -1,1 +1,2 @@
-examples/*.ipynb linguist-language=Python
+tutorial/** linguist-language=Python
+tutorial/examples/** linguist-language=Python
