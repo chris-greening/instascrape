@@ -113,9 +113,9 @@ Check out blog posts on the [official site](https://chris-greening.github.io/ins
 ## :pray: Contributing <a name="contributing"></a>
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
 
-Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed.
+Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose), check out existing [Issues](https://github.com/chris-greening/instascrape/issues), or [start a discussion](https://github.com/chris-greening/instascrape/discussions). 
 
-Beginners to open source are highly encouraged to participate and ask questions :heart:
+Beginners to open source are highly encouraged to participate and ask questions if you're unsure what to do/where to start :heart:
 
 ---
 
