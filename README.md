@@ -1,12 +1,13 @@
 ![instascrape logo](/media/logo.png?raw=true)
 
-# Instagram scraping for humans
+# _instascrape_: Instagram scraping for humans
 
 ## What is it?
-> _instascrape_ is a powerful, lightweight Python library for scraping Instagram data with no configurations necessary! It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time trying to figure out how to collect data and just start analyzing :muscle:
+> _instascrape_ is a powerful, lightweight Python library for scraping Instagram data and content with no configurations necessary! It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time preparing Instagram data and just start analyzing it :muscle:
+
+[Official website](https://chris-greening.github.io/instascrape/)
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
-[![Language](https://img.shields.io/github/languages/top/chris-greening/instascrape)](https://www.python.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
@@ -15,12 +16,11 @@
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
-[![Size](https://img.shields.io/github/repo-size/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 
 ![Example showing tech profile scrapes](/media/techprofiles.gif)
 
 ## Key features  
-* :muscle: Powerful, object-oriented scraping tools as well as a variety of useful functions
+* :muscle: Powerful, object-oriented scraping tools
 * :dancer: Flexibly determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
 * :floppy_disk: Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
 * :art: Dynamically retrieve HTML embed code for posts
@@ -96,7 +96,9 @@ The official documentation can be found on [Read The Docs](https://instascrape.r
 
 ## :newspaper: Blog Posts <a name="blog-posts"></a>
 
-Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
+
+Check out blog posts on the [official site](https://chris-greening.github.io/instascrape/blog/) or [DEV](https://dev.to/) for ideas and tutorials!
+
 - [Scrape data from Instagram with instascrape](https://dev.to/chrisgreening/scrape-data-from-instagram-with-instascrape-5e3e) 
 - [Visualizing Instagram engagement with instascrape](https://dev.to/chrisgreening/visualizing-instagram-engagement-with-instascrape-326h)
 - [Exploratory data analysis of Instagram using instascrape and Python](https://dev.to/chrisgreening/exploratory-data-analysis-of-instagram-using-python-1o5c)
@@ -111,9 +113,9 @@ Check out blog posts on [DEV](https://dev.to/) for ideas and tutorials!
 ## :pray: Contributing <a name="contributing"></a>
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome!
 
-Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose) or look at existing [Issues](https://github.com/chris-greening/instascrape/issues) to get a dialogue going on what you want to see added/changed/fixed.
+Feel free to [open an Issue](https://github.com/chris-greening/instascrape/issues/new/choose), check out existing [Issues](https://github.com/chris-greening/instascrape/issues), or [start a discussion](https://github.com/chris-greening/instascrape/discussions). 
 
-Beginners to open source are highly encouraged to participate and ask questions :heart:
+Beginners to open source are highly encouraged to participate and ask questions if you're unsure what to do/where to start :heart:
 
 ---
 
