@@ -65,8 +65,12 @@ class Post(_StaticHtmlScraper):
             self.source = self.shortcode
         super().scrape(mapping=mapping, keys=keys, exclude=exclude)
 
-        if mapping is None:
+        #HACK: This isn't a very clean solution and there is certainly a better
+        # way to deal with returning a Post object with only partial data
+        if hasattr(self, "timestamp"):
             self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
+
+        if mapping is None:
             self.tagged_users = self._parse_tagged_users(self.json_dict)
             self.hashtags = self._parse_hashtags(self.caption)
             try:
