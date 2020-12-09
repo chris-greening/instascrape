@@ -16,9 +16,7 @@ warnings.simplefilter("always", DeprecationWarning)
 
 
 class Hashtag(_StaticHtmlScraper):
-    """
-    Scraper for an Instagram hashtag page
-    """
+    """Scraper for an Instagram hashtag page"""
 
     _Mapping = _HashtagMapping
 
