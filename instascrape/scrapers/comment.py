@@ -10,15 +10,15 @@ class Comment:
 
     # pylint: disable=too-many-instance-attributes, too-few-public-methods
 
-    def __init__(self, comment_dict):
+    def __init__(self, comment_dict: dict) -> None:
         self.comment_dict = comment_dict["node"]
 
         self._parse_data()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Comment: {self.username}: {self.text}"
 
-    def _parse_data(self):
+    def _parse_data(self) -> None:
         self.text = self.comment_dict["text"]
         self.created_at = datetime.datetime.fromtimestamp(self.comment_dict["created_at"])
         self.did_report_as_spam = self.comment_dict["did_report_as_spam"]
