@@ -213,25 +213,25 @@ class _StaticHtmlScraper(ABC):
 
         return json_dict
 
-    def _load_into_namespace(self, scraped_dict):
+    def _load_into_namespace(self, scraped_dict: dict) -> None:
         """Loop through the scraped dictionary and set them as instance attr"""
         for key, val in scraped_dict.items():
             setattr(self, key, val)
         self.scrape_timestamp = datetime.datetime.now()
 
     @staticmethod
-    def _html_from_url(url) -> str:
+    def _html_from_url(url: str) -> str:
         """Requests page at given URL to get given HTML"""
         response = requests.get(url)
         return response.text
 
     @staticmethod
-    def _soup_from_html(html):
+    def _soup_from_html(html: str) -> BeautifulSoup:
         """Instantiates BeautifulSoup from the given source"""
         return BeautifulSoup(html, features="html.parser")
 
     @staticmethod
-    def _json_str_from_soup(soup):
+    def _json_str_from_soup(soup: BeautifulSoup) -> str:
         """Instantiates a JSON dictionary from BeautifulSoup"""
         json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
         left_index = json_script.find("{")
@@ -240,7 +240,7 @@ class _StaticHtmlScraper(ABC):
 
         return json_str
 
-    def _dict_from_json_str(self, json_str):
+    def _dict_from_json_str(self, json_str: str) -> JSONDict:
         """Load JSON data from a string"""
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
@@ -252,7 +252,7 @@ class _StaticHtmlScraper(ABC):
         return json_dict
 
     @staticmethod
-    def _determine_string_type(string_data):
+    def _determine_string_type(string_data: str) -> str:
         """Determine's what type of source the string is"""
         string_type_map = [("https://", "url"), ("window._sharedData", "html"), ('{"config"', "JSON dict str")]
         for substr, str_type in string_type_map:
@@ -264,7 +264,7 @@ class _StaticHtmlScraper(ABC):
             str_type = "suburl"
         return str_type
 
-    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
         msg = f"{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
         warnings.warn(msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
