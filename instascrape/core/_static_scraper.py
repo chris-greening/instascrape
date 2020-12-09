@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import parse_json_from_mapping, determine_json_type
+# from instascrape.scrapers.http_error_page import HttpErrorPage
+# from instascrape.scrapers.login import LoginAndSignupPage
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 # pylint: disable=no-member
@@ -233,9 +235,9 @@ class _StaticHtmlScraper(ABC):
         """Load JSON data from a string"""
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
-        if json_type == 'LoginAndSignupPage' and not isinstance(self, 'LoginAndSignupPage'):
+        if json_type == 'LoginAndSignupPage' and not type(self).__name__ == 'LoginAndSignupPage':
             raise InstagramLoginRedirectError
-        elif json_type == 'HttpErrorPage' and not isinstance(self, 'HttpErrorPage'):
+        elif json_type == 'HttpErrorPage' and not type(self).__name__ == 'HttpErrorPage':
             source_str = self.url if hasattr(self, 'url') else "Source"
             raise ValueError(f'{source_str} is not a valid Instagram page. Please provide a valid argument.')
         return json_dict
