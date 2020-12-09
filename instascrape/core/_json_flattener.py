@@ -89,8 +89,12 @@ class Node:
     """
 
     def __init__(
-        self, json_data: Any, tree: JsonTree, linked_list: deque = None, prior_keys: List[Union[str, int]] = None
-    ) -> None:
+            self,
+            json_data: Any,
+            tree: JsonTree,
+            linked_list: deque = None,
+            prior_keys: List[Union[str, int]] = None
+        ) -> None:
         self.json_data = json_data
         self.tree = tree
 
