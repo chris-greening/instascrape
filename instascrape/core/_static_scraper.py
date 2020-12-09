@@ -25,17 +25,6 @@ class _StaticHtmlScraper(ABC):
     """
     Base class for all of the scrapers, handles general functionality that all
     scraper objects will have
-
-    Methods
-    -------
-    scrape(self, keys: List[str] = [], exclude: List[str] = []) -> None
-        Scrape the static data from the page
-    to_dict(self, metadata: bool = False) -> Dict[str, Any]
-        Returns a dictionary of the scraped data
-    to_csv(self, fp: str, metadata: bool = False) -> None
-        Writes the scraped data to a csv at the given filepath
-    to_json(self, fp: str, metadata: bool = False) -> None
-        Writes the scraped data to a json file at the given filepath
     """
 
     # Keys that represent metadata attr that the user doesn't necessarily need
