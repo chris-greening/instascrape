@@ -89,6 +89,8 @@ defaults:
     values:
       layout: single
       author_profile: true
+      sidebar:
+        nav: "docs"
 
 include: ["_pages"]
 
