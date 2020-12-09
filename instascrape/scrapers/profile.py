@@ -11,14 +11,7 @@ warnings.simplefilter("always", DeprecationWarning)
 
 
 class Profile(_StaticHtmlScraper):
-    """
-    Scraper for an Instagram profile page
-
-    Methods
-    -------
-    from_username(shortcode: str) -> Post
-        Factory method that returns a Profile object from a shortcode
-    """
+    """Scraper for an Instagram profile page"""
 
     _Mapping = _ProfileMapping
 
