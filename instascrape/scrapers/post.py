@@ -23,19 +23,7 @@ from instascrape.scrapers.comment import Comment
 warnings.simplefilter("always", DeprecationWarning)
 
 class Post(_StaticHtmlScraper):
-    """
-    Scraper for an Instagram post page
-
-    Methods
-    -------
-    scrape(mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None
-        Scrape data from the given instance input
-    download(fp: str) -> None
-        Download media from the post at the given filepath. Supported download
-        formats are mp3, mp4, png, and jpg
-    get_recent_comments() -> List[Comment]
-        Get top level comments from the given post
-    """
+    """Scraper for an Instagram post page"""
 
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
