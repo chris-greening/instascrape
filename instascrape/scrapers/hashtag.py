@@ -49,11 +49,11 @@ class Hashtag(_StaticHtmlScraper):
             posts.append(post)
         return posts
 
-    def _url_from_suburl(self, suburl):
+    def _url_from_suburl(self, suburl: str) -> str:
         return f"https://www.instagram.com/tags/{suburl}/"
 
     @classmethod
-    def from_hashtag(cls, hashtag):
+    def from_hashtag(cls, hashtag: str) -> Hashtag:
         """Load Hashtag object given it's hashtag name"""
         warnings.warn(
             "This will be deprecated in the near future. You no longer need to use from_hashtag, simply pass hashtag as argument to Hashtag",
