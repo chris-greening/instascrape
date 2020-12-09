@@ -233,9 +233,9 @@ class _StaticHtmlScraper(ABC):
         """Load JSON data from a string"""
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
-        if json_type == 'LoginAndSignupPage' and not type(self).__name__ == 'LoginAndSignupPage':
+        if json_type == 'LoginAndSignupPage' and not isinstance(self, 'LoginAndSignupPage'):
             raise InstagramLoginRedirectError
-        elif json_type == 'HttpErrorPage' and not type(self).__name__ == 'HttpErrorPage':
+        elif json_type == 'HttpErrorPage' and not isinstance(self, 'HttpErrorPage'):
             source_str = self.url if hasattr(self, 'url') else "Source"
             raise ValueError(f'{source_str} is not a valid Instagram page. Please provide a valid argument.')
         return json_dict
