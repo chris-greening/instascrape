@@ -11,7 +11,7 @@ class Location(_StaticHtmlScraper):
 
     _Mapping = _LocationMapping
 
-    def get_top_posts(self, amt: int = 71) -> List[Post]:
+    def get_recent_posts(self, amt: int = 71) -> List[Post]:
         """
         Return a list of recent posts to the hasthag
 
