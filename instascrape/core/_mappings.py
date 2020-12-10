@@ -240,6 +240,30 @@ class _HashtagMapping(_GeneralMapping):
         }
     )
 
+class _LocationMapping(_GeneralMapping):
+    """Mapping specific to Instagram profile pages"""
+
+    mapping = _GeneralMapping.return_mapping().copy()
+    mapping.update(
+        {
+            "id": deque(["id"]),
+            "name": deque(["name"]),
+            "has_public_page": deque(["has_public_page"]),
+            "latitude": deque(["lat"]),
+            "longitude": deque(["lng"]),
+            "slug": deque(["slug"]),
+            "blurb": deque(["blurb"]),
+            "website": deque(["website"]),
+            "phone": deque(["phone"]),
+            "primary_alias_on_fb": deque(["primary_alias_on_fb"]),
+            "stress_address": deque(["street_address"]),
+            "zip_code": deque(["zip_code"]),
+            "city_name": deque(["city_name"]),
+            "region_name": deque(["region_name"]),
+            "country_code": deque(["country_code"]),
+            "posts": deque(["count"]),
+        }
+    )
 
 class _LoginMapping(_GeneralMapping):
     """Mapping specific to Instagram login page"""
