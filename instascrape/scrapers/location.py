@@ -39,4 +39,4 @@ class Location(_StaticHtmlScraper):
         return posts
 
     def _url_from_suburl(self, suburl):
-        raise ValueError("suburl not currently supported for Location scrape, please pass a full URL to the location you want to scrape")
+        return f"https://www.instagram.com/explore/locations/{suburl}/"
