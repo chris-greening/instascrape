@@ -261,7 +261,7 @@ class _LocationMapping(_GeneralMapping):
             "city_name": deque(["city_name"]),
             "region_name": deque(["region_name"]),
             "country_code": deque(["country_code"]),
-            "posts": deque(["count"]),
+            "amount_of_posts": deque(["count"]),
         }
     )
 
