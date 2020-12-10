@@ -70,7 +70,7 @@ class _StaticHtmlScraper(ABC):
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
 
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
         """
         Scrape data from self.source and load as instance attributes
 
@@ -97,7 +97,7 @@ class _StaticHtmlScraper(ABC):
         if type(self.source) is type(self):
             scraped_dict = self.source.to_dict()
         else:
-            self.json_dict = self._get_json_from_source(self.source)
+            self.json_dict = self._get_json_from_source(self.source, headers=headers)
             self.flat_json_dict = FlatJSONDict(self.json_dict)
             scraped_dict = parse_json_from_mapping(
                 json_dict=self.flat_json_dict,
@@ -158,7 +158,7 @@ class _StaticHtmlScraper(ABC):
     def _url_from_suburl(self, suburl: str) -> str:
         pass
 
-    def _get_json_from_source(self, source: Any) -> JSONDict:
+    def _get_json_from_source(self, source: Any, headers: dict) -> JSONDict:
         """Parses the JSON data out from the source based on what type the source is"""
         initial_type = True
         if isinstance(source, str):
@@ -179,7 +179,7 @@ class _StaticHtmlScraper(ABC):
         if source_type == "url":
             if initial_type:
                 self.url = self.source
-            self.html = self._html_from_url(url=self.url)
+            self.html = self._html_from_url(url=self.url, headers=headers)
             source_type = "html"
             initial_type = False
 
@@ -211,9 +211,9 @@ class _StaticHtmlScraper(ABC):
         self.scrape_timestamp = datetime.datetime.now()
 
     @staticmethod
-    def _html_from_url(url: str) -> str:
+    def _html_from_url(url: str, headers: dict) -> str:
         """Requests page at given URL to get given HTML"""
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         return response.text
 
     @staticmethod
