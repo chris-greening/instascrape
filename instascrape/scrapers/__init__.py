@@ -8,3 +8,4 @@ from instascrape.scrapers.login import *
 from instascrape.scrapers.post import *
 from instascrape.scrapers.profile import *
 from instascrape.scrapers.comment import *
+from instascrape.scrapers.location import *
