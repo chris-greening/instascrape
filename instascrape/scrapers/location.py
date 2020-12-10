@@ -11,9 +11,9 @@ class Location(_StaticHtmlScraper):
 
     _Mapping = _LocationMapping
 
-    def get_recent_posts(self, amt: int = 71) -> List[Post]:
+    def get_recent_posts(self, amt: int = 24) -> List[Post]:
         """
-        Return a list of recent posts to the hasthag
+        Return a list of recent posts to the location
 
         Parameters
         ----------
@@ -23,7 +23,7 @@ class Location(_StaticHtmlScraper):
         Returns
         -------
         posts : List[Post]
-            List containing the recent 12 posts and their available data
+            List containing the recent 24 posts and their available data
         """
         posts = []
         post_arr = self.json_dict["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
