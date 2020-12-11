@@ -3,13 +3,9 @@ title:  "Welcome to instascrape!"
 modified: 2020-12-06T23:20:00-04:00
 ---
 
-# Test
-
 ![instascrape logo]({{ site.url }}{{ site.baseurl }}/images/fulllogo.png)
 
 Hello! My name is Chris Greening and I'd like to welcome you to the official _instascrape_ website. Check back regularly for blog posts and version updates regarding the library.
-
-# Another Test
 
 Future updates to the website will also include official tutorials and documentation
 to make _instascrape_ as accessible as possible to anyone that wants to use it <3
