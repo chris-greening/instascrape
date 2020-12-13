@@ -63,7 +63,7 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     instagram_type = list(json_data["entry_data"])[0]
     return instagram_type
 
-def json_from_url(url: str, as_dict: bool = True) -> Union[JSONDict, str]:
+def json_from_url(url: str, as_dict: bool = True, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> Union[JSONDict, str]:
     """
     Return JSON data parsed from a provided Instagram URL
 
@@ -80,6 +80,6 @@ def json_from_url(url: str, as_dict: bool = True) -> Union[JSONDict, str]:
         Parsed JSON data from the URL as either a JSON-like dictionary
         or just the string serialization
     """
-    source = requests.get(url).text
+    source = requests.get(url, headers=headers).text
     json_data = json_from_html(source=source, as_dict=as_dict)
     return json_data
