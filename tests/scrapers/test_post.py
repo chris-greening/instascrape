@@ -18,7 +18,7 @@ class TestPost:
 
     @pytest.fixture
     def get_request(self, url):
-        return requests.get(url)
+        return requests.get(url, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"})
 
     @pytest.fixture
     def page_instance(self, url):

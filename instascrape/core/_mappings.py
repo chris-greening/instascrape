@@ -176,6 +176,13 @@ class _PostMapping(_GeneralMapping):
             "accessibility_caption": deque(["accessibility_caption"]),
         }
 
+class _ReelMapping(_PostMapping):
+    mapping = _PostMapping.return_mapping().copy()
+    mapping.update(
+        {
+            "video_play_count": deque(["video_play_count"]),
+        }
+    )
 
 class _ProfileMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
