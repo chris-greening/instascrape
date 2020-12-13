@@ -246,6 +246,10 @@ class _LoginMapping(_GeneralMapping):
 
     mapping = _GeneralMapping.return_mapping().copy()
 
+class _HttpErrorMapping(_GeneralMapping):
+    """Mapping specific to Instagram login page"""
+
+    mapping = _GeneralMapping.return_mapping().copy()
 
 class _MetaMapping:
     """
