@@ -3,6 +3,8 @@ from instascrape.core._mappings import _IGTVMapping
 
 
 class IGTV(Post):
+    """Scraper for an IGTV post"""
+
     _Mapping = _IGTVMapping
 
     @staticmethod
