@@ -10,10 +10,12 @@ from instascrape.core._json_engine import _JsonEngine
 
 JSONDict = Dict[str, Any]
 
+
 def parse_json_from_mapping(json_dict, map_dict):
     _json_engine = _JsonEngine(json_dict, map_dict)
     return_data = _json_engine.parse_mapping()
     return return_data
+
 
 def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True) -> Union[JSONDict, str]:
     """
@@ -43,6 +45,7 @@ def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True) -> U
     json_data = json.loads(json_str) if as_dict else json_str
     return json_data
 
+
 def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     """
     Return the type of Instagram page based on the JSON data parsed from source
@@ -63,7 +66,14 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     instagram_type = list(json_data["entry_data"])[0]
     return instagram_type
 
-def json_from_url(url: str, as_dict: bool = True, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> Union[JSONDict, str]:
+
+def json_from_url(
+    url: str,
+    as_dict: bool = True,
+    headers={
+        "User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+    },
+) -> Union[JSONDict, str]:
     """
     Return JSON data parsed from a provided Instagram URL
 

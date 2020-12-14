@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import parse_json_from_mapping, determine_json_type
+
 # from instascrape.scrapers.http_error_page import HttpErrorPage
 # from instascrape.scrapers.login import LoginAndSignupPage
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
@@ -22,6 +23,7 @@ from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 JSONDict = Dict[str, Any]
 warnings.simplefilter("always", DeprecationWarning)
+
 
 class _StaticHtmlScraper(ABC):
     """
@@ -70,7 +72,15 @@ class _StaticHtmlScraper(ABC):
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
 
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
+    def scrape(
+        self,
+        mapping=None,
+        keys: List[str] = None,
+        exclude: List[str] = None,
+        headers={
+            "User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+        },
+    ) -> None:
         """
         Scrape data from self.source and load as instance attributes
 
@@ -235,11 +245,11 @@ class _StaticHtmlScraper(ABC):
         """Load JSON data from a string"""
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
-        if json_type == 'LoginAndSignupPage' and not type(self).__name__ == 'LoginAndSignupPage':
+        if json_type == "LoginAndSignupPage" and not type(self).__name__ == "LoginAndSignupPage":
             raise InstagramLoginRedirectError
-        elif json_type == 'HttpErrorPage' and not type(self).__name__ == 'HttpErrorPage':
-            source_str = self.url if hasattr(self, 'url') else "Source"
-            raise ValueError(f'{source_str} is not a valid Instagram page. Please provide a valid argument.')
+        elif json_type == "HttpErrorPage" and not type(self).__name__ == "HttpErrorPage":
+            source_str = self.url if hasattr(self, "url") else "Source"
+            raise ValueError(f"{source_str} is not a valid Instagram page. Please provide a valid argument.")
         return json_dict
 
     @staticmethod
