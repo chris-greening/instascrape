@@ -184,6 +184,10 @@ class _ReelMapping(_PostMapping):
         }
     )
 
+
+class _IGTVMapping(_PostMapping):
+    mapping = _PostMapping.return_mapping().copy()
+
 class _ProfileMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
 
