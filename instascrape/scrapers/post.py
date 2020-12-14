@@ -29,12 +29,7 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
 
-    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
-        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
-        warnings.warn(msg, DeprecationWarning)
-        self.scrape(mapping, keys, exclude)
-
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
         """
         Scrape the Post data from the given source and load as instance attributes
 
@@ -52,7 +47,7 @@ class Post(_StaticHtmlScraper):
         # pylint: disable=no-member, attribute-defined-outside-init
         if hasattr(self, "shortcode"):
             self.source = self.shortcode
-        super().scrape(mapping=mapping, keys=keys, exclude=exclude)
+        super().scrape(mapping=mapping, keys=keys, exclude=exclude, headers=headers)
 
         # HACK: This isn't a very clean solution and there is certainly a better
         # way to deal with returning a Post object with only partial data
@@ -170,3 +165,8 @@ class Post(_StaticHtmlScraper):
             DeprecationWarning,
         )
         return Post(shortcode)
+
+    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
+        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
+        warnings.warn(msg, DeprecationWarning)
+        self.scrape(mapping, keys, exclude)
