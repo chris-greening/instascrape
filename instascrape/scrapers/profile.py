@@ -30,14 +30,18 @@ class Profile(_StaticHtmlScraper):
             List containing the recent 12 posts and their available data
         """
         if amt > 12:
-            raise IndexError(f"{amt} is too large, 12 is max available posts. Getting more posts will require an out-of-the-box extension.")
+            raise IndexError(
+                f"{amt} is too large, 12 is max available posts. Getting more posts will require an out-of-the-box extension."
+            )
         posts = []
         try:
-            post_arr = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"][
-                "edges"
-            ]
+            post_arr = self.json_dict["entry_data"]["ProfilePage"][0]["graphql"]["user"][
+                "edge_owner_to_timeline_media"
+            ]["edges"]
         except TypeError:
-            raise ValueError("Can't return posts without first scraping the Profile. Call the scrape method on your object first.")
+            raise ValueError(
+                "Can't return posts without first scraping the Profile. Call the scrape method on your object first."
+            )
 
         for post in post_arr[:amt]:
             json_dict = post["node"]

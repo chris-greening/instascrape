@@ -22,6 +22,7 @@ from instascrape.scrapers.comment import Comment
 
 warnings.simplefilter("always", DeprecationWarning)
 
+
 class Post(_StaticHtmlScraper):
     """Scraper for an Instagram post page"""
 
@@ -53,7 +54,7 @@ class Post(_StaticHtmlScraper):
             self.source = self.shortcode
         super().scrape(mapping=mapping, keys=keys, exclude=exclude)
 
-        #HACK: This isn't a very clean solution and there is certainly a better
+        # HACK: This isn't a very clean solution and there is certainly a better
         # way to deal with returning a Post object with only partial data
         if hasattr(self, "timestamp"):
             self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
@@ -63,7 +64,7 @@ class Post(_StaticHtmlScraper):
             self.hashtags = self._parse_hashtags(self.caption)
             try:
                 if math.isnan(self.full_name):
-                    self.full_name = self.flat_json_dict['full_name']
+                    self.full_name = self.flat_json_dict["full_name"]
             except TypeError:
                 pass
 

@@ -126,8 +126,7 @@ class _PostMapping(_GeneralMapping):
             "has_audio": deque(["has_audio"]),
             "video_view_count": deque(["video_view_count"]),
             "username": deque(["shortcode_media_owner_username"]),
-            "full_name": deque(["owner_full_name"])
-
+            "full_name": deque(["owner_full_name"]),
         }
     )
 
@@ -176,6 +175,7 @@ class _PostMapping(_GeneralMapping):
             "accessibility_caption": deque(["accessibility_caption"]),
         }
 
+
 class _ReelMapping(_PostMapping):
     mapping = _PostMapping.return_mapping().copy()
     mapping.update(
@@ -187,6 +187,7 @@ class _ReelMapping(_PostMapping):
 
 class _IGTVMapping(_PostMapping):
     mapping = _PostMapping.return_mapping().copy()
+
 
 class _ProfileMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
@@ -251,6 +252,7 @@ class _HashtagMapping(_GeneralMapping):
         }
     )
 
+
 class _LocationMapping(_GeneralMapping):
     """Mapping specific to Instagram profile pages"""
 
@@ -276,15 +278,18 @@ class _LocationMapping(_GeneralMapping):
         }
     )
 
+
 class _LoginMapping(_GeneralMapping):
     """Mapping specific to Instagram login page"""
 
     mapping = _GeneralMapping.return_mapping().copy()
 
+
 class _HttpErrorMapping(_GeneralMapping):
     """Mapping specific to Instagram login page"""
 
     mapping = _GeneralMapping.return_mapping().copy()
+
 
 class _MetaMapping:
     """
