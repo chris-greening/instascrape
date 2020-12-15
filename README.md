@@ -3,7 +3,7 @@
   <img src="media/logo.png" width="800px">
 </p>
 
-# _instascrape_: Instagram scraping for humans
+# _instascrape_: powerful Instagram data scraping toolkit 
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
 [![Downloads](https://pepy.tech/badge/insta-scrape)](https://pepy.tech/project/insta-scrape)
