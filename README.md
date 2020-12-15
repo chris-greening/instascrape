@@ -142,7 +142,7 @@ This library operates under the [MIT](LICENSE) license.
 
 Check out the [FAQ](https://github.com/chris-greening/instascrape/wiki/Frequently-Asked-Questions)
 
-Reach out to me if you have questions or ideas!
+Reach out to me if you want to connect or have any questions!
 * Email:
   * chris@christophergreening.com
 * Twitter:
