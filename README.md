@@ -36,14 +36,14 @@ Here are a few of the things that `instascrape` does well:
 ---
 
 ## Table of Contents
-* [:computer: Installation](#installation)
-* [:mag_right: Sample Usage](#features)
-* [:books: Documentation](#documentation)
-* [:newspaper: Blog Posts](#blog-posts)
-* [:pray: Contributing](#contributing)
-* [:spider_web: Dependencies](#dependencies)
-* [:credit_card: License](#license)
-* [:grey_question: Support](#support)
+* [Installation](#installation)
+* [Sample Usage](#features)
+* [Documentation](#documentation)
+* [Blog Posts](#blog-posts)
+* [Contributing](#contributing)
+* [Dependencies](#dependencies)
+* [License](#license)
+* [Support](#support)
 
 ---
 
@@ -55,7 +55,7 @@ This library currently requires [Python 3.7](https://www.python.org/downloads/re
 
 
 ### pip
-> Install from PyPI using
+Install from PyPI using
 ```shell
 $ pip3 install insta-scrape
 ```
