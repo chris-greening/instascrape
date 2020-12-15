@@ -17,7 +17,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## What is it?
-> _instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
+_instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
 
 <!-- ![Example showing tech profile scrapes](/media/techprofiles.gif) -->
 
