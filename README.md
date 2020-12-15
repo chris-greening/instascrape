@@ -10,7 +10,7 @@ pip3 install insta-scrape
 ```
 
 ## What is it?
-> _instascrape_ is a powerful, lightweight Python library for scraping Instagram data with no configurations necessary! It is designed with flexibility and developer productivity in mind so you can stop wasting valuable time preparing Instagram data and just start analyzing it :muscle:
+> _instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
 
 [Official website](https://chris-greening.github.io/instascrape/)
 
@@ -27,15 +27,17 @@ pip3 install insta-scrape
 ![Example showing tech profile scrapes](/media/techprofiles.gif)
 
 ## Key features  
-* :muscle: Powerful, object-oriented scraping tools
-* :dancer: Flexibly determines whether you want to scrape HTML, JSON, BeautifulSoup, or request and scrape the URL itself
-* :floppy_disk: Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
-* :art: Dynamically retrieve HTML embed code for posts
-* :musical_score: Expressive and consistent API for concise and elegant code
-* :bar_chart: Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
-* :hammer: Lightweight: you don't have to build a hammer factory when all you need is the hammer 
-* :spider_web: The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/); no more worrying about configurations or webdrivers
-* :watch: Proven to work as of December, 2020
+Here are a few of the things that `instascrape` does well:
+
+* Powerful, object-oriented scraping tools for profiles, posts, hashtags, reels, and IGTV
+* Scrapes HTML, BeautifulSoup, and JSON
+* Download content to your computer as _png_, _jpg_, _mp4_, and _mp3_
+* Dynamically retrieve HTML embed code for posts
+* Expressive and consistent API for concise and elegant code
+* Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
+* Lightweight; no boilerplate or configurations necessary 
+* The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+* Proven to work as of December, 2020
 ---
 
 ## Table of Contents
