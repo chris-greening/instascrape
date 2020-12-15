@@ -99,7 +99,7 @@ print(google_hashtag.amount_of_posts)
 ```
 
 ## :books: Documentation <a name="documentation"></a>
-The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html) :newspaper:
+The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html)
 
 ---
 
