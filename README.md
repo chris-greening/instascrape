@@ -127,12 +127,8 @@ Beginners to open source are highly encouraged to participate and ask questions 
 
 ## :spider_web: Dependencies <a name="dependencies"></a>
 
-Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
-
-1. [Requests](https://requests.readthedocs.io/en/master/): HTTP requests
-2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): Scraping and parsing HTML data.
-
-The rest of its functionality is provided directly from Python 3's standard library for unobtrusive code under the hood with little to no overhead.
+- [Requests](https://requests.readthedocs.io/en/master/)
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 ---
 
