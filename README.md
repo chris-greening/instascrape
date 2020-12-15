@@ -141,7 +141,7 @@ The rest of its functionality is provided directly from Python 3's standard libr
 
 
 ## :credit_card: License <a name="license"></a>
-[MIT](LICENSE)
+This library operates under the [MIT](LICENSE) license.
 
 ---
 
