@@ -114,6 +114,7 @@ Check out blog posts on the [official site](https://chris-greening.github.io/ins
 - [Dynamically generate embeddable Instagram HTML with instascrape](https://dev.to/chrisgreening/dynamically-generate-embeddable-instagram-html-using-instascrape-3o4b)
 - [Scraping an Instagram location tag with instascrape](https://dev.to/chrisgreening/scraping-an-instagram-location-tag-with-instascrape-554f)
 - [Scraping Instagram reels with instascrape](https://dev.to/chrisgreening/scraping-instagram-reels-with-instascrape-3khb)
+- [Scraping IGTV data with instascrape](https://dev.to/chrisgreening/scraping-igtv-data-with-instascrape-595f)
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
