@@ -3,28 +3,23 @@
   <img src="media/logo.png" width="800px">
 </p>
 
-# _instascrape_: Instagram scraping for humans
-
-```shell
-pip3 install insta-scrape
-```
-
-## What is it?
-> _instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
-
-[Official website](https://chris-greening.github.io/instascrape/)
+# _instascrape_: powerful Instagram data scraping toolkit 
 
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Downloads](https://pepy.tech/badge/insta-scrape)](https://pepy.tech/project/insta-scrape)
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-[![Downloads](https://pepy.tech/badge/insta-scrape)](https://pepy.tech/project/insta-scrape)
+
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-![Example showing tech profile scrapes](/media/techprofiles.gif)
+## What is it?
+_instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
+
+<!-- ![Example showing tech profile scrapes](/media/techprofiles.gif) -->
 
 ## Key features  
 Here are a few of the things that `instascrape` does well:
@@ -41,14 +36,14 @@ Here are a few of the things that `instascrape` does well:
 ---
 
 ## Table of Contents
-* [:computer: Installation](#installation)
-* [:mag_right: Sample Usage](#features)
-* [:books: Documentation](#documentation)
-* [:newspaper: Blog Posts](#blog-posts)
-* [:pray: Contributing](#contributing)
-* [:spider_web: Dependencies](#dependencies)
-* [:credit_card: License](#license)
-* [:grey_question: Support](#support)
+* [Installation](#installation)
+* [Sample Usage](#features)
+* [Documentation](#documentation)
+* [Blog Posts](#blog-posts)
+* [Contributing](#contributing)
+* [Dependencies](#dependencies)
+* [License](#license)
+* [Support](#support)
 
 ---
 
@@ -60,7 +55,7 @@ This library currently requires [Python 3.7](https://www.python.org/downloads/re
 
 
 ### pip
-> Install from PyPI using
+Install from PyPI using
 ```shell
 $ pip3 install insta-scrape
 ```
@@ -119,6 +114,7 @@ Check out blog posts on the [official site](https://chris-greening.github.io/ins
 - [Dynamically generate embeddable Instagram HTML with instascrape](https://dev.to/chrisgreening/dynamically-generate-embeddable-instagram-html-using-instascrape-3o4b)
 - [Scraping an Instagram location tag with instascrape](https://dev.to/chrisgreening/scraping-an-instagram-location-tag-with-instascrape-554f)
 - [Scraping Instagram reels with instascrape](https://dev.to/chrisgreening/scraping-instagram-reels-with-instascrape-3khb)
+- [Scraping IGTV data with instascrape](https://dev.to/chrisgreening/scraping-igtv-data-with-instascrape-595f)
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
@@ -132,12 +128,8 @@ Beginners to open source are highly encouraged to participate and ask questions 
 
 ## :spider_web: Dependencies <a name="dependencies"></a>
 
-Instascrape primarily relies on two third-party libraries for requesting and scraping Instagram HTML content:
-
-1. [Requests](https://requests.readthedocs.io/en/master/): HTTP requests
-2.  [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/): Scraping and parsing HTML data.
-
-The rest of its functionality is provided directly from Python 3's standard library for unobtrusive code under the hood with little to no overhead.
+- [Requests](https://requests.readthedocs.io/en/master/)
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 ---
 
@@ -151,7 +143,7 @@ This library operates under the [MIT](LICENSE) license.
 
 Check out the [FAQ](https://github.com/chris-greening/instascrape/wiki/Frequently-Asked-Questions)
 
-Reach out to me if you have questions or ideas!
+Reach out to me if you want to connect or have any questions!
 * Email:
   * chris@christophergreening.com
 * Twitter:
