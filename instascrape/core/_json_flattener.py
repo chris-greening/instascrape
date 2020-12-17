@@ -11,10 +11,10 @@ JSONDict = Dict[str, Any]
 
 
 class FlatJSONDict(MutableMapping):
-    """Takes a dictionary with JSON-like data and creates an instance that
+    """Takes a dictionary with JSON-like data as argument and creates an instance that
     behaves exactly like a dict but with the flattened data"""
 
-    def __init__(self, json_dict):
+    def __init__(self, json_dict: JSONDict) -> None:
 
         self.json_dict = json_dict
 
@@ -24,7 +24,7 @@ class FlatJSONDict(MutableMapping):
 
         self.__dict__.update(self.flat_json)
 
-    def _flatten_json(self):
+    def _flatten_json(self) -> JSONDict:
         """
         Primary algorithm that creates the flattened dictionary from a mapped
         tree of JSON data
@@ -44,28 +44,28 @@ class FlatJSONDict(MutableMapping):
         key_arr.appendleft(str(key))
         return "_".join(key_arr)
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: Union[str, int], value: Any) -> None:
         self.__dict__[key] = value
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> Any:
         return self.__dict__[key]
 
-    def __delitem__(self, key):
+    def __delitem__(self, key: Union[str, int]) -> None:
         del self.__dict__[key]
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self.__dict__)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.__dict__)
 
     # The final two methods aren't required, but nice for demo purposes:
 
-    def __str__(self):
+    def __str__(self) -> str:
         """returns simple dict representation of the mapping"""
         return str(self.__dict__)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """echoes class, id, & reproducible representation in the REPL"""
         return "{}, D({})".format(super(FlatJSONDict, self).__repr__(), self.__dict__)
 
@@ -73,24 +73,20 @@ class FlatJSONDict(MutableMapping):
 class JsonTree:
     """Tree of linked lists that map out the JSON data"""
 
-    def __init__(self, json_dict: JSONDict):
+    def __init__(self, json_dict: JSONDict) -> None:
         self.json_dict = json_dict
         self.map_tree(self.json_dict)
 
-    def map_tree(self, json_dict):
+    def map_tree(self, json_dict) -> None:
         """Map the entire JSON tree and get access to leaf nodes"""
         self.leaf_nodes = []
         self.root_node = Node(json_data=json_dict, tree=self)
 
 
 class Node:
-    """
-    Representation of one step into a JSON Tree
-    """
+    """Representation of one step into a JSON Tree"""
 
-    def __init__(
-        self, json_data: Any, tree: JsonTree, linked_list: deque = None, prior_keys: List[Union[str, int]] = None
-    ) -> None:
+    def __init__(self, json_data: Any, tree: JsonTree, linked_list: deque = None, prior_keys: List[Union[str, int]] = None) -> None:
         self.json_data = json_data
         self.tree = tree
 
@@ -110,17 +106,15 @@ class Node:
             self.get_edges()
 
     @property
-    def is_leaf(self):
+    def is_leaf(self) -> bool:
         """
         If the dtype of self.json_data is not a dict or a list then it must be
         a leaf node
         """
         return self.dtype is not list and self.dtype is not dict
 
-    def get_edges(self):
-        """
-        Get all edges connected to current Node
-        """
+    def get_edges(self) -> None:
+        """Get all edges connected to current Node"""
         if self.dtype is list:
             iter_arr = zip(range(len(self.json_data)), self.json_data)
         else:
@@ -132,5 +126,5 @@ class Node:
             node = Node(value, self.tree, next_linked_list, next_key)
             self.nodes.append(node)
 
-    def __repr__(self):
+    def __repr__(self) -> str
         return str(self.json_data)
