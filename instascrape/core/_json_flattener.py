@@ -126,5 +126,5 @@ class Node:
             node = Node(value, self.tree, next_linked_list, next_key)
             self.nodes.append(node)
 
-    def __repr__(self) -> str
+    def __repr__(self) -> str:
         return str(self.json_data)
