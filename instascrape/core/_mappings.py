@@ -313,6 +313,7 @@ class _MetaMapping:
         "TagPage": _HashtagMapping,
         "PostPage": _PostMapping,
         "LoginAndSignupPage": _LoginMapping,
+        "LocationsPage": _LocationMapping
     }
 
     @classmethod
