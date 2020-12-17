@@ -222,18 +222,18 @@ class _StaticHtmlScraper(ABC):
 
     @staticmethod
     def _html_from_url(url: str, headers: dict) -> str:
-        """Requests page at given URL to get given HTML"""
+        """Return HTML from requested URL"""
         response = requests.get(url, headers=headers)
         return response.text
 
     @staticmethod
     def _soup_from_html(html: str) -> BeautifulSoup:
-        """Instantiates BeautifulSoup from the given source"""
+        """Return BeautifulSoup from source HTML"""
         return BeautifulSoup(html, features="html.parser")
 
     @staticmethod
     def _json_str_from_soup(soup: BeautifulSoup) -> str:
-        """Instantiates a JSON dictionary from BeautifulSoup"""
+        """Return serialized JSON from BeautifulSoup"""
         json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
         left_index = json_script.find("{")
         right_index = json_script.rfind("}") + 1
@@ -242,7 +242,7 @@ class _StaticHtmlScraper(ABC):
         return json_str
 
     def _dict_from_json_str(self, json_str: str) -> JSONDict:
-        """Load JSON data from a string"""
+        """Return JSON dict from serialized JSON string"""
         json_dict = json.loads(json_str)
         json_type = determine_json_type(json_dict)
         if json_type == "LoginAndSignupPage" and not type(self).__name__ == "LoginAndSignupPage":
@@ -254,7 +254,7 @@ class _StaticHtmlScraper(ABC):
 
     @staticmethod
     def _determine_string_type(string_data: str) -> str:
-        """Determine's what type of source the string is"""
+        """Match and return string representation of appropriate source"""
         string_type_map = [("https://", "url"), ("window._sharedData", "html"), ('{"config"', "JSON dict str")]
         for substr, str_type in string_type_map:
             if substr in string_data:
@@ -266,6 +266,7 @@ class _StaticHtmlScraper(ABC):
         return str_type
 
     def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None) -> None:
+        """Deprecated: scrape data from the given source"""
         msg = f"{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
         warnings.warn(msg, DeprecationWarning)
         self.scrape(mapping, keys, exclude)
