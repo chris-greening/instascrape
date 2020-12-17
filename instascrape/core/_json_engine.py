@@ -23,7 +23,7 @@ class _JsonEngine:
         self.json_data = json_data
         self.map_dict = map_dict
 
-    def parse_mapping(self):
+    def parse_mapping(self) -> JSONDict:
         """
         Loop through each key in map_dict and set dictionary value given queue
         of directives that tell the engine how to parse the value from JSONDict
@@ -33,7 +33,7 @@ class _JsonEngine:
             self._set_value(return_data, key, self.json_data, self.map_dict[key])
         return return_data
 
-    def _set_value(self, data_dict, orig_key: str, container: dict, directive_queue: deque):
+    def _set_value(self, data_dict: JSONDict, orig_key: str, container: dict, directive_queue: deque) -> None:
         """
         Recursively step through a queue of directives until the queue is
         empty. When there are no more directives left in queue, we have arrived
