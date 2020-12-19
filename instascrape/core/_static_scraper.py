@@ -15,8 +15,6 @@ from bs4 import BeautifulSoup
 from instascrape.core._json_flattener import FlatJSONDict
 from instascrape.scrapers.json_tools import parse_json_from_mapping, determine_json_type
 
-# from instascrape.scrapers.http_error_page import HttpErrorPage
-# from instascrape.scrapers.login import LoginAndSignupPage
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 # pylint: disable=no-member
@@ -104,7 +102,7 @@ class _StaticHtmlScraper(ABC):
 
         # If the passed source was already an object, construct data from
         # source else parse it
-        if type(self.source) is type(self):
+        if isinstance(self.source, type(self)):
             scraped_dict = self.source.to_dict()
         else:
             self.json_dict = self._get_json_from_source(self.source, headers=headers)
