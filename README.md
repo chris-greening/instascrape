@@ -115,6 +115,7 @@ Check out blog posts on the [official site](https://chris-greening.github.io/ins
 - [Scraping an Instagram location tag with instascrape](https://dev.to/chrisgreening/scraping-an-instagram-location-tag-with-instascrape-554f)
 - [Scraping Instagram reels with instascrape](https://dev.to/chrisgreening/scraping-instagram-reels-with-instascrape-3khb)
 - [Scraping IGTV data with instascrape](https://dev.to/chrisgreening/scraping-igtv-data-with-instascrape-595f)
+- [Scraping 10,000 data points from Donald Trump's Instagram with Python](https://dev.to/chrisgreening/scraping-10-000-data-points-from-donald-trump-s-instagram-page-with-python-2jcg)
 ---
 
 ## :pray: Contributing <a name="contributing"></a>
