@@ -17,7 +17,8 @@ class Profile(_StaticHtmlScraper):
 
     def get_recent_posts(self, amt: int = 12) -> List[Post]:
         """
-        Return a list of the profiles recent posts
+        Return a list of the profiles recent posts. Max available for return
+        is 12.
 
         Parameters
         ----------
@@ -53,11 +54,3 @@ class Profile(_StaticHtmlScraper):
 
     def _url_from_suburl(self, suburl):
         return f"https://www.instagram.com/{suburl}/"
-
-    @classmethod
-    def from_username(cls, username):
-        warnings.warn(
-            "This will be deprecated in the near future. You no longer need to use from_username, simply pass username as argument to Profile",
-            DeprecationWarning,
-        )
-        return Profile(username)

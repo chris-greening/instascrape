@@ -143,30 +143,3 @@ class Post(_StaticHtmlScraper):
         """Parse the hastags from the post's caption using regex"""
         pattern = r"#(\w+)"
         return re.findall(pattern, caption)
-
-    @classmethod
-    def from_shortcode(cls, shortcode: str) -> Post:
-        """
-        Return a Post object given a shortcode.
-
-        Parameters
-        ----------
-        shortcode : str
-            Unique shortcode of an Instagram post
-
-        Returns
-        -------
-        Post(shortcode) : Post
-            Instance of a Post object from the given shortcode
-        """
-
-        warnings.warn(
-            "This will be deprecated in the near future. You no longer need to use from_shortcode, simply pass shortcode as argument to Post",
-            DeprecationWarning,
-        )
-        return Post(shortcode)
-
-    def load(self, mapping=None, keys: List[str] = None, exclude: List[str] = None):
-        msg = "f{type(self).__name__}.load will be permanently renamed to {type(self).__name__}.scrape, use that method instead for future compatibility"
-        warnings.warn(msg, DeprecationWarning)
-        self.scrape(mapping, keys, exclude)
