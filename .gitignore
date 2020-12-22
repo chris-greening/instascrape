@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea/
+
+# Large file ignores
+tutorial/examples/Donald\ Trump/*.db*
