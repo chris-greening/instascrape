@@ -13,24 +13,6 @@ instascrape.scrapers.hashtag module
    :show-inheritance:
    :inherited-members:
 
-instascrape.scrapers.json\_scraper module
------------------------------------------
-
-.. automodule:: instascrape.scrapers.json_scraper
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :inherited-members:
-
-instascrape.scrapers.login module
----------------------------------
-
-.. automodule:: instascrape.scrapers.login
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :inherited-members:
-
 instascrape.scrapers.post module
 --------------------------------
 
