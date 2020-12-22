@@ -31,6 +31,33 @@ instascrape.scrapers.profile module
    :show-inheritance:
    :inherited-members:
 
+instascrape.scrapers.reel module
+--------------------------------
+
+.. automodule:: instascrape.scrapers.reel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
+instascrape.scrapers.location module
+------------------------------------
+
+.. automodule:: instascrape.scrapers.location
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
+instascrape.scrapers.igtv module
+--------------------------------
+
+.. automodule:: instascrape.scrapers.igtv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
 Module contents
 ---------------
 
