@@ -16,6 +16,11 @@ Anyways, here goes:
 - [Compare major tech Instagram page's with instascrape](https://dev.to/chrisgreening/compare-major-tech-instagram-page-s-with-instascrape-2419)
 - [Tracking an Instagram posts engagement in real time with instascrape](https://dev.to/chrisgreening/tracking-an-instagram-posts-engagement-in-real-time-with-instascrape-1m1j)
 - [Dynamically generate embeddable Instagram HTML with instascrape](https://dev.to/chrisgreening/dynamically-generate-embeddable-instagram-html-using-instascrape-3o4b)
+- [Scraping an Instagram location tag with instascrape](https://dev.to/chrisgreening/scraping-an-instagram-location-tag-with-instascrape-554f)
+- [Scraping Instagram reels with instascrape](https://dev.to/chrisgreening/scraping-instagram-reels-with-instascrape-3khb)
+- [Scraping IGTV data with instascrape](https://dev.to/chrisgreening/scraping-igtv-data-with-instascrape-595f)
+- [Scraping 10,000 data points from Donald Trump's Instagram page with Python](https://dev.to/chrisgreening/scraping-10-000-data-points-from-donald-trump-s-instagram-page-with-python-2jcg)
+- [Visualizing Donald Trump's Instagram data with Python](https://dev.to/chrisgreening/visualizing-donald-trump-s-instagram-data-with-python-1f01)
 
 Also let me know if you have written any blog posts about `instascrape`!! I would love to spread the word about your post(s) and see what you're up to B)
 
