@@ -38,6 +38,7 @@ minimal_mistakes_skin: "dark"
 plugins:
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-sitemap
 
 # Social Sharing
 twitter:
