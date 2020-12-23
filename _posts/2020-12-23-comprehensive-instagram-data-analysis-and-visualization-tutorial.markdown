@@ -1,5 +1,5 @@
 ---
-title: "Comprehensive Instagram data analysis tutorial"
+title: "Comprehensive Instagram data analysis and visualization tutorial"
 ---
 
 Hello everyone,
