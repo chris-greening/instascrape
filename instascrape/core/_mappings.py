@@ -200,7 +200,6 @@ class _ProfileMapping(_GeneralMapping):
             "show_follow_dialog": deque(["show_follow_dialog"]),
             "biography": deque(["biography"]),
             "blocked_by_viewer": deque(["blocked_by_viewer"]),
-            "business_email": deque(["business_email"]),
             "restricted_by_viewer": deque(["restricted_by_viewer"]),
             "country_block": deque(["country_block"]),
             "external_url": deque(["external_url"]),
