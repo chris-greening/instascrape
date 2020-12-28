@@ -157,6 +157,8 @@ Reach out to me if you want to connect or have any questions!
 
 <!-- The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. -->
 
+DISCLAIMER: _With great power comes great responsibility_. This is a research project and I am not responsible for how you use it. Independently, the library is designed to be responsible and respectful and it is up to you to decide what you do with it. 
+
 <p align="center">
   <img src="media/logopic.png" width="150px">
 </p>
