@@ -1,14 +1,10 @@
 from __future__ import annotations
 
 from typing import List
-import warnings
 
 from instascrape.core._mappings import _PostMapping, _ProfileMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.post import Post
-
-warnings.simplefilter("always", DeprecationWarning)
-
 
 class Profile(_StaticHtmlScraper):
     """Scraper for an Instagram profile page"""

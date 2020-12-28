@@ -10,7 +10,6 @@ from typing import List
 import re
 import shutil
 import pathlib
-import warnings
 import math
 
 import requests
@@ -19,9 +18,6 @@ from instascrape.core._mappings import _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.json_tools import parse_json_from_mapping
 from instascrape.scrapers.comment import Comment
-
-warnings.simplefilter("always", DeprecationWarning)
-
 
 class Post(_StaticHtmlScraper):
     """Scraper for an Instagram post page"""
