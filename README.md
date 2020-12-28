@@ -10,7 +10,6 @@
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
@@ -92,6 +91,8 @@ print(google_hashtag.amount_of_posts)
 >>> ['growwithgoogle']
 >>> 9053408
 ```
+
+See the [Scraped data points](https://github.com/chris-greening/instascrape/wiki/Scraped-data-points) section of the [Wiki](https://github.com/chris-greening/instascrape/wiki) for a complete list of the scraped attributes provided by each scraper. 
 
 ## :books: Documentation <a name="documentation"></a>
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html)
