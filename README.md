@@ -80,10 +80,7 @@ google_hashtag = Hashtag('https://www.instagram.com/explore/tags/google/')
 google.scrape()
 google_post.scrape()
 google_hashtag.scrape()
-```
 
-After being scraped, relevant attributes can be accessed with dot or bracket notation
-```python
 print(google.followers)
 print(google_post['hashtags'])
 print(google_hashtag.amount_of_posts)
