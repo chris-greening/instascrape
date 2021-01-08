@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from instascrape.core._json_engine import _JsonEngine
-import instascrape.core.json_algos as json_algos
+from instascrape.core.json_algos import _JSONTree
 
 JSONDict = Dict[str, Any]
 
@@ -19,7 +19,7 @@ def parse_json_from_mapping(json_dict, map_dict):
 
 def flatten_dict(json_dict: JSONDict) -> JSONDict:
     """Returns a flattened dictionary of data"""
-    json_tree = json_algos._JSONTree(json_dict)
+    json_tree = _JSONTree(json_dict)
     flattened_dict = {}
     for leaf_node in json_tree.leaf_nodes:
         key_arr = deque([])
