@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import json
 from typing import Any, Dict, Union
+from collections import deque
 
 import requests
 from bs4 import BeautifulSoup
 
 from instascrape.core._json_engine import _JsonEngine
-from instascrape.core._json_flattener import FlatJSONDict
+import instascrape.core.json_algos as json_algos
 
 JSONDict = Dict[str, Any]
 
@@ -16,9 +17,19 @@ def parse_json_from_mapping(json_dict, map_dict):
     return_data = _json_engine.parse_mapping()
     return return_data
 
-def flatten_json(json_dict: JSONDict) -> JSONDict:
-    """Returns a flattened dictionary of JSON data"""
-    return FlatJSONDict(json_dict).flat_json
+def flatten_dict(json_dict: JSONDict) -> JSONDict:
+    """Returns a flattened dictionary of data"""
+    json_tree = json_algos._JSONTree(json_dict)
+    flattened_dict = {}
+    for leaf_node in json_tree.leaf_nodes:
+        key_arr = deque([])
+        for key in leaf_node.prior_keys[::-1]:
+            key_arr.appendleft(str(key))
+            new_key = "_".join(key_arr)
+            if new_key not in flattened_dict:
+                break
+        flattened_dict[new_key] = list(leaf_node.json_data.values())[0]
+    return flattened_dict
 
 def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True, json_index = 0, flatten=False) -> Union[JSONDict, str]:
     """
@@ -51,7 +62,7 @@ def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True, json
 
     json_data = json.loads(json_str) if as_dict else json_str
     if flatten:
-        json_data = flatten_json(json_data)
+        json_data = flatten_dict(json_data)
     return json_data
 
 def determine_json_type(json_data: Union[JSONDict, str]) -> str:
@@ -111,3 +122,5 @@ def _get_json_str(source: str) -> str:
     right_index = json_script.rfind("}") + 1
     json_str = json_script[left_index:right_index]
     return json_str
+
+
