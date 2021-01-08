@@ -146,7 +146,7 @@ Reach out to me if you want to connect or have any questions!
 * Email:
   * chris@christophergreening.com
 * Twitter:
-  * [@ChrisGreening2](https://twitter.com/ChrisGreening2)
+  * [@ChrisGreening](https://twitter.com/ChrisGreening)
 * LinkedIn
   * [Chris Greening](https://www.linkedin.com/in/chris-greening-646411139/)
 
