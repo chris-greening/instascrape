@@ -6,14 +6,10 @@ Hashtag
 from __future__ import annotations
 
 from typing import List
-import warnings
 
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
 from instascrape.scrapers.post import Post
-
-warnings.simplefilter("always", DeprecationWarning)
-
 
 class Hashtag(_StaticHtmlScraper):
     """Scraper for an Instagram hashtag page"""

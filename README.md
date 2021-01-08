@@ -10,14 +10,13 @@
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-
 [![Activity](https://img.shields.io/github/last-commit/chris-greening/instascrape)](https://github.com/chris-greening/instascrape)
 [![Dependencies](https://img.shields.io/librariesio/github/chris-greening/instascrape)](https://github.com/chris-greening/instascrape/blob/master/requirements.txt)
 [![Issues](https://img.shields.io/github/issues/chris-greening/instascrape?style=flat)](https://github.com/chris-greening/instascrape/issues)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## What is it?
-_instascrape_ is a lightweight Python package that provides expressive and flexible tools for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
+_instascrape_ is a lightweight Python package that provides an expressive and flexible API for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
 
 <!-- ![Example showing tech profile scrapes](/media/techprofiles.gif) -->
 
@@ -81,10 +80,7 @@ google_hashtag = Hashtag('https://www.instagram.com/explore/tags/google/')
 google.scrape()
 google_post.scrape()
 google_hashtag.scrape()
-```
 
-After being scraped, relevant attributes can be accessed with dot or bracket notation
-```python
 print(google.followers)
 print(google_post['hashtags'])
 print(google_hashtag.amount_of_posts)
@@ -92,6 +88,8 @@ print(google_hashtag.amount_of_posts)
 >>> ['growwithgoogle']
 >>> 9053408
 ```
+
+See the [Scraped data points](https://github.com/chris-greening/instascrape/wiki/Scraped-data-points) section of the [Wiki](https://github.com/chris-greening/instascrape/wiki) for a complete list of the scraped attributes provided by each scraper. 
 
 ## :books: Documentation <a name="documentation"></a>
 The official documentation can be found on [Read The Docs](https://instascrape.readthedocs.io/en/latest/index.html)
@@ -156,6 +154,8 @@ Reach out to me if you want to connect or have any questions!
 
 
 <!-- The inspiration for this project began a long time ago in a galaxy far, far away (a.k.a. Summer 2019 on Long Island). I was mindlessly scrolling Instagram for the 1000th hour that week and thought, "How could I access this data programatically?". After 30 seconds of searching it became clear that Instagram's API was not going to be of any use so I was going to have to figure it out myself, and thus the beginning of instascrape was born. -->
+
+DISCLAIMER: _With great power comes great responsibility_. This is a research project and I am not responsible for how you use it. Independently, the library is designed to be responsible and respectful and it is up to you to decide what you do with it. 
 
 <p align="center">
   <img src="media/logopic.png" width="150px">

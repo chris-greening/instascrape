@@ -5,7 +5,6 @@ import json
 import csv
 from abc import ABC, abstractmethod
 from typing import Union, Dict, List, Any
-import warnings
 import sys
 import os
 
@@ -20,8 +19,6 @@ from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 # pylint: disable=no-member
 
 JSONDict = Dict[str, Any]
-warnings.simplefilter("always", DeprecationWarning)
-
 
 class _StaticHtmlScraper(ABC):
     """
