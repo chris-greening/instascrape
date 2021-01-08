@@ -29,7 +29,7 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
 
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
+    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
         """
         Scrape the Post data from the given source and load as instance attributes
 

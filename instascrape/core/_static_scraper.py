@@ -76,7 +76,7 @@ class _StaticHtmlScraper(ABC):
         keys: List[str] = None,
         exclude: List[str] = None,
         headers={
-            "User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+            "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
         },
     ) -> None:
         """
@@ -256,6 +256,7 @@ class _StaticHtmlScraper(ABC):
         string_type_map = [("https://", "url"), ("window._sharedData", "html"), ('{"config"', "JSON dict str")]
         for substr, str_type in string_type_map:
             if substr in string_data:
+                #BUG: !DOCTYPE isnt returned in selenium source code, use </html> as secondary identifier instead
                 if substr == "https://" and "!DOCTYPE" in string_data:
                     continue
                 break
