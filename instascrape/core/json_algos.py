@@ -6,6 +6,8 @@ intended for top level use but instead imported for top level functions to lever
 from collections import deque
 from typing import Any, Dict, List, Union
 
+from bs4 import BeautifulSoup
+
 JSONDict = Dict[str, Any]
 
 class _JSONTree:
@@ -65,3 +67,14 @@ class _JSONNode:
 
     def __repr__(self) -> str:
         return str(self.json_data)
+
+
+def _parse_json_str(source: str) -> str:
+    """Return the parsed string of JSON data from the HTML"""
+    if not isinstance(source, BeautifulSoup):
+        soup = BeautifulSoup(source, features="html.parser")
+    json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
+    left_index = json_script.find("{")
+    right_index = json_script.rfind("}") + 1
+    json_str = json_script[left_index:right_index]
+    return json_str

@@ -5,9 +5,8 @@ from typing import Any, Dict, Union
 from collections import deque
 
 import requests
-from bs4 import BeautifulSoup
 
-from instascrape.core.json_algos import _JSONTree
+from instascrape.core.json_algos import _JSONTree, _parse_json_str
 
 JSONDict = Dict[str, Any]
 
@@ -42,7 +41,7 @@ def flatten_dict(json_dict: JSONDict) -> JSONDict:
         flattened_dict[new_key] = list(leaf_node.json_data.values())[0]
     return flattened_dict
 
-def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True, json_index = 0, flatten=False) -> Union[JSONDict, str]:
+def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, json_index = 0, flatten=False) -> Union[JSONDict, str]:
     """
     Return JSON data parsed from Instagram source HTML
 
@@ -62,7 +61,7 @@ def json_from_html(source: Union[str, BeautifulSoup], as_dict: bool = True, json
 
     amt_json_dicts = source.count("window._shared")
     for i in range(0, amt_json_dicts):
-        json_str = _get_json_str(source=source)
+        json_str = _parse_json_str(source=source)
 
         # If matches, break otherwise replace and look for next JSON dict
         if i == json_index:
@@ -124,14 +123,6 @@ def json_from_url(
     source = requests.get(url, headers=headers).text
     return json_from_html(source, as_dict=as_dict, json_index=json_index, flatten=flatten)
 
-def _get_json_str(source: str) -> str:
-    """Return the parsed string of JSON data from the HTML"""
-    if not isinstance(source, BeautifulSoup):
-        soup = BeautifulSoup(source, features="html.parser")
-    json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
-    left_index = json_script.find("{")
-    right_index = json_script.rfind("}") + 1
-    json_str = json_script[left_index:right_index]
-    return json_str
+
 
 
