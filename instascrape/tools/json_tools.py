@@ -11,13 +11,16 @@ from instascrape.core.json_algos import _JSONTree
 
 JSONDict = Dict[str, Any]
 
-def parse_json_from_mapping(json_dict, map_dict):
+def parse_data_from_json(json_dict, map_dict):
+    """
+    Parse data from a JSON dictionary using a mapping dictionary that tells
+    the program how to parse the data
+    """
     return_data = {}
     for key in map_dict:
         steps_to_value = map_dict[key]
 
         # Loop through all steps into the JSON dict that will give us our data
-        print(key)
         first_step = steps_to_value.popleft()
         value = json_dict[first_step]
         for step in steps_to_value:
