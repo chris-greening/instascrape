@@ -38,7 +38,6 @@ class _GeneralMapping(ABC):
 
     mapping = {
         "csrf_token": deque(["csrf_token"]),
-        "viewer": deque(["viewer"]),
         "viewer_id": deque(["viewerId"]),
         "country_code": deque(["country_code"]),
         "language_code": deque(["language_code"]),
