@@ -10,14 +10,13 @@ from typing import Any, Dict
 
 JSONDict = Dict[str, Any]
 
+DEFAULT_VAL = float("nan")
 
-class _JsonEngine:
+class JSONEngine:
     """
     Engine for crunching JSON dictionary's using a system of mapping directives
     to access the JSON with a key value for the end user
     """
-
-    DEFAULT_VAL = float("nan")
 
     def __init__(self, json_data: JSONDict, map_dict: Dict[str, deque]) -> None:
         self.json_data = json_data
@@ -45,7 +44,7 @@ class _JsonEngine:
         try:
             value = container[current_key]
         except (KeyError, IndexError, TypeError):
-            value = self.DEFAULT_VAL
+            value = DEFAULT_VAL
 
         if len(directive_queue) == 0:
             data_dict[orig_key] = value

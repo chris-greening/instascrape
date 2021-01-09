@@ -7,14 +7,22 @@ from collections import deque
 import requests
 from bs4 import BeautifulSoup
 
-from instascrape.core._json_engine import _JsonEngine
+from instascrape.core._json_engine import JSONEngine
 from instascrape.core.json_algos import _JSONTree
 
 JSONDict = Dict[str, Any]
 
 def parse_json_from_mapping(json_dict, map_dict):
-    _json_engine = _JsonEngine(json_dict, map_dict)
-    return_data = _json_engine.parse_mapping()
+    return_data = {}
+    for key in map_dict:
+        steps_to_value = map_dict[key]
+
+        # If there is only one step, the for loop will not do anything
+        first_step = steps_to_value.popleft()
+        value = json_dict[first_step]
+        for step in steps_to_value:
+            value = json_dict[step]
+        return_data[key] = value
     return return_data
 
 def flatten_dict(json_dict: JSONDict) -> JSONDict:
