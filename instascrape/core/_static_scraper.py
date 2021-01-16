@@ -11,7 +11,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from instascrape.tools.json_tools import parse_data_from_json, determine_json_type, flatten_dict, json_from_soup
+from instascrape.scrapers.scrape_tools import parse_data_from_json, determine_json_type, flatten_dict, json_from_soup
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 # pylint: disable=no-member

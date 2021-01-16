@@ -16,7 +16,7 @@ import requests
 
 from instascrape.core._mappings import _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
-from instascrape.tools.json_tools import parse_data_from_json
+from instascrape.scrapers.scrape_tools import parse_data_from_json
 from instascrape.scrapers.comment import Comment
 
 class Post(_StaticHtmlScraper):
