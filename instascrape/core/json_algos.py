@@ -71,8 +71,11 @@ class _JSONNode:
 
 def _parse_json_str(source: str) -> str:
     """Return the parsed string of JSON data from the BeautifulSoup"""
-    json_script = [str(script) for script in source.find_all("script") if "config" in str(script)][0]
-    left_index = json_script.find("{")
-    right_index = json_script.rfind("}") + 1
-    json_str = json_script[left_index:right_index]
-    return json_str
+    json_data = []
+    json_scripts = [str(script) for script in source.find_all("script") if "config" in str(script)]
+    for script_tag in json_scripts:
+        left_index = script_tag.find("{")
+        right_index = script_tag.rfind("}") + 1
+        json_str = script_tag[left_index:right_index]
+        json_data.append(json_str)
+    return json_data

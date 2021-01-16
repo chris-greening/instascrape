@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 from typing import Union, Dict, List, Any
 import sys
 import os
+from collections import namedtuple
 
 import requests
 from bs4 import BeautifulSoup
@@ -41,6 +42,8 @@ class _StaticHtmlScraper(ABC):
     ]
     _ASSOCIATED_JSON_TYPE = None
 
+    session = requests.Session()
+
     def __init__(self, source: Union[str, BeautifulSoup, JSONDict]) -> None:
         """
         Parameters
@@ -73,7 +76,9 @@ class _StaticHtmlScraper(ABC):
         headers={
             "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
         },
-
+        inplace=True,
+        session=None,
+        webdriver=None
     ) -> None:
         """
         Scrape data from self.source and load as instance attributes
@@ -91,6 +96,10 @@ class _StaticHtmlScraper(ABC):
         """
         if mapping is None:
             mapping = self._Mapping
+        if session is None:
+            session = self.session
+        if webdriver is not None:
+            session = webdriver
         if keys is None:
             keys = []
         if exclude is None:
@@ -101,13 +110,19 @@ class _StaticHtmlScraper(ABC):
         if isinstance(self.source, type(self)):
             scraped_dict = self.source.to_dict()
         else:
-            self.json_dict = self._get_json_from_source(self.source, headers=headers)
-            self.flat_json_dict = flatten_dict(self.json_dict)
+            return_data = self._get_json_from_source(self.source, headers=headers, session=session)
+            flat_json_dict = flatten_dict(return_data["json_dict"])
             scraped_dict = parse_data_from_json(
-                json_dict=self.flat_json_dict,
+                json_dict=flat_json_dict,
                 map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
             )
-        self._load_into_namespace(scraped_dict)
+        return_data["scrape_timestamp"] = datetime.datetime.now()
+        return_instance = self._load_into_namespace(
+                            scraped_dict=scraped_dict,
+                            return_data=return_data,
+                            inplace=inplace
+        )
+        return None if return_instance is self else return_instance
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         """
@@ -162,9 +177,10 @@ class _StaticHtmlScraper(ABC):
     def _url_from_suburl(self, suburl: str) -> str:
         pass
 
-    def _get_json_from_source(self, source: Any, headers: dict) -> JSONDict:
+    def _get_json_from_source(self, source: Any, headers: dict, session: requests.Session) -> JSONDict:
         """Parses the JSON data out from the source based on what type the source is"""
         initial_type = True
+        return_data = {"source": self.source}
         if isinstance(source, str):
             source_type = self._determine_string_type(source)
         elif isinstance(source, dict):
@@ -176,44 +192,60 @@ class _StaticHtmlScraper(ABC):
         if source_type == "suburl":
             if initial_type:
                 suburl = self.source
-            self.url = self._url_from_suburl(suburl=suburl)
+            url = self._url_from_suburl(suburl=suburl)
             source_type = "url"
             initial_type = False
+            return_data["url"] = url
 
         if source_type == "url":
             if initial_type:
-                self.url = self.source
-            self.html = self._html_from_url(url=self.url, headers=headers)
+                url = self.source
+            html = self._html_from_url(url=url, headers=headers, session=session)
             source_type = "html"
             initial_type = False
+            return_data["html"] = html
 
         if source_type == "html":
             if initial_type:
-                self.html = self.source
-            self.soup = self._soup_from_html(self.html)
+                html = self.source
+            soup = self._soup_from_html(html)
             source_type = "soup"
             initial_type = False
+            return_data["soup"] = soup
 
         if source_type == "soup":
             if initial_type:
-                self.soup = self.source
-            json_dict = json_from_soup(self.soup)
+                soup = self.source
+            json_dict_arr = json_from_soup(soup)
+            if len(json_dict_arr) == 1:
+                json_dict = json_dict_arr[0]
+            else:
+                json_dict = json_dict_arr[1]
+            self._validate_scrape(json_dict)
+            return_data["json_dict"] = json_dict
 
-        self._validate_scrape(json_dict)
+        return return_data
 
-        return json_dict
-
-    def _load_into_namespace(self, scraped_dict: dict) -> None:
+    def _load_into_namespace(self, scraped_dict: dict, return_data, inplace) -> None:
         """Loop through the scraped dictionary and set them as instance attr"""
+        instance = self if inplace else type(self)(return_data["source"])
         for key, val in scraped_dict.items():
-            setattr(self, key, val)
-        self.scrape_timestamp = datetime.datetime.now()
+            setattr(instance, key, val)
+        for key, val in return_data.items():
+            setattr(instance, key, val)
+        return instance
+
 
     @staticmethod
-    def _html_from_url(url: str, headers: dict) -> str:
+    def _html_from_url(url: str, headers: dict, session: requests.Session) -> str:
         """Return HTML from requested URL"""
-        response = requests.get(url, headers=headers)
-        return response.text
+        if isinstance(session, requests.Session):
+            response = session.get(url, headers=headers)
+            page_source = response.text
+        else:
+            session.get(url)
+            page_source = session.page_source
+        return page_source
 
     @staticmethod
     def _soup_from_html(html: str) -> BeautifulSoup:
