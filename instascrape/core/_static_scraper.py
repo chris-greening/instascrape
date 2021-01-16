@@ -11,7 +11,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from instascrape.tools.json_tools import parse_json_from_mapping, determine_json_type, flatten_dict
+from instascrape.tools.json_tools import parse_data_from_json, determine_json_type, flatten_dict
 
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
@@ -103,7 +103,7 @@ class _StaticHtmlScraper(ABC):
         else:
             self.json_dict = self._get_json_from_source(self.source, headers=headers)
             self.flat_json_dict = flatten_dict(self.json_dict)
-            scraped_dict = parse_json_from_mapping(
+            scraped_dict = parse_data_from_json(
                 json_dict=self.flat_json_dict,
                 map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
             )
