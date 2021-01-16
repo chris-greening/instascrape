@@ -11,8 +11,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from instascrape.tools.json_tools import parse_data_from_json, determine_json_type, flatten_dict
-
+from instascrape.tools.json_tools import parse_data_from_json, determine_json_type, flatten_dict, json_from_soup
 from instascrape.exceptions.exceptions import InstagramLoginRedirectError
 
 # pylint: disable=no-member
@@ -197,14 +196,9 @@ class _StaticHtmlScraper(ABC):
         if source_type == "soup":
             if initial_type:
                 self.soup = self.source
-            json_dict_str = self._json_str_from_soup(self.soup)
-            source_type = "JSON dict str"
-            initial_type = False
+            json_dict = json_from_soup(self.soup)
 
-        if source_type == "JSON dict str":
-            if initial_type:
-                json_dict_str = self.source
-            json_dict = self._dict_from_json_str(json_dict_str)
+        self._validate_scrape(json_dict)
 
         return json_dict
 
@@ -225,26 +219,14 @@ class _StaticHtmlScraper(ABC):
         """Return BeautifulSoup from source HTML"""
         return BeautifulSoup(html, features="html.parser")
 
-    @staticmethod
-    def _json_str_from_soup(soup: BeautifulSoup) -> str:
-        """Return serialized JSON from BeautifulSoup"""
-        json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
-        left_index = json_script.find("{")
-        right_index = json_script.rfind("}") + 1
-        json_str = json_script[left_index:right_index]
-
-        return json_str
-
-    def _dict_from_json_str(self, json_str: str) -> JSONDict:
-        """Return JSON dict from serialized JSON string"""
-        json_dict = json.loads(json_str)
+    def _validate_scrape(self, json_dict: str) -> JSONDict:
+        """Raise exceptions if the scrape did not properly execute"""
         json_type = determine_json_type(json_dict)
         if json_type == "LoginAndSignupPage" and not type(self).__name__ == "LoginAndSignupPage":
             raise InstagramLoginRedirectError
         elif json_type == "HttpErrorPage" and not type(self).__name__ == "HttpErrorPage":
             source_str = self.url if hasattr(self, "url") else "Source"
             raise ValueError(f"{source_str} is not a valid Instagram page. Please provide a valid argument.")
-        return json_dict
 
     @staticmethod
     def _determine_string_type(string_data: str) -> str:
