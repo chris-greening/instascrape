@@ -66,27 +66,17 @@ def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, js
     """
 
     soup = BeautifulSoup(source, features="html.parser")
-    json_data = json_from_soup(source=soup, as_dict=as_dict, json_index=json_index, flatten=flatten)
+    json_data = json_from_soup(source=soup, as_dict=as_dict, flatten=flatten)
     return json_data
 
-def json_from_soup(source, as_dict: bool = True, json_index=0, flatten=False):
+def json_from_soup(source, as_dict: bool = True, flatten=False):
+    json_data = _parse_json_str(source=source)
 
-    raw_html = str(source)
-    amt_json_dicts = raw_html.count("window._shared")
-    for i in range(0, amt_json_dicts):
-        json_str = _parse_json_str(source=source)
-
-        # If matches, break otherwise replace and look for next JSON dict
-        if i == json_index:
-            break
-        raw_html = raw_html.replace(json_str, "")
-        source = BeautifulSoup(raw_html, features="html.parser")
-    else:
-        raise IndexError(f"{json_index} is not in valid range, pick value between 0 and {amt_json_dicts}")
-
-    json_data = json.loads(json_str) if as_dict else json_str
+    if as_dict:
+        json_data = [json.loads(json_str) for json_str in json_data]
     if flatten:
-        json_data = flatten_dict(json_data)
+        json_data = [flatten_dict(json_dict) for json_dict in json_data]
+
     return json_data
 
 def determine_json_type(json_data: Union[JSONDict, str]) -> str:
@@ -106,7 +96,10 @@ def determine_json_type(json_data: Union[JSONDict, str]) -> str:
     """
     if not isinstance(json_data, dict):
         json_data = json.loads(json_data)
-    instagram_type = list(json_data["entry_data"])[0]
+    try:
+        instagram_type = list(json_data["entry_data"])[0]
+    except KeyError:
+        instagram_type = "Inconclusive"
     return instagram_type
 
 def json_from_url(
