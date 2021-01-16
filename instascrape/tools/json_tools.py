@@ -5,6 +5,7 @@ from typing import Any, Dict, Union
 from collections import deque
 
 import requests
+from bs4 import BeautifulSoup
 
 from instascrape.core.json_algos import _JSONTree, _parse_json_str
 
@@ -59,14 +60,22 @@ def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, js
         or just the string serialization
     """
 
-    amt_json_dicts = source.count("window._shared")
+    soup = BeautifulSoup(source, features="html.parser")
+    json_data = json_from_soup(source=soup, as_dict=as_dict, json_index=json_index, flatten=flatten)
+    return json_data
+
+def json_from_soup(source, as_dict: bool = True, json_index=0, flatten=False):
+
+    raw_html = str(source)
+    amt_json_dicts = raw_html.count("window._shared")
     for i in range(0, amt_json_dicts):
         json_str = _parse_json_str(source=source)
 
         # If matches, break otherwise replace and look for next JSON dict
         if i == json_index:
             break
-        source = source.replace(json_str, "")
+        raw_html = raw_html.replace(json_str, "")
+        source = BeautifulSoup(raw_html, features="html.parser")
     else:
         raise IndexError(f"{json_index} is not in valid range, pick value between 0 and {amt_json_dicts}")
 
