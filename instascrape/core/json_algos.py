@@ -70,10 +70,8 @@ class _JSONNode:
 
 
 def _parse_json_str(source: str) -> str:
-    """Return the parsed string of JSON data from the HTML"""
-    if not isinstance(source, BeautifulSoup):
-        soup = BeautifulSoup(source, features="html.parser")
-    json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
+    """Return the parsed string of JSON data from the BeautifulSoup"""
+    json_script = [str(script) for script in source.find_all("script") if "config" in str(script)][0]
     left_index = json_script.find("{")
     right_index = json_script.rfind("}") + 1
     json_str = json_script[left_index:right_index]
