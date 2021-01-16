@@ -52,7 +52,7 @@ class Post(_StaticHtmlScraper):
 
         if mapping is None:
             self.tagged_users = self._parse_tagged_users(self.json_dict)
-            self.hashtags = self._parse_hashtags(self.caption)
+            self.hashtags = self._parse_hashtags(self.caption) if isinstance(self.caption, str) else float("nan")
             try:
                 if math.isnan(self.full_name):
                     self.full_name = self.flat_json_dict["full_name"]
