@@ -25,7 +25,18 @@ class Post(_StaticHtmlScraper):
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
 
-    def scrape(self, mapping=None, keys: List[str] = None, exclude: List[str] = None, headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"}) -> None:
+    def scrape(
+            self,
+            mapping=None,
+            keys: List[str] = None,
+            exclude: List[str] = None,
+            headers={
+                "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+            },
+            inplace=True,
+            session=None,
+            webdriver=None
+        ) -> None:
         """
         Scrape the Post data from the given source and load as instance attributes
 
@@ -43,21 +54,32 @@ class Post(_StaticHtmlScraper):
         # pylint: disable=no-member, attribute-defined-outside-init
         if hasattr(self, "shortcode"):
             self.source = self.shortcode
-        super().scrape(mapping=mapping, keys=keys, exclude=exclude, headers=headers)
+        return_instance = super().scrape(
+                            mapping=mapping,
+                            keys=keys,
+                            exclude=exclude,
+                            headers=headers,
+                            inplace=inplace,
+                            session=session,
+                            webdriver=webdriver
+                        )
+        if return_instance is None:
+            return_instance = self
 
         # HACK: This isn't a very clean solution and there is certainly a better
         # way to deal with returning a Post object with only partial data
-        if hasattr(self, "timestamp"):
-            self.upload_date = datetime.datetime.fromtimestamp(self.timestamp)
+        if hasattr(return_instance, "timestamp"):
+            return_instance.upload_date = datetime.datetime.fromtimestamp(return_instance.timestamp)
 
         if mapping is None:
-            self.tagged_users = self._parse_tagged_users(self.json_dict)
-            self.hashtags = self._parse_hashtags(self.caption) if isinstance(self.caption, str) else float("nan")
+            return_instance.tagged_users = self._parse_tagged_users(return_instance.json_dict)
+            return_instance.hashtags = self._parse_hashtags(return_instance.caption) if isinstance(return_instance.caption, str) else float("nan")
             try:
-                if math.isnan(self.full_name):
-                    self.full_name = self.flat_json_dict["full_name"]
+                if math.isnan(return_instance.full_name):
+                    return_instance.full_name = return_instance.flat_json_dict["full_name"]
             except TypeError:
                 pass
+        return return_instance if return_instance is not self else None
 
     def download(self, fp: str) -> None:
         """
@@ -130,6 +152,10 @@ class Post(_StaticHtmlScraper):
 
     def _parse_tagged_users(self, json_dict: dict) -> List[str]:
         """Parse the tagged users from JSON dict containing the tagged users"""
+        if "graphql" in json_dict:
+            json_dict = [json_dict]
+            json_dict = {"PostPage": json_dict}
+            json_dict = {"entry_data": json_dict}
         tagged_arr = json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]["edge_media_to_tagged_user"][
             "edges"
         ]
