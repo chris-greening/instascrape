@@ -11,7 +11,7 @@ from instascrape.core.json_algos import _JSONTree, _parse_json_str
 
 JSONDict = Dict[str, Any]
 
-def parse_data_from_json(json_dict, map_dict):
+def parse_data_from_json(json_dict, map_dict, default_value=float('nan')):
     """
     Parse data from a JSON dictionary using a mapping dictionary that tells
     the program how to parse the data
@@ -22,10 +22,15 @@ def parse_data_from_json(json_dict, map_dict):
 
         # Loop through all steps into the JSON dict that will give us our data
         first_step = steps_to_value.popleft()
-        value = json_dict[first_step]
-        for step in steps_to_value:
-            value = json_dict[step]
-        return_data[key] = value
+        try:
+            value = json_dict[first_step]
+        except KeyError:
+            value = default_value
+        else:
+            for step in steps_to_value:
+                value = json_dict[step]
+        finally:
+            return_data[key] = value
     return return_data
 
 def flatten_dict(json_dict: JSONDict) -> JSONDict:
