@@ -49,6 +49,8 @@ class Profile(_StaticHtmlScraper):
             mapping = _PostMapping.post_from_profile_mapping()
             post = Post(json_dict)
             post.scrape(mapping=mapping)
+            post.username = self.username
+            post.full_name = self.full_name
             posts.append(post)
         return posts
 
@@ -61,6 +63,7 @@ class Profile(_StaticHtmlScraper):
         except AttributeError:
             raise AttributeError(f"{type(self)} must be scraped first")
 
+        # Go to login page and pause for user to manually enter login information
         if login_first:
             webdriver.get("https://www.instagram.com")
             time.sleep(login_pause)
@@ -72,7 +75,6 @@ class Profile(_StaticHtmlScraper):
         scroll_attempts = 0
         last_position = webdriver.execute_script(JS_PAGE_LENGTH_SCRIPT)
         while scroll_attempts < max_failed_scroll:
-            print(True)
             current_position = webdriver.execute_script(JS_SCROLL_SCRIPT)
             source_data = webdriver.page_source
             found_posts = self._separate_posts(source_data)
@@ -82,14 +84,15 @@ class Profile(_StaticHtmlScraper):
                     shortcodes.append(post.source)
                     posts.append(post)
 
-            if len(posts) == posts_len:
+            if len(posts) >= posts_len:
                 break
             if current_position == last_position:
-                print("FAIL ATTEMPT")
                 scroll_attempts += 1
             else:
                 scroll_attempts = 0
                 last_position = current_position
+
+        posts = posts[:amt_posts]
 
         scraped_posts = []
         if scrape:
