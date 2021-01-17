@@ -94,6 +94,22 @@ class _StaticHtmlScraper(ABC):
         exclude : List[str]
             List of strings that correspond to which attributes to exclude from
             being scraped
+        headers : Dict[str, str]
+            Dictionary of request headers to be passed on the GET request
+        inplace : bool
+            Determines if data modified inplace or return a new object with the
+            scraped data
+        session : requests.Session
+            Session for making the GET request
+        webdriver : selenium.webdriver.chrome.webdriver.WebDriver
+            Webdriver for scraping the page, overrides any default or passed
+            session
+
+        Returns
+        -------
+        return_instance
+            Optionally returns a scraped instance instead of modifying inplace
+            if inplace arg is True
         """
 
         if mapping is None:
