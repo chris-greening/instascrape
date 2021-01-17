@@ -54,7 +54,7 @@ class Profile(_StaticHtmlScraper):
             posts.append(post)
         return posts
 
-    def get_posts(self, webdriver, amt_posts=None, login_first=False, login_pause=60, max_failed_scroll=300, scrape=False, scrape_pause=5):
+    def get_posts(self, webdriver, amount=None, login_first=False, login_pause=60, max_failed_scroll=300, scrape=False, scrape_pause=5):
         """Return unscraped Post objects from a Profile"""
         JS_SCROLL_SCRIPT = "window.scrollTo(0, document.body.scrollHeight); var lenOfPage=document.body.scrollHeight; return lenOfPage;"
         JS_PAGE_LENGTH_SCRIPT = "var lenOfPage=document.body.scrollHeight; return lenOfPage;"
@@ -86,13 +86,15 @@ class Profile(_StaticHtmlScraper):
 
             if len(posts) >= posts_len:
                 break
+            if len(posts) >= amount:
+                break
             if current_position == last_position:
                 scroll_attempts += 1
             else:
                 scroll_attempts = 0
                 last_position = current_position
 
-        posts = posts[:amt_posts]
+        posts = posts[:amount]
 
         scraped_posts = []
         if scrape:
