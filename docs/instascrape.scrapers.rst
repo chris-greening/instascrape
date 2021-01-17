@@ -58,6 +58,15 @@ instascrape.scrapers.igtv module
    :show-inheritance:
    :inherited-members:
 
+instascrape.scrapers.scrape_tools module
+--------------------------------
+
+.. automodule:: instascrape.scrapers.scrape_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
 Module contents
 ---------------
 

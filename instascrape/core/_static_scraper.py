@@ -7,14 +7,14 @@ from abc import ABC, abstractmethod
 from typing import Union, Dict, List, Any
 import sys
 import os
+from collections import namedtuple
+import warnings
 
 import requests
 from bs4 import BeautifulSoup
 
-from instascrape.core._json_flattener import FlatJSONDict
-from instascrape.scrapers.json_tools import parse_json_from_mapping, determine_json_type
-
-from instascrape.exceptions.exceptions import InstagramLoginRedirectError
+from instascrape.scrapers.scrape_tools import parse_data_from_json, determine_json_type, flatten_dict, json_from_soup
+from instascrape.exceptions.exceptions import InstagramLoginRedirectError, MissingSessionIDWarning, MissingCookiesWarning
 
 # pylint: disable=no-member
 
@@ -42,6 +42,8 @@ class _StaticHtmlScraper(ABC):
         "source",
     ]
     _ASSOCIATED_JSON_TYPE = None
+
+    session = requests.Session()
 
     def __init__(self, source: Union[str, BeautifulSoup, JSONDict]) -> None:
         """
@@ -75,9 +77,12 @@ class _StaticHtmlScraper(ABC):
         headers={
             "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
         },
+        inplace=True,
+        session=None,
+        webdriver=None
     ) -> None:
         """
-        Scrape data from self.source and load as instance attributes
+        Scrape data from the source
 
         Parameters
         ----------
@@ -89,26 +94,67 @@ class _StaticHtmlScraper(ABC):
         exclude : List[str]
             List of strings that correspond to which attributes to exclude from
             being scraped
+        headers : Dict[str, str]
+            Dictionary of request headers to be passed on the GET request
+        inplace : bool
+            Determines if data modified inplace or return a new object with the
+            scraped data
+        session : requests.Session
+            Session for making the GET request
+        webdriver : selenium.webdriver.chrome.webdriver.WebDriver
+            Webdriver for scraping the page, overrides any default or passed
+            session
+
+        Returns
+        -------
+        return_instance
+            Optionally returns a scraped instance instead of modifying inplace
+            if inplace arg is True
         """
+
         if mapping is None:
-            mapping = self._Mapping
+            mapping = self._Mapping.return_mapping(keys=keys, exclude=exclude)
+        if session is None:
+            session = self.session
+        if webdriver is not None:
+            session = webdriver
         if keys is None:
             keys = []
         if exclude is None:
             exclude = []
+
+        if webdriver is None:
+            try:
+                if "sessionid" not in headers["cookie"]:
+                    warnings.warn(
+                        "Session ID not in cookies! It's recommended you pass a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                        MissingSessionIDWarning
+                    )
+            except KeyError:
+                warnings.warn(
+                    "Request header does not contain cookies! It's recommended you pass at least a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                    MissingCookiesWarning
+                    )
 
         # If the passed source was already an object, construct data from
         # source else parse it
         if isinstance(self.source, type(self)):
             scraped_dict = self.source.to_dict()
         else:
-            self.json_dict = self._get_json_from_source(self.source, headers=headers)
-            self.flat_json_dict = FlatJSONDict(self.json_dict)
-            scraped_dict = parse_json_from_mapping(
-                json_dict=self.flat_json_dict,
-                map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
+            return_data = self._get_json_from_source(self.source, headers=headers, session=session)
+            flat_json_dict = flatten_dict(return_data["json_dict"])
+            scraped_dict = parse_data_from_json(
+                json_dict=flat_json_dict,
+                map_dict=mapping,
             )
-        self._load_into_namespace(scraped_dict)
+        return_data["scrape_timestamp"] = datetime.datetime.now()
+        return_data["flat_json_dict"] = flat_json_dict
+        return_instance = self._load_into_namespace(
+                            scraped_dict=scraped_dict,
+                            return_data=return_data,
+                            inplace=inplace
+        )
+        return None if return_instance is self else return_instance
 
     def to_dict(self, metadata: bool = False) -> Dict[str, Any]:
         """
@@ -163,89 +209,90 @@ class _StaticHtmlScraper(ABC):
     def _url_from_suburl(self, suburl: str) -> str:
         pass
 
-    def _get_json_from_source(self, source: Any, headers: dict) -> JSONDict:
+    def _get_json_from_source(self, source: Any, headers: dict, session: requests.Session) -> JSONDict:
         """Parses the JSON data out from the source based on what type the source is"""
         initial_type = True
+        return_data = {"source": self.source}
         if isinstance(source, str):
             source_type = self._determine_string_type(source)
         elif isinstance(source, dict):
             json_dict = source
-            return json_dict
+            source_type = "json dict"
         elif isinstance(source, BeautifulSoup):
             source_type = "soup"
 
         if source_type == "suburl":
             if initial_type:
                 suburl = self.source
-            self.url = self._url_from_suburl(suburl=suburl)
+            url = self._url_from_suburl(suburl=suburl)
             source_type = "url"
             initial_type = False
+            return_data["url"] = url
 
         if source_type == "url":
             if initial_type:
-                self.url = self.source
-            self.html = self._html_from_url(url=self.url, headers=headers)
+                url = self.source
+            html = self._html_from_url(url=url, headers=headers, session=session)
             source_type = "html"
             initial_type = False
+            return_data["html"] = html
 
         if source_type == "html":
             if initial_type:
-                self.html = self.source
-            self.soup = self._soup_from_html(self.html)
+                html = self.source
+            soup = self._soup_from_html(html)
             source_type = "soup"
             initial_type = False
+            return_data["soup"] = soup
 
         if source_type == "soup":
             if initial_type:
-                self.soup = self.source
-            json_dict_str = self._json_str_from_soup(self.soup)
-            source_type = "JSON dict str"
-            initial_type = False
+                soup = self.source
+            json_dict_arr = json_from_soup(soup)
+            if len(json_dict_arr) == 1:
+                json_dict = json_dict_arr[0]
+            else:
+                json_dict = json_dict_arr[1]
+            self._validate_scrape(json_dict)
 
-        if source_type == "JSON dict str":
-            if initial_type:
-                json_dict_str = self.source
-            json_dict = self._dict_from_json_str(json_dict_str)
+        return_data["json_dict"] = json_dict
 
-        return json_dict
+        return return_data
 
-    def _load_into_namespace(self, scraped_dict: dict) -> None:
+    def _load_into_namespace(self, scraped_dict: dict, return_data, inplace) -> None:
         """Loop through the scraped dictionary and set them as instance attr"""
+        instance = self if inplace else type(self)(return_data["source"])
         for key, val in scraped_dict.items():
-            setattr(self, key, val)
-        self.scrape_timestamp = datetime.datetime.now()
+            setattr(instance, key, val)
+        for key, val in return_data.items():
+            setattr(instance, key, val)
+        return instance
+
 
     @staticmethod
-    def _html_from_url(url: str, headers: dict) -> str:
+    def _html_from_url(url: str, headers: dict, session: requests.Session) -> str:
         """Return HTML from requested URL"""
-        response = requests.get(url, headers=headers)
-        return response.text
+        if isinstance(session, requests.Session):
+            response = session.get(url, headers=headers)
+            page_source = response.text
+        else:
+            session.get(url)
+            page_source = session.page_source
+        return page_source
 
     @staticmethod
     def _soup_from_html(html: str) -> BeautifulSoup:
         """Return BeautifulSoup from source HTML"""
         return BeautifulSoup(html, features="html.parser")
 
-    @staticmethod
-    def _json_str_from_soup(soup: BeautifulSoup) -> str:
-        """Return serialized JSON from BeautifulSoup"""
-        json_script = [str(script) for script in soup.find_all("script") if "config" in str(script)][0]
-        left_index = json_script.find("{")
-        right_index = json_script.rfind("}") + 1
-        json_str = json_script[left_index:right_index]
-
-        return json_str
-
-    def _dict_from_json_str(self, json_str: str) -> JSONDict:
-        """Return JSON dict from serialized JSON string"""
-        json_dict = json.loads(json_str)
+    def _validate_scrape(self, json_dict: str) -> JSONDict:
+        """Raise exceptions if the scrape did not properly execute"""
         json_type = determine_json_type(json_dict)
         if json_type == "LoginAndSignupPage" and not type(self).__name__ == "LoginAndSignupPage":
             raise InstagramLoginRedirectError
         elif json_type == "HttpErrorPage" and not type(self).__name__ == "HttpErrorPage":
             source_str = self.url if hasattr(self, "url") else "Source"
             raise ValueError(f"{source_str} is not a valid Instagram page. Please provide a valid argument.")
-        return json_dict
 
     @staticmethod
     def _determine_string_type(string_data: str) -> str:

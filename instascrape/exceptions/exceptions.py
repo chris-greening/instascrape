@@ -6,7 +6,7 @@ class InstagramLoginRedirectError(Exception):
 
     def __init__(
         self,
-        message="Instagram is redirecting you to the login page instead of the page you are trying to scrape. This could be occuring because you 1. made too many requests too quickly or 2. are not logged into Instagram on your machine.",
+        message="Instagram is redirecting you to the login page instead of the page you are trying to scrape. This could be occuring because you made too many requests too quickly or are not logged into Instagram on your machine. Try passing a valid session ID to the scrape method as a cookie to bypass the login requirement",
     ):
         super().__init__(message)
 
@@ -19,3 +19,10 @@ class WrongSourceError(Exception):
 
     def __init__(self, message="Wrong input source, use the correct class"):
         super().__init__(message)
+
+
+class MissingSessionIDWarning(UserWarning):
+    pass
+
+class MissingCookiesWarning(UserWarning):
+    pass

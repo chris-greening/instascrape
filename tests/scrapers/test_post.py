@@ -14,16 +14,21 @@ from instascrape import Post
 class TestPost:
     @pytest.fixture
     def url(self):
-        return "https://www.instagram.com/p/CGX0G64hu4Q/"
+        return "https://www.instagram.com/p/CJpBmOtAmNr/"
+
+    @pytest.fixture(scope="session")
+    def headers(self):
+        return {"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57",
+                "cookie": f"sessionid={os.environ.get('sessionid')};"}
 
     @pytest.fixture
-    def get_request(self, url):
-        return requests.get(url, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"})
+    def get_request(self, url, headers):
+        return requests.get(url, headers=headers)
 
     @pytest.fixture
-    def page_instance(self, url):
+    def page_instance(self, url, headers):
         random_google_post = Post(url)
-        random_google_post.scrape()
+        random_google_post.scrape(headers=headers)
         return random_google_post
 
     def test_from_html(self, get_request, page_instance):

@@ -6,6 +6,7 @@ Hashtag
 from __future__ import annotations
 
 from typing import List
+import time
 
 from instascrape.core._mappings import _HashtagMapping, _PostMapping
 from instascrape.core._static_scraper import _StaticHtmlScraper
