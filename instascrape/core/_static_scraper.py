@@ -82,7 +82,7 @@ class _StaticHtmlScraper(ABC):
         webdriver=None
     ) -> None:
         """
-        Scrape data from self.source and load as instance attributes
+        Scrape data from the source
 
         Parameters
         ----------

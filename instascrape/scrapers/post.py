@@ -38,7 +38,7 @@ class Post(_StaticHtmlScraper):
             webdriver=None
         ) -> None:
         """
-        Scrape the Post data from the given source and load as instance attributes
+        Scrape data from the source
 
         Parameters
         ----------
@@ -50,6 +50,22 @@ class Post(_StaticHtmlScraper):
         exclude : List[str]
             List of strings that correspond to which attributes to exclude from
             being scraped
+        headers : Dict[str, str]
+            Dictionary of request headers to be passed on the GET request
+        inplace : bool
+            Determines if data modified inplace or return a new object with the
+            scraped data
+        session : requests.Session
+            Session for making the GET request
+        webdriver : selenium.webdriver.chrome.webdriver.WebDriver
+            Webdriver for scraping the page, overrides any default or passed
+            session
+
+        Returns
+        -------
+        return_instance
+            Optionally returns a scraped instance instead of modifying inplace
+            if inplace arg is True
         """
         # pylint: disable=no-member, attribute-defined-outside-init
         if hasattr(self, "shortcode"):
