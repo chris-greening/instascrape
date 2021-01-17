@@ -88,13 +88,10 @@ class Profile(_StaticHtmlScraper):
         # Determine how many posts are available on the page
         try:
             posts_len = self.posts
-<<<<<<< Updated upstream
-=======
             if amount is None:
                 amount = posts_len
             if amount > posts_len:
                 raise ValueError(f"{amount} posts requested but {self.username} only has {posts_len} posts")
->>>>>>> Stashed changes
         except AttributeError:
             raise AttributeError(f"{type(self)} must be scraped first")
 
