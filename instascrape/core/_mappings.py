@@ -37,20 +37,20 @@ class _GeneralMapping(ABC):
     """
 
     mapping = {
-        "csrf_token": deque(["csrf_token"]),
-        "viewer_id": deque(["viewerId"]),
-        "country_code": deque(["country_code"]),
-        "language_code": deque(["language_code"]),
-        "locale": deque(["locale"]),
-        "device_id": deque(["device_id"]),
-        "browser_push_pub_key": deque(["browser_push_pub_key"]),
-        "key_id": deque(["key_id"]),
-        "public_key": deque(["public_key"]),
-        "version": deque(["version"]),
-        "is_dev": deque(["is_dev"]),
-        "rollout_hash": deque(["rollout_hash"]),
-        "bundle_variant": deque(["bundle_variant"]),
-        "frontend_dev": deque(["frontend_env"]),
+        # "csrf_token": deque(["csrf_token"]),
+        # "viewer_id": deque(["viewerId"]),
+        # "country_code": deque(["country_code"]),
+        # "language_code": deque(["language_code"]),
+        # "locale": deque(["locale"]),
+        # "device_id": deque(["device_id"]),
+        # "browser_push_pub_key": deque(["browser_push_pub_key"]),
+        # "key_id": deque(["key_id"]),
+        # "public_key": deque(["public_key"]),
+        # "version": deque(["version"]),
+        # "is_dev": deque(["is_dev"]),
+        # "rollout_hash": deque(["rollout_hash"]),
+        # "bundle_variant": deque(["bundle_variant"]),
+        # "frontend_dev": deque(["frontend_env"]),
     }
 
     @classmethod
