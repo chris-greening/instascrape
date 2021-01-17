@@ -31,7 +31,7 @@ Here are a few of the things that `instascrape` does well:
 * Designed for seamless integration with [_Selenium_](https://selenium-python.readthedocs.io/), [_Pandas_](https://pandas.pydata.org/), and other industry standard tools for data collection and analysis
 * Lightweight; no boilerplate or configurations necessary 
 * The only hard dependencies are [_Requests_](https://requests.readthedocs.io/en/master/) and [_Beautiful Soup_](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-* Proven to work as of December, 2020
+* Proven to work as of January, 2021
 ---
 
 ## Table of Contents
