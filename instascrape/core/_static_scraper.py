@@ -107,17 +107,18 @@ class _StaticHtmlScraper(ABC):
         if exclude is None:
             exclude = []
 
-        try:
-            if "sessionid" not in headers["cookie"]:
+        if webdriver is None:
+            try:
+                if "sessionid" not in headers["cookie"]:
+                    warnings.warn(
+                        "Session ID not in cookies! It's recommended you pass a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                        MissingSessionIDWarning
+                    )
+            except KeyError:
                 warnings.warn(
-                    "Session ID not in cookies! It's recommended you pass a valid sessionid otherwise Instagram will likely redirect you to their login page.",
-                    MissingSessionIDWarning
-                )
-        except KeyError:
-            warnings.warn(
-                "Request header does not contain cookies! It's recommended you pass at least a valid sessionid otherwise Instagram will likely redirect you to their login page.",
-                MissingCookiesWarning
-                )
+                    "Request header does not contain cookies! It's recommended you pass at least a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                    MissingCookiesWarning
+                    )
 
         # If the passed source was already an object, construct data from
         # source else parse it
