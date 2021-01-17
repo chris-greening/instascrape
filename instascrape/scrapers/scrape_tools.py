@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, Callable, List
 from collections import deque
 
 import requests
@@ -148,5 +148,26 @@ def json_from_url(
     return json_from_html(source, as_dict=as_dict, flatten=flatten)
 
 
+def scrape_posts(
+        posts: List["Post"],
+        session: requests.Session = None,
+        webdriver: "selenium.webdriver.chrome.webdriver.WebDriver" = None,
+        min_date: "datetime.datetime" = None,
+        amount: int = None,
+        headers: dict = {
+            "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+        },
+        inplace: bool = False,
+        return_unscraped: bool = False,
+        custom_stop_func: Callable = None
+    ):
 
-
+    # Default settings check
+    if session is None:
+        pass
+    if webdriver is None:
+        pass
+    if min_date is None:
+        pass
+    if amount is None:
+        pass
