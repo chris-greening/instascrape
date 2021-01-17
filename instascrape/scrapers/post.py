@@ -70,10 +70,12 @@ class Post(_StaticHtmlScraper):
         # way to deal with returning a Post object with only partial data
         if hasattr(return_instance, "timestamp"):
             return_instance.upload_date = datetime.datetime.fromtimestamp(return_instance.timestamp)
+        if hasattr(return_instance, "shortcode"):
+            return_instance.url = self._url_from_suburl(return_instance.shortcode)
 
         if mapping is None:
-            return_instance.tagged_users = self._parse_tagged_users(return_instance.json_dict)
-            return_instance.hashtags = self._parse_hashtags(return_instance.caption) if isinstance(return_instance.caption, str) else float("nan")
+            return_instance.tagged_users = return_instance._parse_tagged_users(return_instance.json_dict)
+            return_instance.hashtags = return_instance._parse_hashtags(return_instance.caption) if isinstance(return_instance.caption, str) else float("nan")
             try:
                 if math.isnan(return_instance.full_name):
                     return_instance.full_name = return_instance.flat_json_dict["full_name"]
