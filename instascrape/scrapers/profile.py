@@ -136,10 +136,6 @@ class Profile(_StaticHtmlScraper):
         # Remove excess posts from right of list
         posts = posts[:amount]
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         # If scrape arg is True, scrape all posts using webdriver
         scraped_posts = []
         if scrape:
