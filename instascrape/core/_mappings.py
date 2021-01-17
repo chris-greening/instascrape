@@ -125,7 +125,7 @@ class _PostMapping(_GeneralMapping):
             "has_audio": deque(["has_audio"]),
             "video_view_count": deque(["video_view_count"]),
             "username": deque(["shortcode_media_owner_username"]),
-            "full_name": deque(["owner_full_name"]),
+            "full_name": deque(['owner_full_name']),
         }
     )
 
@@ -150,7 +150,7 @@ class _PostMapping(_GeneralMapping):
             "comments_disabled": deque(["comments_disabled"]),
             "upload_date": deque(["taken_at_timestamp"]),
             "likes": deque(["edge_media_preview_like", "count"]),
-            "location": deque(["location", "name"]),
+            "location": deque(["location"]),
         }
 
     @classmethod
@@ -207,7 +207,7 @@ class _ProfileMapping(_GeneralMapping):
             "followed_by_viewer": deque(["followed_by_viewer"]),
             "following": deque(["edge_follow_count"]),
             "follows_viewer": deque(["follows_viewer"]),
-            "full_name": deque(["full_name"]),
+            "full_name": deque(["user_full_name"]),
             "has_ar_effects": deque(["has_ar_effects"]),
             "has_clips": deque(["has_clips"]),
             "has_guides": deque(["has_guides"]),
@@ -227,7 +227,7 @@ class _ProfileMapping(_GeneralMapping):
             "profile_pic_url": deque(["profile_pic_url"]),
             "profile_pic_url_hd": deque(["profile_pic_url_hd"]),
             "requested_by_viewer": deque(["requested_by_viewer"]),
-            "username": deque(["username"]),
+            "username": deque(["user_username"]),
             "connected_fb_page": deque(["connected_fb_page"]),
             "posts": deque(["edge_owner_to_timeline_media_count"]),
         }

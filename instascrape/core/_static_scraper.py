@@ -8,12 +8,13 @@ from typing import Union, Dict, List, Any
 import sys
 import os
 from collections import namedtuple
+import warnings
 
 import requests
 from bs4 import BeautifulSoup
 
 from instascrape.scrapers.scrape_tools import parse_data_from_json, determine_json_type, flatten_dict, json_from_soup
-from instascrape.exceptions.exceptions import InstagramLoginRedirectError
+from instascrape.exceptions.exceptions import InstagramLoginRedirectError, MissingSessionIDWarning, MissingCookiesWarning
 
 # pylint: disable=no-member
 
@@ -94,8 +95,9 @@ class _StaticHtmlScraper(ABC):
             List of strings that correspond to which attributes to exclude from
             being scraped
         """
+
         if mapping is None:
-            mapping = self._Mapping
+            mapping = self._Mapping.return_mapping(keys=keys, exclude=exclude)
         if session is None:
             session = self.session
         if webdriver is not None:
@@ -104,6 +106,18 @@ class _StaticHtmlScraper(ABC):
             keys = []
         if exclude is None:
             exclude = []
+
+        try:
+            if "sessionid" not in headers["cookie"]:
+                warnings.warn(
+                    "Session ID not in cookies! It's recommended you pass a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                    MissingSessionIDWarning
+                )
+        except KeyError:
+            warnings.warn(
+                "Request header does not contain cookies! It's recommended you pass at least a valid sessionid otherwise Instagram will likely redirect you to their login page.",
+                MissingCookiesWarning
+                )
 
         # If the passed source was already an object, construct data from
         # source else parse it
@@ -114,9 +128,10 @@ class _StaticHtmlScraper(ABC):
             flat_json_dict = flatten_dict(return_data["json_dict"])
             scraped_dict = parse_data_from_json(
                 json_dict=flat_json_dict,
-                map_dict=self._Mapping.return_mapping(keys=keys, exclude=exclude),
+                map_dict=mapping,
             )
         return_data["scrape_timestamp"] = datetime.datetime.now()
+        return_data["flat_json_dict"] = flat_json_dict
         return_instance = self._load_into_namespace(
                             scraped_dict=scraped_dict,
                             return_data=return_data,
@@ -185,7 +200,7 @@ class _StaticHtmlScraper(ABC):
             source_type = self._determine_string_type(source)
         elif isinstance(source, dict):
             json_dict = source
-            return json_dict
+            source_type = "json dict"
         elif isinstance(source, BeautifulSoup):
             source_type = "soup"
 
@@ -222,7 +237,8 @@ class _StaticHtmlScraper(ABC):
             else:
                 json_dict = json_dict_arr[1]
             self._validate_scrape(json_dict)
-            return_data["json_dict"] = json_dict
+
+        return_data["json_dict"] = json_dict
 
         return return_data
 
