@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 
 from bs4 import BeautifulSoup
 import pytest
@@ -14,14 +15,19 @@ class TestHashtag:
     def url(self):
         return "https://www.instagram.com/tags/kotlin/"
 
-    @pytest.fixture
-    def get_request(self, url):
-        return requests.get(url, headers={"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"})
+    @pytest.fixture(scope="session")
+    def headers(self):
+        return {"User-Agent": "user-agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57",
+                "cookie": f"sessionid={os.environ.get('sessionid')};"}
 
     @pytest.fixture
-    def page_instance(self, url):
+    def get_request(self, url, headers):
+        return requests.get(url, headers=headers)
+
+    @pytest.fixture
+    def page_instance(self, url, headers):
         random_hashtag = Hashtag(url)
-        random_hashtag.scrape()
+        random_hashtag.scrape(headers=headers)
         return random_hashtag
 
     def test_from_html(self, get_request, page_instance):
