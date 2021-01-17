@@ -34,7 +34,19 @@ def parse_data_from_json(json_dict, map_dict, default_value=float('nan')):
     return return_data
 
 def flatten_dict(json_dict: JSONDict) -> JSONDict:
-    """Returns a flattened dictionary of data"""
+    """
+    Returns a flattened dictionary of data
+
+    Parameters
+    ----------
+    json_dict : dict
+        Input dictionary for flattening
+
+    Returns
+    -------
+    flattened_dict : dict
+        Flattened dictionary
+    """
     json_tree = _JSONTree(json_dict)
     flattened_dict = {}
     for leaf_node in json_tree.leaf_nodes:
@@ -47,7 +59,7 @@ def flatten_dict(json_dict: JSONDict) -> JSONDict:
         flattened_dict[new_key] = list(leaf_node.json_data.values())[0]
     return flattened_dict
 
-def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, json_index = 0, flatten=False) -> Union[JSONDict, str]:
+def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, flatten=False) -> Union[JSONDict, str]:
     """
     Return JSON data parsed from Instagram source HTML
 
@@ -57,6 +69,8 @@ def json_from_html(source: Union[str, "BeautifulSoup"], as_dict: bool = True, js
         Instagram HTML source code to parse the JSON from
     as_dict : bool = True
         Return JSON as dict if True else return JSON as string
+    flatten : bool
+        Flatten the dictionary prior to returning it
 
     Returns
     -------
@@ -108,7 +122,6 @@ def json_from_url(
     headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
     },
-    json_index=0,
     flatten=False
 ) -> Union[JSONDict, str]:
     """
@@ -120,6 +133,10 @@ def json_from_url(
         URL of the page to get the JSON data from
     as_dict : bool = True
         Return JSON as dict if True else return JSON as string
+    headers : Dict[str, str]
+            Dictionary of request headers to be passed on the GET request
+    flatten : bool
+        Flatten the dictionary prior to returning it
 
     Returns
     -------
@@ -128,7 +145,7 @@ def json_from_url(
         or just the string serialization
     """
     source = requests.get(url, headers=headers).text
-    return json_from_html(source, as_dict=as_dict, json_index=json_index, flatten=flatten)
+    return json_from_html(source, as_dict=as_dict, flatten=flatten)
 
 
 
