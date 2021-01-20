@@ -160,13 +160,13 @@ def scrape_posts(
         headers: dict = {
             "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
         },
-        scrape_pause: int = 5,
+        pause: int = 5,
         on_exception: str = "raise",
         silent: bool = True,
         inplace: bool = False
     ):
 
-    # Copy instances if not inplace otherwise directly modify
+    # Default setup
     if not inplace:
         posts = copy.deepcopy(posts)
     if limit is None:
@@ -174,6 +174,7 @@ def scrape_posts(
 
     scraped_posts = []
     for i, post in enumerate(posts):
+        temporary_post = copy.deepcopy(post)
         try:
             post.scrape(session=session, webdriver=webdriver, headers=headers)
             scraped_posts.append(post)
@@ -181,24 +182,31 @@ def scrape_posts(
             if on_exception == "raise":
                 raise
             elif on_exception == "pass":
+                if not silent:
+                    print(f"PASSING EXCEPTION: {e}")
                 pass
             elif on_exception == "return":
+                if not silent:
+                    print(f"{e}, RETURNING SCRAPED AND UNSCRAPED")
                 break
-
-        if _stop_scraping(limit, post, i):
-            break
         if not silent:
             output_str = f"{i}: {post.shortcode} - {post.upload_date}"
-        time.sleep(scrape_pause)
+            print(output_str)
+        if _stop_scraping(limit, post, i):
+            break
+        time.sleep(pause)
 
-    unscraped_posts = set(posts) - set(scraped_posts)
+    unscraped_posts = list(set(posts) - set(scraped_posts))
+    if not isinstance(limit, int):
+        scraped_posts.pop()
+        unscraped_posts.insert(0, temporary_post)
 
-    return scraped_posts, unscraped_posts
+    return scraped_posts, unscraped_posts if not inplace else None
 
-def _stop_scraping(limit, post, scraped_posts):
+def _stop_scraping(limit, post, i):
     stop = False
     if isinstance(limit, int):
-        if scraped_posts == limit:
+        if i == limit - 1:
             stop = True
     elif (isinstance(limit, datetime.datetime) or isinstance(limit, datetime.date)):
         if post.upload_date <= limit:
