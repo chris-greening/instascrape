@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, Callable, List
 from collections import deque
+import datetime
+from functools import partial
+import copy
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -148,5 +152,63 @@ def json_from_url(
     return json_from_html(source, as_dict=as_dict, flatten=flatten)
 
 
+def scrape_posts(
+        posts: List["Post"],
+        session: requests.Session = None,
+        webdriver: "selenium.webdriver.chrome.webdriver.WebDriver" = None,
+        limit: Union[int, datetime.datetime] = None,
+        headers: dict = {
+            "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57"
+        },
+        pause: int = 5,
+        on_exception: str = "raise",
+        silent: bool = True,
+        inplace: bool = False
+    ):
 
+    # Default setup
+    if not inplace:
+        posts = copy.deepcopy(posts)
+    if limit is None:
+        limit = len(posts)
 
+    scraped_posts = []
+    for i, post in enumerate(posts):
+        temporary_post = copy.deepcopy(post)
+        try:
+            post.scrape(session=session, webdriver=webdriver, headers=headers)
+            scraped_posts.append(post)
+        except Exception as e:
+            if on_exception == "raise":
+                raise
+            elif on_exception == "pass":
+                if not silent:
+                    print(f"PASSING EXCEPTION: {e}")
+                pass
+            elif on_exception == "return":
+                if not silent:
+                    print(f"{e}, RETURNING SCRAPED AND UNSCRAPED")
+                break
+        if not silent:
+            output_str = f"{i}: {post.shortcode} - {post.upload_date}"
+            print(output_str)
+        if _stop_scraping(limit, post, i):
+            break
+        time.sleep(pause)
+
+    unscraped_posts = list(set(posts) - set(scraped_posts))
+    if not isinstance(limit, int):
+        scraped_posts.pop()
+        unscraped_posts.insert(0, temporary_post)
+
+    return scraped_posts, unscraped_posts if not inplace else None
+
+def _stop_scraping(limit, post, i):
+    stop = False
+    if isinstance(limit, int):
+        if i == limit - 1:
+            stop = True
+    elif (isinstance(limit, datetime.datetime) or isinstance(limit, datetime.date)):
+        if post.upload_date <= limit:
+            stop = True
+    return stop
