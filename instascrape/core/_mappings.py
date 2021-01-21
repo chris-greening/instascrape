@@ -146,10 +146,10 @@ class _PostMapping(_GeneralMapping):
             "is_video": deque(["is_video"]),
             "accessibility_caption": deque(["accessibility_caption"]),
             "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
-            "comments": deque(["edge_media_to_comment", "count"]),
+            "comments": deque(["count"]),
             "comments_disabled": deque(["comments_disabled"]),
-            "upload_date": deque(["taken_at_timestamp"]),
-            "likes": deque(["edge_media_preview_like", "count"]),
+            "timestamp": deque(["taken_at_timestamp"]),
+            "likes": deque(["edge_media_preview_like_count"]),
             "location": deque(["location"]),
         }
 
