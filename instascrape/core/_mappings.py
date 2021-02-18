@@ -207,7 +207,7 @@ class _ProfileMapping(_GeneralMapping):
             "followed_by_viewer": deque(["followed_by_viewer"]),
             "following": deque(["edge_follow_count"]),
             "follows_viewer": deque(["follows_viewer"]),
-            "full_name": deque(["user_full_name"]),
+            "full_name": deque(["full_name"]),
             "has_ar_effects": deque(["has_ar_effects"]),
             "has_clips": deque(["has_clips"]),
             "has_guides": deque(["has_guides"]),
@@ -227,7 +227,7 @@ class _ProfileMapping(_GeneralMapping):
             "profile_pic_url": deque(["profile_pic_url"]),
             "profile_pic_url_hd": deque(["profile_pic_url_hd"]),
             "requested_by_viewer": deque(["requested_by_viewer"]),
-            "username": deque(["user_username"]),
+            "username": deque(["username"]),
             "connected_fb_page": deque(["connected_fb_page"]),
             "posts": deque(["edge_owner_to_timeline_media_count"]),
         }
