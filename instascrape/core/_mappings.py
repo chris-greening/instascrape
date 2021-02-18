@@ -207,7 +207,7 @@ class _ProfileMapping(_GeneralMapping):
             "followed_by_viewer": deque(["followed_by_viewer"]),
             "following": deque(["edge_follow_count"]),
             "follows_viewer": deque(["follows_viewer"]),
-            "full_name": deque(["user_full_name"]),
+            "full_name": deque(["full_name"]),
             "has_ar_effects": deque(["has_ar_effects"]),
             "has_clips": deque(["has_clips"]),
             "has_guides": deque(["has_guides"]),
