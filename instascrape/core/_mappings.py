@@ -227,7 +227,7 @@ class _ProfileMapping(_GeneralMapping):
             "profile_pic_url": deque(["profile_pic_url"]),
             "profile_pic_url_hd": deque(["profile_pic_url_hd"]),
             "requested_by_viewer": deque(["requested_by_viewer"]),
-            "username": deque(["user_username"]),
+            "username": deque(["username"]),
             "connected_fb_page": deque(["connected_fb_page"]),
             "posts": deque(["edge_owner_to_timeline_media_count"]),
         }
