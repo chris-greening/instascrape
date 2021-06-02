@@ -6,4 +6,4 @@ lxml==4.6.2
 pytest==6.1.1
 requests==2.24.0
 soupsieve==2.0.1
-urllib3==1.25.10
+urllib3==1.26.5
