@@ -228,9 +228,17 @@ class Post(_StaticHtmlScraper):
         comments_arr : List[Comment]
             List of Comment objects
         """
-        list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
-            "edge_media_to_parent_comment"
-        ]["edges"]
+        # HACK:
+        # The JSON is structured differently if the scrape is performed using a
+        # WebDriver or Session.
+        try:
+            list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
+                "edge_media_to_parent_comment"
+            ]["edges"]
+        except KeyError:
+            list_of_dicts = self.json_dict["graphql"]["shortcode_media"][
+                "edge_media_to_parent_comment"
+            ]["edges"]
         comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
         return comments_arr
 
