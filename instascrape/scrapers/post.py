@@ -168,6 +168,7 @@ class Post(_StaticHtmlScraper):
             outdir: Union[pathlib.Path, str] = '.',
             fmt: Optional[Callable[[Post, str, bool, int], str]] = None,
             allow_non_carousel: bool = False,
+            skip_exists: bool = True,
     ) -> None:
         """
         Download all images in a post's carousel.
@@ -192,12 +193,19 @@ class Post(_StaticHtmlScraper):
             If ``True``, treat non-carousel media as if it were a carousel post
             with a single item. Use this option if you don't care whether a post is
             a carousel post or not and just want to download it anyway.
+        skip_exists : bool, optional
+            If ``True``, skip existing files (i.e. do not try to re-download
+            them). If ``False``, raise an error if a file exists.
 
         Raises
         ------
         ValueError
             If this post is not a carousel and ``allow_non_carousel`` is ``False``,
             raise a ``ValueError``.
+        FileExistsError
+            If ``skip_exists=False`` and one of the output filenames already
+            exists, or if it exists but is not a file regardless of
+            ``skip_exists``.
         RuntimeError
             If the default ``fmt`` function is used and an unexpected file format
             (not in ``Post.SUPPORTED_DOWNLOAD_EXTENSIONS``) is encountered.
@@ -213,10 +221,26 @@ class Post(_StaticHtmlScraper):
         for i, (disp, vid) in enumerate(urls):
             is_vid = vid is not None
             disp_resp = requests.get(disp, stream=True)
-            self._download_photo(str(outdir / fmt(self, disp, is_vid, i)), disp_resp)
+            disp_fp = outdir / fmt(self, disp, is_vid, i)
+            self._validate_outpath(disp_fp, skip_exists)
+            self._download_photo(str(disp_fp), disp_resp)
             if is_vid:
                 vid_resp = requests.get(vid, stream=True)
-                self._download_video(str(outdir / fmt(self, vid, True, i)), vid_resp)
+                vid_fp = outdir / fmt(self, vid, True, i)
+                self._validate_outpath(vid_fp, skip_exists)
+                self._download_video(str(vid_fp), vid_resp)
+
+    @staticmethod
+    def _validate_outpath(out: pathlib.Path, skip_exists: bool):
+        if out.is_file():
+            if not skip_exists:
+                raise FileExistsError(f"File exists: {out}. Use "
+                                      "`skip_exists=True` to skip.")
+        elif out.exists():
+            raise FileExistsError(
+                f"Path exists but is not file: {out}. Delete it or"
+                "pick a different output name."
+            )
 
     def get_recent_comments(self) -> List[Comment]:
         """
