@@ -141,14 +141,15 @@ This library operates under the [MIT](LICENSE) license.
 
 Check out the [FAQ](https://github.com/chris-greening/instascrape/wiki/Frequently-Asked-Questions)
 
-Reach out to me if you want to connect or have any questions!
+Reach out to me if you want to connect or have any questions and I will do my best to get back to you
 * Email:
   * chris@christophergreening.com
 * Twitter:
   * [@ChrisGreening](https://twitter.com/ChrisGreening)
 * LinkedIn
   * [Chris Greening](https://www.linkedin.com/in/chris-greening-646411139/)
-
+* Personal contact form: 
+  * [www.christophergreening.com](https://www.christophergreening.com/contact)
 ---
 
 
