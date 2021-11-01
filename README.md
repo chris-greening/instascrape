@@ -5,6 +5,8 @@
 
 # _instascrape_: powerful Instagram data scraping toolkit 
 
+DISCLAIMER: _With great power comes great responsibility_. Instagram has gotten increasingly strict with scraping and using this library can result in getting flagged for botting. This is a research project and I am not responsible for how you use it. Independently, the library is designed to be responsible and respectful and it is up to you to decide what you do with it. I don't claim any responsibility if your Instagram account is affected by how you use this library.
+
 [![Version](https://img.shields.io/pypi/pyversions/insta-scrape)](https://www.python.org/downloads/release/python-360/)
 [![Downloads](https://pepy.tech/badge/insta-scrape)](https://pepy.tech/project/insta-scrape)
 [![Release](https://img.shields.io/pypi/v/insta-scrape)](https://pypi.org/project/insta-scrape/)
@@ -16,8 +18,6 @@
 
 ## What is it?
 _instascrape_ is a lightweight Python package that provides an expressive and flexible API for scraping Instagram data. It is geared towards being a high-level building block on the data scientist's toolchain and can be seamlessly integrated and extended with industry standard tools for web scraping, data science, and analysis. 
-
-DISCLAIMER: _With great power comes great responsibility_. This is a research project and I am not responsible for how you use it. Independently, the library is designed to be responsible and respectful and it is up to you to decide what you do with it. I don't claim any responsibility if your Instagram account is affected by how you use this library.
 
 <!-- ![Example showing tech profile scrapes](/media/techprofiles.gif) -->
 
