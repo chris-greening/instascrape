@@ -144,6 +144,7 @@ class _PostMapping(_GeneralMapping):
             "fact_check_overall_rating": deque(["fact_check_overall_rating"]),
             "fact_check_information": deque(["fact_check_information"]),
             "is_video": deque(["is_video"]),
+            "video_url": deque(["video_url"]),
             "accessibility_caption": deque(["accessibility_caption"]),
             "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
             "comments": deque(["count"]),
