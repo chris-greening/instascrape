@@ -13,7 +13,9 @@ from typing import Dict, List, Union
 # pylint: disable=used-before-assignment
 
 
-MappingObject = Union["_PostMapping", "_ProfileMapping", "_HashtagMapping", "_LoginMapping"]
+MappingObject = Union[
+    "_PostMapping", "_ProfileMapping", "_HashtagMapping", "_LoginMapping"
+]
 
 
 class _GeneralMapping(ABC):
@@ -54,7 +56,9 @@ class _GeneralMapping(ABC):
     }
 
     @classmethod
-    def return_mapping(cls, keys: List[str] = None, exclude: List[str] = None) -> Dict[str, deque]:
+    def return_mapping(
+        cls, keys: List[str] = None, exclude: List[str] = None
+    ) -> Dict[str, deque]:
         """
         Return key-directive pairs specified by key names. If no keys are
         specified, return all
@@ -93,39 +97,15 @@ class _PostMapping(_GeneralMapping):
     mapping.update(
         {
             "id": deque(["id"]),
-            "shortcode": deque(["shortcode"]),
+            "shortcode": deque(["code"]),
             "height": deque(["height"]),
             "width": deque(["width"]),
-            "gating_info": deque(["gating_info"]),
-            "fact_check_overall_rating": deque(["fact_check_overall_rating"]),
-            "fact_check_information": deque(["fact_check_information"]),
-            "sensitivity_friction_info": deque(["sensitivity_friction_info"]),
-            "media_overlay_info": deque(["media_overlay_info"]),
-            "media_preview": deque(["media_preview"]),
-            "display_url": deque(["display_url"]),
-            "accessibility_caption": deque(["accessibility_caption"]),
-            "is_video": deque(["is_video"]),
-            "tracking_token": deque(["tracking_token"]),
-            "tagged_users": deque(["edge_media_to_tagged_user"]),
+            "is_video": deque(["is_unified_video"]),
             "caption": deque(["text"]),
-            "caption_is_edited": deque(["caption_is_edited"]),
-            "has_ranked_comments": deque(["has_ranked_comments"]),
-            "comments": deque(["count"]),
-            "comments_disabled": deque(["comments_disabled"]),
-            "commenting_disabled_for_viewer": deque(["commenting_disabled_for_viewer"]),
-            "timestamp": deque(["taken_at_timestamp"]),
-            "likes": deque(["edge_media_preview_like_count"]),
-            "location": deque(["name"]),
-            "viewer_has_liked": deque(["viewer_has_liked"]),
-            "viewer_has_saved": deque(["viewer_has_saved"]),
-            "viewer_has_saved_to_collection": deque(["viewer_has_saved_to_collection"]),
-            "viewer_in_photo_of_you": deque(["viewer_in_photo_of_you"]),
-            "viewer_can_reshare": deque(["viewer_can_reshare"]),
-            "video_url": deque(["video_url"]),
-            "has_audio": deque(["has_audio"]),
-            "video_view_count": deque(["video_view_count"]),
-            "username": deque(["shortcode_media_owner_username"]),
-            "full_name": deque(['owner_full_name']),
+            "comments": deque(["comment_count"]),
+            "upload_date": deque(["taken_at"]),
+            "likes": deque(["like_count"]),
+            "video_view_count": deque(["view_count"]),
         }
     )
 
@@ -145,10 +125,12 @@ class _PostMapping(_GeneralMapping):
             "fact_check_information": deque(["fact_check_information"]),
             "is_video": deque(["is_video"]),
             "accessibility_caption": deque(["accessibility_caption"]),
-            "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
+            "caption": deque(
+                ["edge_media_to_caption", "edges", 0, "node", "text"]
+            ),
             "comments": deque(["count"]),
             "comments_disabled": deque(["comments_disabled"]),
-            "timestamp": deque(["taken_at_timestamp"]),
+            "upload_date": deque(["taken_at"]),
             "likes": deque(["edge_media_preview_like_count"]),
             "location": deque(["location"]),
         }
@@ -162,10 +144,12 @@ class _PostMapping(_GeneralMapping):
         return {
             "comments_disabled": deque(["comments_disabled"]),
             "id": deque(["id"]),
-            "caption": deque(["edge_media_to_caption", "edges", 0, "node", "text"]),
+            "caption": deque(
+                ["edge_media_to_caption", "edges", 0, "node", "text"]
+            ),
             "shortcode": deque(["shortcode"]),
             "comments": deque(["edge_media_to_comment", "count"]),
-            "upload_date": deque(["taken_at_timestamp"]),
+            "upload_date": deque(["taken_at"]),
             "dimensions": deque(["dimensions"]),
             "display_url": deque(["display_url"]),
             "likes": deque(["edge_media_preview_like", "count"]),
@@ -224,8 +208,6 @@ class _ProfileMapping(_GeneralMapping):
             "is_private": deque(["is_private"]),
             "is_verified": deque(["is_verified"]),
             "mutual_followers": deque(["edge_mutual_followed_by_count"]),
-            "profile_pic_url": deque(["profile_pic_url"]),
-            "profile_pic_url_hd": deque(["profile_pic_url_hd"]),
             "requested_by_viewer": deque(["requested_by_viewer"]),
             "username": deque(["user_username"]),
             "connected_fb_page": deque(["connected_fb_page"]),
@@ -311,7 +293,7 @@ class _MetaMapping:
         "TagPage": _HashtagMapping,
         "PostPage": _PostMapping,
         "LoginAndSignupPage": _LoginMapping,
-        "LocationsPage": _LocationMapping
+        "LocationsPage": _LocationMapping,
     }
 
     @classmethod
