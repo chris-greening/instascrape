@@ -150,7 +150,7 @@ class Profile(_StaticHtmlScraper):
         """Separate the HTML and parse out BeautifulSoup for every post"""
         post_soup = []
 
-        soup = BeautifulSoup(source_data, features="lxml")
+        soup = BeautifulSoup(source_data, features="html.parser")
         anchor_tags = soup.find_all("a")
         post_tags = [tag for tag in anchor_tags if tag.find(
             "div", {"class": "eLAPa"})]
