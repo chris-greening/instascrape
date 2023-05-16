@@ -6,11 +6,12 @@ Post
 from __future__ import annotations
 
 import datetime
-from typing import List
+from typing import Dict, List, Any, Tuple, Optional, Callable, Union
 import re
 import shutil
 import pathlib
 import math
+from urllib.parse import urlparse
 
 import requests
 
@@ -24,6 +25,9 @@ class Post(_StaticHtmlScraper):
 
     _Mapping = _PostMapping
     SUPPORTED_DOWNLOAD_EXTENSIONS = [".mp3", ".mp4", ".png", ".jpg"]
+    _VIDEO_KEYS = ['video_url'] + [s + 'node_video_url' for s in [''] + [f'{s}_' for s in range(10)]]
+    _DISPLAY_KEYS = ['display_url'] + [s + 'node_display_url' for s in [f'{s}_' for s in range(10)]]
+    _IS_VIDEO_KEYS = ['is_video'] + [s + 'node_is_video' for s in [''] + [f'{s}_' for s in range(10)]]
 
     def scrape(
             self,
@@ -123,6 +127,121 @@ class Post(_StaticHtmlScraper):
         else:
             self._download_video(fp, resp)
 
+    @staticmethod
+    def _filter_get(dic: Dict[str, Any], keys: List[str]) -> List[Tuple[str, Any]]:
+        """Get key/value pairs from a dictionary, filtering out unused keys"""
+        return [(k, dic[k]) for k in keys if k in dic]
+
+    @staticmethod
+    def _default_carousel_filename(post, url, _, idx):
+        s = pathlib.Path(urlparse(url).path).suffix
+        if s not in Post.SUPPORTED_DOWNLOAD_EXTENSIONS:
+            raise RuntimeError(f"Unexpected filetype on instagram: {s}, expected "
+                               f"one of: {Post.SUPPORTED_DOWNLOAD_EXTENSIONS}")
+        ts = post.upload_date.strftime("%Y-%m-%d-%H-%M-%S")
+        return f'{ts}-{post.shortcode}-{idx}{s}'
+
+    def parse_carousel_urls(self) -> Optional[List[Tuple[str, Optional[str]]]]:
+        """
+        If this post is a carousel (i.e. multiple posts), get their URLs.
+
+        Returns
+        -------
+        urls : Optional[List[Tuple[str, Optional[str]]]]
+            If this is *not* a carousel (i.e. single image/video post), returns
+            ``None``. Otherwise, returns a list of tuples of the form
+            ``(display_url, video_url)`` for each image/video in the post, where
+            ``display_url`` is the image (or image preview for videos), and
+            ``video_url`` is the URL of the video or ``None`` if not a video.
+        """
+        is_videos = self._filter_get(self.flat_json_dict, self._IS_VIDEO_KEYS)
+        if len(is_videos) < 2:
+            return None
+        is_videos.pop(0)
+        display_urls = self._filter_get(self.flat_json_dict, self._DISPLAY_KEYS)
+        video_urls_iter = self._filter_get(self.flat_json_dict, self._VIDEO_KEYS).__iter__()
+        return [(d, next(video_urls_iter)[1] if v else None)
+                for [_, v], [_, d] in zip(is_videos, display_urls)]
+
+    def download_carousel(
+            self,
+            outdir: Union[pathlib.Path, str] = '.',
+            fmt: Optional[Callable[[Post, str, bool, int], str]] = None,
+            allow_non_carousel: bool = False,
+            skip_exists: bool = True,
+    ) -> None:
+        """
+        Download all images in a post's carousel.
+
+        Parameters
+        ----------
+        outdir : Union[pathlib.Path, str], optional
+            The directory in which to save the posts from the carousel. Must exist.
+        fmt : Optional[Callable[[Post, str, bool, int], str]]
+            Provide a function taking this post, the media URL, whether that media
+            item is a video, and the media index
+            (for each item in the carousel) as an argument and returning an output
+            filename for that item. This function will be called for each item in
+            the carousel to determine what filename it will be saved as. If not
+            provided, the output name will be the date (formatted using
+            ``strftime`` format string ``"%Y-%m-%d-%H-%M-%S"``) followed by a
+            hyphen, the post's shortcode, another hyphen, the index within the
+            carousel, and the extension, e.g.:
+
+            ``2021-06-18-08-33-33-CQQv1CVjLjY-3.jpg``
+        allow_non_carousel : bool, optional
+            If ``True``, treat non-carousel media as if it were a carousel post
+            with a single item. Use this option if you don't care whether a post is
+            a carousel post or not and just want to download it anyway.
+        skip_exists : bool, optional
+            If ``True``, skip existing files (i.e. do not try to re-download
+            them). If ``False``, raise an error if a file exists.
+
+        Raises
+        ------
+        ValueError
+            If this post is not a carousel and ``allow_non_carousel`` is ``False``,
+            raise a ``ValueError``.
+        FileExistsError
+            If ``skip_exists=False`` and one of the output filenames already
+            exists, or if it exists but is not a file regardless of
+            ``skip_exists``.
+        RuntimeError
+            If the default ``fmt`` function is used and an unexpected file format
+            (not in ``Post.SUPPORTED_DOWNLOAD_EXTENSIONS``) is encountered.
+        """
+        urls = self.parse_carousel_urls()
+        if urls is None:
+            if not allow_non_carousel:
+                raise ValueError("Not a carousel. Specify "
+                                 "`allow_non_carousel=True` to download anyway.")
+            urls = [(self.display_url, self.video_url if self.is_video else None)]
+        fmt = self._default_carousel_filename if fmt is None else fmt
+        outdir = pathlib.Path(outdir)
+        for i, (disp, vid) in enumerate(urls):
+            is_vid = vid is not None
+            disp_resp = requests.get(disp, stream=True)
+            disp_fp = outdir / fmt(self, disp, is_vid, i)
+            self._validate_outpath(disp_fp, skip_exists)
+            self._download_photo(str(disp_fp), disp_resp)
+            if is_vid:
+                vid_resp = requests.get(vid, stream=True)
+                vid_fp = outdir / fmt(self, vid, True, i)
+                self._validate_outpath(vid_fp, skip_exists)
+                self._download_video(str(vid_fp), vid_resp)
+
+    @staticmethod
+    def _validate_outpath(out: pathlib.Path, skip_exists: bool):
+        if out.is_file():
+            if not skip_exists:
+                raise FileExistsError(f"File exists: {out}. Use "
+                                      "`skip_exists=True` to skip.")
+        elif out.exists():
+            raise FileExistsError(
+                f"Path exists but is not file: {out}. Delete it or"
+                "pick a different output name."
+            )
+
     def get_recent_comments(self) -> List[Comment]:
         """
         Returns a list of Comment objects that contain data regarding
@@ -133,9 +252,17 @@ class Post(_StaticHtmlScraper):
         comments_arr : List[Comment]
             List of Comment objects
         """
-        list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
-            "edge_media_to_parent_comment"
-        ]["edges"]
+        # HACK:
+        # The JSON is structured differently if the scrape is performed using a
+        # WebDriver or Session.
+        try:
+            list_of_dicts = self.json_dict["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"][
+                "edge_media_to_parent_comment"
+            ]["edges"]
+        except KeyError:
+            list_of_dicts = self.json_dict["graphql"]["shortcode_media"][
+                "edge_media_to_parent_comment"
+            ]["edges"]
         comments_arr = [Comment(comment_dict) for comment_dict in list_of_dicts]
         return comments_arr
 
